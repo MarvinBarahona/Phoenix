@@ -2,23 +2,17 @@ package usuarios;
 
 import java.io.Serializable;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @SuppressWarnings("serial")
 @Entity
 @Table(name="ubicacion")
 public class Ubicacion implements Serializable {
-	
-	public Ubicacion(){
-		
-	}
-	
-	public Ubicacion(String pais, String ciudad, String direccion, String zip){
-		this.direccion = direccion;
-        this.ciudad = ciudad;
-        this.pais = pais;
-        this.zip = zip;
-	}
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,6 +31,21 @@ public class Ubicacion implements Serializable {
     @Column(name = "zip")
     String zip;
     
+    
+    //Constructores *************************************
+    public Ubicacion(){
+		
+	}
+	
+	public Ubicacion(String pais, String ciudad, String direccion, String zip){
+		this.direccion = direccion;
+        this.ciudad = ciudad;
+        this.pais = pais;
+        this.zip = zip;
+	}
+    
+	
+	//Getters y Setters *************************************
 	public int getCodigo() {
 		return codigo;
 	}
