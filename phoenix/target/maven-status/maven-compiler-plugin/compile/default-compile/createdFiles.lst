@@ -1,2 +1,4 @@
-controller\Controlador2.class
 controller\PruebaController.class
+servicio\UbicacionServicio.class
+sesion\Sesion.class
+usuarios\Ubicacion.class

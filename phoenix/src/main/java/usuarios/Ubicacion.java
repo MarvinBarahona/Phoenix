@@ -9,6 +9,10 @@ import javax.persistence.*;
 @Table(name="ubicacion")
 public class Ubicacion implements Serializable {
 	
+	public Ubicacion(){
+		
+	}
+	
 	public Ubicacion(String pais, String ciudad, String direccion, String zip){
 		this.direccion = direccion;
         this.ciudad = ciudad;

@@ -1,0 +1,47 @@
+.menujq{
+  margin-left: -15px;
+}
+
+.menujq ul {
+  list-style: none;
+  width: 100%;
+  padding: 0;
+}
+.menujq a {
+  display: block;
+  padding: 5px;
+  background: #F8F8F8;
+  color: #000;
+  text-decoration: none;
+}
+.menujq ul li a:before {
+  width: 15px;
+  display: inline-block;
+  vertical-align: top;
+}
+.menujq ul li.desplegable > a:before,
+.menujq ul li ul li.desplegable > a:before {
+
+  content: "\25BA\00A0";
+}
+.menujq ul li.desplegable.active > a:before,
+.menujq ul li ul li.desplegable.active > a:before{
+  content: "\25BC\00A0 ";
+}
+.menujq ul ul, .menujq ul ul ul {
+  display: none;
+  width: 100%;
+}
+.menujq ul ul a {
+  padding-left: 20px;
+}
+.menujq ul ul ul a {
+  padding-left: 40px;
+}
+
+.navbar-default .menujq {
+  margin-left: 10px;
+}
+li input[type="checkbox"]{
+  margin-left: 40px;
+}
