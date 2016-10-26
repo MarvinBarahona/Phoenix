@@ -2,7 +2,13 @@ package usuarios;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
 import java.io.Serializable;
@@ -10,9 +16,11 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "usuario")
+@Inheritance(strategy=InheritanceType.JOINED)
 public abstract class Usuario implements Serializable{
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "codigo_usuario")
     int codigo;
 
@@ -27,7 +35,8 @@ public abstract class Usuario implements Serializable{
 
     @Column(name = "apellido_usuario")
     String apellido;
-
+    
+    @Enumerated (EnumType.STRING)
     @Column(name = "tipo_usuario")
     TipoUsuario tipoUsuario;
 
@@ -60,7 +69,8 @@ public abstract class Usuario implements Serializable{
     public String getCorreo() {
         return correo;
     }
-
+    
+    
     // Atributo: correo
     public void setCorreo(String correo) {
         this.correo = correo;

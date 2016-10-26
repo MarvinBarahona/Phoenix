@@ -1,13 +1,43 @@
 package productos;
 
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+
+
+
+
+
+@Entity 
+@Table(name="categoria")
 public class Categoria {
 	
+	@Id 
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="codigo_categoria")
 	int codigo;
+	
+	@Column(name="nombre_categoria")
 	String nombre;
+	
+	@Column(name="descripcion_categoria")
 	String descripcion;
-	ArrayList<Detalle> detalles;
+	
+	//@OneToMany(cascade= CascadeType.ALL)
+	//@JoinColumn(name="codigo_categoria")
+	//Set<Detalle> detalles = new HashSet<Detalle>();
+	
+	
 	
 	//Constructores. *****************************************
 	public Categoria(){

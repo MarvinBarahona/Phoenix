@@ -12,21 +12,25 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 @Entity
 @Table (name="cliente")
+@PrimaryKeyJoinColumn(name="codigo_usuario")  
 public class Cliente extends Usuario implements Serializable{
 
-
+	/*@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "codigo_usuario")
+    Integer codigo_Cliente;*/
+	
+	@Column (name = "tarjeta")
     String tarjeta;
 
+	@Column (name = "correo_paypal")
     String correoPayPal;
 
-
-
     @OneToOne(cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
+    @JoinColumn(name="codigo_ubicacion")
     Ubicacion ubicacion;
-
-
-
+    
+    
     //Constructores
     public Cliente(){
 

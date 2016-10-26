@@ -3,10 +3,17 @@ package usuarios;
 import javax.persistence.*;
 
 import java.io.Serializable;
+//import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+
+
 
 /**
  * Created by maosv on 15/10/2016.
  */
+//Edwin: Voy a agregar el atributo img como string para la url que no lo veo :V
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "empresa")
@@ -21,45 +28,46 @@ public class Empresa implements Serializable {
 
     @Column(name = "telefono_empresa")
     String telefono;
+    
+    @Column(name="img")
+    String img;
 
     @OneToOne(cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     Ubicacion ubicacion;
-
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
-    Empleado gerenteGeneral;
-
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
-    Empleado gerenteVentas;
-
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
-    Empleado gerenteInventario;
-
+    
+    
+    @OneToMany(cascade= CascadeType.ALL)
+    @JoinColumn(name="codigo_empresa") //el nombre debe ser la llave foranea en empleados que hace referencia a empresa
+   	Set<Empleado> empleados = new HashSet<Empleado>();
+    
+    
+    //Esto no va a funcionar aqui xD 
+    //empleados[0] = InstanciaDeEmpleado; //Asi se asigna. Por si no se acuerdan xD
+    
+  //  @OneToMany(cascade= CascadeType.ALL)
+  //  @JoinColumn(name="codigo_empresa")
+  //  ArrayList<productos.Producto> productos = new ArrayList<productos.Producto>();
+    
     //Constructores ***************
     public Empresa(){
 
     }
-
-    public Empresa(String nom, String tel, Ubicacion ubicacion){
+    
+    public Empresa(String nom, String tel, Ubicacion ubicacion, Set<Empleado> empleados ){
         this.nombre = nom;
         this.telefono = tel;
         this.ubicacion = ubicacion;
+        this.empleados = empleados;
 
-        gerenteGeneral = null;
-        gerenteVentas = null;
-        gerenteInventario = null;
-    }
+       }
 
     //Getters y Setters *******************
 
     //Atributo: codigo
     public int getCodigo() {
+    	
+    	
         return codigo;
     }
 
@@ -87,37 +95,21 @@ public class Empresa implements Serializable {
 
     //Atributo: ubicacion
     public Ubicacion getUbicacion() {
-        return ubicacion;
+        return this.ubicacion;
     }
 
     public void setUbicacion(Ubicacion ubicacion) {
         this.ubicacion = ubicacion;
     }
 
-    //Atributo: gerenteGeneral
-    public Empleado getGerenteGeneral() {
-        return gerenteGeneral;
+    //Atributo: img
+    public String getImg() {
+        return this.img;
     }
 
-    public void setGerenteGeneral(Empleado gerenteGeneral) {
-        this.gerenteGeneral = gerenteGeneral;
+    public void setImg(String imagen) {
+        this.img = imagen;
     }
-
-    //Atributo: gerenteVentas
-    public Empleado getGerenteVentas() {
-        return gerenteVentas;
-    }
-
-    public void setGerenteVentas(Empleado gerenteVentas) {
-        this.gerenteVentas = gerenteVentas;
-    }
-
-    //Atributo: gerenteInventario
-    public Empleado getGerenteInventario() {
-        return gerenteInventario;
-    }
-
-    public void setGerenteInventario(Empleado gerenteInventario) {
-        this.gerenteInventario = gerenteInventario;
-    }
+    
+    
 }

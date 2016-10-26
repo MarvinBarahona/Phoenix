@@ -1,6 +1,16 @@
 package productos;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="detalle")
 public class Detalle {
+	
+	@Id
+	@Column(name="codigo_detalle")
 	int codigo;
 	String nombre;
 	String descripcion;
