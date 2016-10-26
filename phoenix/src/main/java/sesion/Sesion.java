@@ -10,6 +10,15 @@ public class Sesion {
 		Configuration cfg = new Configuration()
 			//Clases mapeadas
 			.addAnnotatedClass(usuarios.Ubicacion.class)
+			.addAnnotatedClass(usuarios.Cliente.class)
+			.addAnnotatedClass(usuarios.Empleado.class)
+			.addAnnotatedClass(usuarios.Empresa.class)
+			.addAnnotatedClass(usuarios.Usuario.class)
+			.addAnnotatedClass(productos.Categoria.class)
+			.addAnnotatedClass(productos.Departamento.class)
+			.addAnnotatedClass(productos.Detalle.class)
+			.addAnnotatedClass(productos.DetalleProducto.class)
+			.addAnnotatedClass(productos.Producto.class)
 			//Configuración
 			.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect")
 			.setProperty("hibernate.connection.driver_class", "org.postgresql.Driver")
@@ -29,9 +38,8 @@ public class Sesion {
 	        .setProperty("hibernate.c3p0.max_statements", "50")
 	        .setProperty("hibernate.c3p0.idle_test_period", "300")
 	        .setProperty("hibernate.c3p0.numHelperThreads", "4");*/
-		
+		cfg.setProperty("hibernate.temp.use_jdbc_metadata_defaults","false");
 		SessionFactory sessions = cfg.buildSessionFactory();
-		
 		return sessions.getCurrentSession();		
 	}
 }

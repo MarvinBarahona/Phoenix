@@ -26,13 +26,10 @@ public class Empleado extends Usuario implements Serializable {
     @Column(name = "codigo_usuario")
     Integer codigo_usuario;*/
 
-    @Enumerated (EnumType.STRING)
+    @Enumerated (EnumType.ORDINAL)
     @Column(name = "tipo_empleado")
     TipoEmpleado tipoEmpleado;
     
-   
-    
-
     //Constructores. *********
     public Empleado(){
 

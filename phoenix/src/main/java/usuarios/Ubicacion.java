@@ -1,7 +1,6 @@
 package usuarios;
 
 import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -43,7 +42,6 @@ public class Ubicacion implements Serializable {
         this.pais = pais;
         this.zip = zip;
 	}
-    
 	
 	//Getters y Setters *************************************
 	public int getCodigo() {
@@ -85,6 +83,4 @@ public class Ubicacion implements Serializable {
 	public void setZip(String zip) {
 		this.zip = zip;
 	}
-    
-    
 }

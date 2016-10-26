@@ -3,11 +3,7 @@ package usuarios;
 import javax.persistence.*;
 
 import java.io.Serializable;
-//import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
-
-
+import java.util.ArrayList;
 
 /**
  * Created by maosv on 15/10/2016.
@@ -28,46 +24,40 @@ public class Empresa implements Serializable {
 
     @Column(name = "telefono_empresa")
     String telefono;
-    
+
     @Column(name="img")
     String img;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
+    @JoinColumn(name = "codigo_ubicacion")
     Ubicacion ubicacion;
-    
-    
-    @OneToMany(cascade= CascadeType.ALL)
+
+    @OrderColumn
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name="codigo_empresa") //el nombre debe ser la llave foranea en empleados que hace referencia a empresa
-   	Set<Empleado> empleados = new HashSet<Empleado>();
-    
-    
-    //Esto no va a funcionar aqui xD 
+    Empleado[] empleados = new Empleado[3];
+
+    /*@OneToMany(cascade= CascadeType.ALL)
+    @JoinColumn(name="codigo_empresa")
+    ArrayList<productos.Producto> productos = new ArrayList<productos.Producto>();*/
+    //Esto no va a funcionar aqui xD
     //empleados[0] = InstanciaDeEmpleado; //Asi se asigna. Por si no se acuerdan xD
-    
-  //  @OneToMany(cascade= CascadeType.ALL)
-  //  @JoinColumn(name="codigo_empresa")
-  //  ArrayList<productos.Producto> productos = new ArrayList<productos.Producto>();
-    
+
     //Constructores ***************
     public Empresa(){
-
+    	
     }
     
-    public Empresa(String nom, String tel, Ubicacion ubicacion, Set<Empleado> empleados ){
+    public Empresa(String nom, String tel, Ubicacion ubicacion, Empleado[] empleados ){
         this.nombre = nom;
         this.telefono = tel;
         this.ubicacion = ubicacion;
         this.empleados = empleados;
-
        }
 
     //Getters y Setters *******************
-
     //Atributo: codigo
     public int getCodigo() {
-    	
-    	
         return codigo;
     }
 
@@ -110,6 +100,4 @@ public class Empresa implements Serializable {
     public void setImg(String imagen) {
         this.img = imagen;
     }
-    
-    
 }

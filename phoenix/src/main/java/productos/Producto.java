@@ -51,8 +51,6 @@ public class Producto {
     //@JoinColumn(name="codigo_producto")
 	//Set<Detalle> detalles  = new HashSet<Detalle>();
 	
-	
-	
 	//Constructores ************************************
 	public Producto() {
 		
@@ -124,6 +122,4 @@ public class Producto {
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
-	
-	
 }
