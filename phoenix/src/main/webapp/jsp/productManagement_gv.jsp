@@ -1,30 +1,34 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="es">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>Phoenix - Gestión</title>
-
-    <meta name="description" content="">
+	<meta name="description" content="">
     <meta name="author" content="NightHawks">
+    
+    <title>Phoenix - Gestión</title>    
+
+    <c:set var="css">../resources/css/</c:set>
+	<c:set var="js" >../resources/js/vistas/</c:set>
+	<c:set var="jsControl">../resources/js/control/</c:set>
+	<c:set var="img">../resources/img/</c:set>
 
     <!--  Favicon -->
-    <link rel="icon" type="image/png" href="../img/favicon.png" />
+    <link rel="icon" type="image/png" href="${img}]favicon.png" />
     <!--  Fonts  -->
     <link href="https://fonts.googleapis.com/css?family=Allerta+Stencil|Nobile:700i|Noto+Sans" rel="stylesheet">
 
-    <link rel="stylesheet" href="../css/jquery.dataTables.min.css" media="screen" title="no title" charset="utf-8">
-    <link href="../css/style.css" rel="stylesheet">
-    <link href="../css/sidebar.css" rel="stylesheet">
-    <link rel="stylesheet" href="../css/bootstrap.min.css" media="screen" title="no title" charset="utf-8">
+    <link href="${css}jquery.dataTables.min.css" rel="stylesheet">
+    <link href="${css}style.css" rel="stylesheet">
+    <link href="${css}sidebar.css" rel="stylesheet">
+    <link href="${css}bootstrap.min.css" rel="stylesheet">
 
-    <script src="../js/jquery.min.js"></script>
-    <script src="../js/jquery.dataTables.min.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
+    <script src="${js}jquery.min.js"></script>
+    <script src="${js}jquery.dataTables.min.js"></script>
   </head>
 
   <body>
@@ -37,26 +41,25 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand"><img src="../img/no-image.jpg" alt="'Empresa'" class="logo"/></a>
+          <a class="navbar-brand"><img src="${img}no-image.jpg" alt="'Empresa'" class="logo"/></a>
         </div>
         <div class="collapse navbar-collapse" id="myNavbarE">
           <ul class="nav navbar-nav">
             <li><a>'Nombre de la empresa'</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-
             <li class="dropdown">
-    					<a href="#" data-toggle="dropdown" class="dropdown-toggle"><span class="glyphicon glyphicon-user"></span>'Usuario'<strong class="caret"></strong></a>
-    					<ul class="dropdown-menu">
-                <li>
-                  <a href="#"><i class="glyphicon glyphicon-cog"></i> Settings</a>
-                </li>
-                <li class="divider"></li>
-                <li><a href="">
-                  <i class="glyphicon glyphicon-log-out"></i> Logout</a>
-                </li>
-    					</ul>
-    				</li>
+    			<a href="#" data-toggle="dropdown" class="dropdown-toggle"><span class="glyphicon glyphicon-user"></span>'Usuario'<strong class="caret"></strong></a>
+    				<ul class="dropdown-menu">
+                		<li>
+                  			<a href="#"><i class="glyphicon glyphicon-cog"></i> Settings</a>
+                		</li>
+                		<li class="divider"></li>
+                		<li>
+                			<a href=""><i class="glyphicon glyphicon-log-out"></i> Logout</a>
+                		</li>
+    				</ul>
+    		</li>
           </ul>
         </div>
       </div>

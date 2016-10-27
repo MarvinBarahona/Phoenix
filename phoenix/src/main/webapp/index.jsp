@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,15 +10,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-
+    
     <title>Phoenix</title>
+    
+    <c:set var="css">resources/css/</c:set>
+	<c:set var="js" >resources/js/vistas/</c:set>
+	<c:set var="jsControl">resources/js/control/</c:set>
+	<c:set var="img">resources/img/</c:set>
+    
+    <!--  Favicon -->
+    <link rel="icon" type="image/png" href="${img}favicon.png" />
+    
+    <link href="${css}bootstrap.min.css" rel="stylesheet">
+    <link href="${css}magnific-popup.css" rel="stylesheet">
+    <link href="${css}creative.min.css" rel="stylesheet">
 
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/magnific-popup.css" rel="stylesheet">
-    <link href="css/creative.min.css" rel="stylesheet">
-
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <script src="${js}jquery.min.js"></script>
+    <script src="${js}bootstrap.min.js"></script>
 </head>
 
 <body id="page-top">
@@ -36,7 +45,7 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a class="page-scroll op" href="product_gi.html">Sobre Phoenix</a>
+                        <a class="page-scroll op" href="#">Sobre Phoenix</a>
                     </li>
                     <li>
                         <a class="page-scroll op" href="#contact">Contáctanos</a>
@@ -185,14 +194,14 @@
 			</div>
 
     <!-- Plugin JavaScript -->
-    <script src="js/jquery.easing.min.js"></script>
-    <script src="js/scrollreveal.min.js"></script>
-    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="${js}jquery.easing.min.js"></script>
+    <script src="${js}scrollreveal.min.js"></script>
+    <script src="${js}jquery.magnific-popup.min.js"></script>
 
     <!-- Theme JavaScript -->
-    <script src="js/creative.min.js"></script>
+    <script src="${js}creative.min.js"></script>
     
-    <script src="js/login.js"></script>
+    <script src="${jsControl}login.js"></script>
 
 </body>
 </html>

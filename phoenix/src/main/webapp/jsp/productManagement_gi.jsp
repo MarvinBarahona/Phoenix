@@ -1,30 +1,35 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="es">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+	<meta name="description" content="">
+    <meta name="author" content="NightHawks">
+    
     <title>Phoenix</title>
 
-    <meta name="description" content="">
-    <meta name="author" content="NightHawks">
+    <c:set var="css">../resources/css/</c:set>
+	<c:set var="js" >../resources/js/vistas/</c:set>
+	<c:set var="jsControl">../resources/js/control/</c:set>
+	<c:set var="img">../resources/img/</c:set>
 
     <!--  Favicon -->
-    <link rel="icon" type="image/png" href="../img/favicon.png" />
+    <link rel="icon" type="image/png" href="${img}favicon.png" />
     <!--  Fonts  -->
     <link href="https://fonts.googleapis.com/css?family=Allerta+Stencil|Nobile:700i|Noto+Sans" rel="stylesheet">
 
-    <link rel="stylesheet" href="../css/jquery.dataTables.min.css" media="screen" title="no title" charset="utf-8">
-    <link href="../css/style.css" rel="stylesheet">
-    <link href="../css/sidebar.css" rel="stylesheet">
-    <link rel="stylesheet" href="../css/bootstrap.min.css" media="screen" title="no title" charset="utf-8">
+    <link href="${css}jquery.dataTables.min.css" rel="stylesheet">
+    <link href="${css}style.css" rel="stylesheet">
+    <link href="${css}sidebar.css" rel="stylesheet">
+    <link href="${css}bootstrap.min.css" rel="stylesheet">
 
-    <script src="../js/jquery.min.js"></script>
-    <script src="../js/jquery.dataTables.min.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
+    <script src="${js}jquery.min.js"></script>
+    <script src="${js}jquery.dataTables.min.js"></script>
+    <script src="${js}bootstrap.min.js"></script>
   </head>
 
   <body>
@@ -37,7 +42,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand"><img src="../img/no-image.jpg" alt="'Empresa'" class="logo"/></a>
+          <a class="navbar-brand"><img src="${img}no-image.jpg" alt="'Empresa'" class="logo"/></a>
         </div>
         <div class="collapse navbar-collapse" id="myNavbarE">
           <ul class="nav navbar-nav">
@@ -67,6 +72,7 @@
       <div class="menujq">
         <ul>
           <li><a href="">Gestión de Productos</a></li>
+        </ul>
       </div>
     </div>
     <!--  Contenido principal -->
@@ -161,7 +167,8 @@
       <p>Si tiene dudas o comentarios <a href="#"> contáctanos <span class="glyphicon glyphicon-envelope"></span></a></p>
     </footer>-->
 
-      <script src="../js/imagen.js"></script>
+      <script src="${js}imagen.js"></script>
+      
       <!--DataTable: Permite buscar, ordenar y paginar la tabla-->
       <script type="text/javascript">
         $(document).ready(function() {

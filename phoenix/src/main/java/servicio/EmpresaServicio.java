@@ -8,7 +8,7 @@ import usuarios.Ubicacion;
 import usuarios.Empleado;
 import usuarios.TipoEmpleado;
 
-public class empresaServicio{
+public class EmpresaServicio{
 	public static void guardarProvisional(){
 		final Session session = Sesion.getSession(); //Objeto de sesion necesario para todas las transacciones
 		Empleado[] empleados = new Empleado[3];
