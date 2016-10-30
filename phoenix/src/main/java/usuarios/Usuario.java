@@ -45,8 +45,6 @@ public abstract class Usuario implements Serializable{
 
     }
 
-
-
     public Usuario(String correo, String contra, String nom, String apell, TipoUsuario tipoUsuario) {
         this.correo = correo;
         this.contra = contra;

@@ -6,10 +6,7 @@ function login(){
 	    data: {email: $('#email').val()},
 	    
 	    success: function(r){
-
-	        alert(r);
+	        console.log(r);
 	    },
 	});
-	
-	
 }

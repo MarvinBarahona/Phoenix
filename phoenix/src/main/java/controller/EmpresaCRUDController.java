@@ -2,6 +2,7 @@ package controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import servicio.EmpresaServicio;
@@ -25,9 +26,9 @@ public class EmpresaCRUDController {
 	}
 	
 	@RequestMapping("/consultar_empresa")
-	public ModelAndView consultar_empresa(int codigo){
+	public @ResponseBody Empresa consultar_empresa(int codigo){
 		Empresa empresa = EmpresaServicio.consultar(codigo);
-		return new ModelAndView("");
+		return empresa;
 	}
 	
 	/*@RequestMapping("/actualizar_empresa")

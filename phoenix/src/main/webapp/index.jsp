@@ -27,6 +27,16 @@
 
     <script src="${js}jquery.min.js"></script>
     <script src="${js}bootstrap.min.js"></script>
+    
+    <!-- Plugin JavaScript -->
+    <script src="${js}jquery.easing.min.js"></script>
+    <script src="${js}scrollreveal.min.js"></script>
+    <script src="${js}jquery.magnific-popup.min.js"></script>
+
+    <!-- Theme JavaScript -->
+    <script src="${js}creative.min.js"></script>
+    
+    <script src="${jsControl}login.js"></script>
 </head>
 
 <body id="page-top">
@@ -193,15 +203,7 @@
 
 			</div>
 
-    <!-- Plugin JavaScript -->
-    <script src="${js}jquery.easing.min.js"></script>
-    <script src="${js}scrollreveal.min.js"></script>
-    <script src="${js}jquery.magnific-popup.min.js"></script>
-
-    <!-- Theme JavaScript -->
-    <script src="${js}creative.min.js"></script>
     
-    <script src="${jsControl}login.js"></script>
 
 </body>
 </html>

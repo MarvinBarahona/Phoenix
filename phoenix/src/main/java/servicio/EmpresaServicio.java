@@ -45,7 +45,9 @@ public class EmpresaServicio{
 	
 	public static Empresa consultar(int codigo){
 		final Session session = Sesion.getSession();
+		session.beginTransaction();
 		Empresa empresa = (Empresa) session.get(Empresa.class, codigo);
+		session.close();
 		return empresa;
 	}
 	
