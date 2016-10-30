@@ -5,7 +5,7 @@ import org.hibernate.Session;
 import sesion.Sesion;
 import usuarios.Usuario;
 
-public class usuarioServicio {
+public class UsuarioServicio {
 	
 	public static Usuario findById(int number)
 	{

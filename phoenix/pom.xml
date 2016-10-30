@@ -101,6 +101,13 @@
 			<artifactId>jackson-annotations</artifactId>
 			<version>2.5.1</version>
 		</dependency>
+		
+		<dependency>
+        <groupId>com.google.code.gson</groupId>
+        <artifactId>gson</artifactId>
+        <version>2.1</version>
+        
+</dependency>
 	    
     </dependencies>  
     
@@ -165,7 +172,7 @@
               <version>${gcloud.plugin.version}</version>
               <configuration>
                 <set_default>true</set_default>
-              </configuration>
+              </configuration><!--$NO-MVN-MAN-VER$-->
             </plugin>
         </plugins>
     	</pluginManagement>
@@ -173,7 +180,7 @@
     		<plugin>
                 <groupId>com.google.appengine</groupId>
                 <artifactId>appengine-maven-plugin</artifactId>
-                <version>${appengine.version}</version>
+                <version>${appengine.version}</version><!--$NO-MVN-MAN-VER$-->
                 <configuration>
                     <enableJarClasses>false</enableJarClasses>
                     <version>${app.version}</version>

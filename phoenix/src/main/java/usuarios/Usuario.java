@@ -36,7 +36,7 @@ public abstract class Usuario implements Serializable{
     @Column(name = "apellido_usuario")
     String apellido;
     
-    @Enumerated (EnumType.ORDINAL)
+    @Enumerated (EnumType.STRING)
     @Column(name = "tipo_usuario")
     TipoUsuario tipoUsuario;
 

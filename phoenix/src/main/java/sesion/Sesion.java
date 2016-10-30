@@ -7,10 +7,20 @@ import org.hibernate.cfg.Configuration;
 public class Sesion {
 
 	static SessionFactory sessions;
+	static Session session;
 
 	public static Session getSession(){
-
-		//if(sessions == null){
+		getSessions();
+		if(session == null || !session.isOpen()){
+			session = sessions.getCurrentSession();
+			session.beginTransaction();
+		}
+		
+		return session;
+	}
+	
+	public static void getSessions(){
+		if(sessions == null){
 			Configuration cfg = new Configuration()
 
 			//Clases mapeadas
@@ -46,9 +56,6 @@ public class Sesion {
 	        .setProperty("hibernate.c3p0.numHelperThreads", "4");*/
 
 			sessions = cfg.buildSessionFactory();
-		//}
-
-
-		return sessions.getCurrentSession();
+		}
 	}
 }

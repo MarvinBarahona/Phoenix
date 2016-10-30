@@ -4,7 +4,7 @@ import org.hibernate.Session;
 import sesion.Sesion;
 import usuarios.Empleado;
 
-public class empleadoServicio {
+public class EmpleadoServicio {
 	public static Empleado findById(int number)
 	{
 		final Session session = Sesion.getSession();
