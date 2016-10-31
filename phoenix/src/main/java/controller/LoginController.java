@@ -1,5 +1,8 @@
 package controller;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,25 +21,21 @@ import usuarios.Usuario;
 @EnableWebMvc
 public class LoginController {
 	
+	@Autowired private HttpServletRequest request;
+	
 	@RequestMapping(value = "/id/{number}", produces = "application/json; charset=UTF-8", method = RequestMethod.GET)
 	public @ResponseBody Usuario findUsuario(@PathVariable int number){
 	    Usuario result = UsuarioServicio.findById(number);
 	    return result;
 	}
 	
-	@RequestMapping(method = RequestMethod.POST, headers="Accept=*/*", value="/login", produces="application/json")	
+	@RequestMapping( value="/login", method = RequestMethod.POST, headers="Accept=*/*", produces="application/json")	
 	public @ResponseBody String login(){
-		String resp;
-		Ubicacion u = UbicacionServicio.buscarUbicacion(1);
 		
+		String prueba = request.getParameter("email");
 		
+		int i = Integer.parseInt(prueba);
 		
-		resp = u.getCiudad();		
-		
-		resp += UbicacionServicio.conteoUbicaciones();	
-		
-		UbicacionServicio.guardar("Prueba", "Prueba", "Prueba", "Prueba");
-		
-		return new Gson().toJson(resp);
+		return new Gson().toJson(UbicacionServicio.buscarUbicacion(i));
 	}
 }

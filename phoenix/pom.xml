@@ -71,13 +71,6 @@
         	<version>${hibernate.version}</version>
 	    </dependency>
 	    
-	    
-	    <dependency>
-        	<groupId>org.hibernate</groupId>
-        	<artifactId>hibernate-c3p0</artifactId>
-        	<version>${hibernate.version}</version>
-	    </dependency>
-	    
 	    <!-- Postgres -->
 	    <dependency>
 	    	<groupId>org.postgresql</groupId>
@@ -102,12 +95,12 @@
 			<version>2.5.1</version>
 		</dependency>
 		
+		<!-- Para GSON -->
 		<dependency>
-        <groupId>com.google.code.gson</groupId>
-        <artifactId>gson</artifactId>
-        <version>2.1</version>
-        
-</dependency>
+        	<groupId>com.google.code.gson</groupId>
+        	<artifactId>gson</artifactId>
+        	<version>2.1</version>
+       	</dependency>
 	    
     </dependencies>  
     

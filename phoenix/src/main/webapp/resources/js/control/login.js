@@ -2,7 +2,10 @@ function login(){
 	$.ajax({
 		type: "POST",
 	    url:"login.html",
-	    data: {email: $('#email').val()},
+	    data:{
+	    	email: $('#loginEmail').val(), 
+	    	password: $('#password').val()
+	    },
 	    
 	    success: function(r){
 	        console.log(r);
