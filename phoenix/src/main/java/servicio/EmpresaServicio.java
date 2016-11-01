@@ -6,7 +6,6 @@ import sesion.Sesion;
 import usuarios.Empresa;
 import usuarios.Ubicacion;
 import usuarios.Empleado;
-import usuarios.TipoEmpleado;
 
 public class EmpresaServicio{
 	public static void guardarProvisional(){

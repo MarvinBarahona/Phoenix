@@ -14,11 +14,6 @@ import java.io.Serializable;
 @Table (name="cliente")
 @PrimaryKeyJoinColumn(name="codigo_usuario")  
 public class Cliente extends Usuario implements Serializable{
-
-	/*@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "codigo_usuario")
-    Integer codigo_Cliente;*/
 	
 	@Column (name = "tarjeta")
     String tarjeta;

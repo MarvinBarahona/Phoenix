@@ -7,8 +7,78 @@ function login(){
 	    	password: $('#password').val()
 	    },
 	    
-	    success: function(r){
-	        console.log(r);
+	    success: function(resp){
+	    	var r = JSON.parse(resp);
+	    	
+	    	//Si el correo no está registrado: 
+	        if(r.msg =="noExiste"){
+	        	redirectLogin("Este correo no está registrado!");
+	        }
+	        
+	        //Si el correo está registrado pero la contraseña es incorrecta: 
+	        else if(r.msg=="fracaso"){
+	        	redirectLogin("Contraseña incorrecta!");
+	        }
+	        
+	        //Si se loguea con éxito: 
+	        else if(r.msg=="exito"){
+	 
+	        	if(r.tipoUsuario=="cliente"){
+	        		redirectLogin("Es un cliente pero no está implementado todavia xD!") //Cambiar!!
+	        	}
+	        	
+	        	if(r.tipoUsuario=="empleado"){
+	        		switch(r.tipoEmpleado){
+	        		
+	        		case "gerenteGeneral":
+	        			redirectLogin("Es un gerenteGeneral pero no está implmentado todavia xD!"); //Cambiar!!
+	        			break;
+	        			
+	        		case "gerenteVentas":
+	        			redirectVentas();
+	        			break;
+	        			
+	        		case "gerenteInventario":
+	        			redirectInventario();
+	        			break;
+	        		}
+	        	}
+	        }
 	    },
 	});
+}
+
+
+//Redirige a la página de login.
+function redirectLogin(mensaje){
+	$.redirect(
+		"loginFailed.html",
+		{
+			email: $('#loginEmail').val(), 
+			msg: mensaje
+		},
+		"POST"
+	);
+}
+
+//Redirige a la gestión del gerente de ventas. 
+function redirectVentas(){
+	$.redirect(
+		"product_gv.html",
+		{
+			email: $('#loginEmail').val()
+		},
+		"POST"
+	);
+}
+
+//Redirige a la gestión del gerente de inventario.
+function redirectInventario(){
+	$.redirect(
+		"product_gi.html",
+		{
+			email: $('#loginEmail').val()
+		},
+		"POST"
+	);
 }

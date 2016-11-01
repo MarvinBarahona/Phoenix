@@ -49,7 +49,7 @@
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
-    			<a href="#" data-toggle="dropdown" class="dropdown-toggle"><span class="glyphicon glyphicon-user"></span>'Usuario'<strong class="caret"></strong></a>
+    			<a href="#" data-toggle="dropdown" class="dropdown-toggle"><span class="glyphicon glyphicon-user"></span>${nombre}<strong class="caret"></strong></a>
     				<ul class="dropdown-menu">
                 		<li>
                   			<a href="#"><i class="glyphicon glyphicon-cog"></i> Settings</a>

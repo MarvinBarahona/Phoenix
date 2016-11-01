@@ -27,23 +27,13 @@
 
     <script src="${js}jquery.min.js"></script>
     <script src="${js}bootstrap.min.js"></script>
-    
-    <!-- Plugin JavaScript -->
-    <script src="${js}jquery.easing.min.js"></script>
-    <script src="${js}scrollreveal.min.js"></script>
-    <script src="${js}jquery.magnific-popup.min.js"></script>
-
-    <!-- Theme JavaScript -->
-    <script src="${js}creative.min.js"></script>
-    
-    <script src="${jsControl}login.js"></script>
+   
 </head>
 
 <body id="page-top">
 
     <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span> Menú <i class="fa fa-bars"></i>
@@ -51,11 +41,10 @@
                 <a class="navbar-brand page-scroll" href="#page-top"><span class="glyphicon glyphicon-fire"></span></a>
             </div>
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a class="page-scroll op" href="#">Sobre Phoenix</a>
+                        <a class="page-scroll op" href="#phoenix">Sobre Phoenix</a>
                     </li>
                     <li>
                         <a class="page-scroll op" href="#contact">Contáctanos</a>
@@ -93,11 +82,7 @@
               <h4 class="tituloE">Ingresa a la empresa de tu preferencia</h4>
             </div>
         </div>
-        <div class="footer">
-          <p>
-            A
-          </p>
-        </div>
+
     </header>
 
     <section class="bg-primary" id="phoenix">
@@ -157,53 +142,52 @@
     <aside class="bg-dark"></aside>
 
     <footer>
-      <hr class="primary">
-      <p>
-        Logo <a href="https://www.instagram.com/lbtheonly/" target="_blank">@lbtheonly</a>
-      </p>
+    	<hr class="primary">
+      	<p>
+        	Logo <a href="https://www.instagram.com/lbtheonly/" target="_blank">@lbtheonly</a>
+      	</p>
 
       <p id="copy">NightHawks 2016 ©</p>
     </footer>
 
-    <!--  Contenedor modal-->
+    <!--  Contenedor modal: Login-->
     <div class="modal fade" id="modal-container-957470" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-
-							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-								×
-							</button>
-							<h4 class="modal-title" id="myModalLabel">
-								Entrar
-							</h4>
-						</div>
-						<div class="modal-body">
-							<form class="form-horizontal formularios">
-                <label class="control-label" for="e-mail">Correo:</label>
-                <input type="email" id="loginEmail" class="form-control"  placeholder="">
-
-                <label class="control-label" for="password">Contraseña:</label>
-                <input type="password" id="password" name="name" value="" class="form-control">
-              </form>
-              <p><a href="#">¿Olvidó su contraseña?</a></p>
-
-              <p>¿No tiene una cuenta? <a href="#"> Cree una</a></p>
-
-						</div>
-
-						<div class="modal-footer">							
-							<button type="button" class="btn btn-default" data-dismiss="modal" onclick="login()">
-								Entrar
-							</button>
-						</div>
-					</div>
-
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<h4 class="modal-title" id="myModalLabel">Inicia sesión</h4>
 				</div>
+				<div class="modal-body">
+					<form class="form-horizontal formularios">
+                		<input type="email" id="loginEmail"  class="form-control" placeholder="Correo electrónico" required>
+                		<span class="error">Formato de correo incorrecto</span>		<!--Si el formato no es correcto-->
+                		<input type="password" id="password" name="name" value="" class="form-control" placeholder="Contraseña" required>
+              		</form>
+              		
+              		<p><a href="#">¿Olvidó su contraseña?</a></p>
+              		<p>¿No tiene una cuenta? <a href="#"> Cree una</a></p>
+              	</div>
 
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal" onclick=login()>Entrar</button>
+				</div>
 			</div>
 
+		</div>
+
+	</div><!--/#modal-container-->
+
+    <!-- Plugin JavaScript -->
+    <script src="${js}jquery.easing.min.js"></script>
+    <script src="${js}scrollreveal.min.js"></script>
+    <script src="${js}jquery.magnific-popup.min.js"></script>
+
+    <!-- Theme JavaScript -->
+    <script src="${js}creative.min.js"></script>
     
+    <script src="${jsControl}jquery.redirect.js"></script>
+    <script src="${jsControl}login.js"></script>
 
 </body>
 </html>
