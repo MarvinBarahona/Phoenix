@@ -181,10 +181,10 @@
 						<div class="modal-body">
 							<form class="form-horizontal formularios">
                 <label class="control-label" for="e-mail">Correo:</label>
-                <input type="email" class="form-control" id="loginEmail" placeholder="">
+                <input type="email" id="loginEmail" class="form-control"  placeholder="">
 
                 <label class="control-label" for="password">Contraseña:</label>
-                <input type="password" name="name" value="" class="form-control">
+                <input type="password" id="password" name="name" value="" class="form-control">
               </form>
               <p><a href="#">¿Olvidó su contraseña?</a></p>
 

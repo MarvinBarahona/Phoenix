@@ -3,7 +3,6 @@ package usuarios;
 import javax.persistence.*;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 /**
  * Created by maosv on 15/10/2016.

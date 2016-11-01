@@ -21,12 +21,7 @@ import java.io.Serializable;
 @PrimaryKeyJoinColumn(name="codigo_usuario")  
 public class Empleado extends Usuario implements Serializable {
 
-    /*@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "codigo_usuario")
-    Integer codigo_usuario;*/
-
-    @Enumerated (EnumType.ORDINAL)
+    @Enumerated (EnumType.STRING)
     @Column(name = "tipo_empleado")
     TipoEmpleado tipoEmpleado;
     
