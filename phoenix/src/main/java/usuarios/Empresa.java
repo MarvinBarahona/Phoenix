@@ -2,7 +2,15 @@ package usuarios;
 
 import javax.persistence.*;
 
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
+
 import java.io.Serializable;
+import java.util.List;
+
+import productos.Producto;
+import sesion.Sesion;
 
 /**
  * Created by maosv on 15/10/2016.
@@ -31,27 +39,29 @@ public class Empresa implements Serializable {
     @JoinColumn(name = "codigo_ubicacion")
     Ubicacion ubicacion;
 
-    @OrderColumn
+    /*@OrderColumn
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name="codigo_empresa") //el nombre debe ser la llave foranea en empleados que hace referencia a empresa
-    Empleado[] empleados = new Empleado[3];
+    @JoinColumn(name="codigo_empresa") 
+    Set<Empleado> empleados = new HashSet<Empleado>();*/
+    
+    
+   // Empleado[] empleados = new Empleado[3];
 
     /*@OneToMany(cascade= CascadeType.ALL)
     @JoinColumn(name="codigo_empresa")
-    ArrayList<productos.Producto> productos = new ArrayList<productos.Producto>();*/
-    //Esto no va a funcionar aqui xD
-    //empleados[0] = InstanciaDeEmpleado; //Asi se asigna. Por si no se acuerdan xD
-
+    Set<productos.Producto> productos = new HashSet<productos.Producto>();*/
+    
+    
     //Constructores ***************
     public Empresa(){
     	
     }
     
-    public Empresa(String nom, String tel, Ubicacion ubicacion, Empleado[] empleados ){
+    public Empresa(String nom, String tel, Ubicacion ubicacion){
         this.nombre = nom;
         this.telefono = tel;
         this.ubicacion = ubicacion;
-        this.empleados = empleados;
+       // this.empleados = empleados;
        }
 
     //Getters y Setters *******************
@@ -99,4 +109,18 @@ public class Empresa implements Serializable {
     public void setImg(String imagen) {
         this.img = imagen;
     }
+
+    //Atributo: productos
+	@SuppressWarnings({ "unchecked" })
+	public List<Producto> getProductos() {
+		final Session session = Sesion.getSession();
+		Criteria criteria = session.createCriteria(Producto.class);
+		criteria.add(Restrictions.eq("empresa", codigo));
+		
+		List<Producto> result = criteria.list();
+		
+		return result;
+	}
+    
+    
 }

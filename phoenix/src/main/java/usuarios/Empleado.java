@@ -1,9 +1,12 @@
 package usuarios;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 //import javax.persistence.GeneratedValue;
 //import javax.persistence.GenerationType;
 //import javax.persistence.Id;
@@ -25,16 +28,21 @@ public class Empleado extends Usuario implements Serializable {
     @Column(name = "tipo_empleado")
     TipoEmpleado tipoEmpleado;
     
+    @OneToOne(cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn(name = "codigo_empresa")
+    Empresa empresa;
+    
     //Constructores. *********
     public Empleado(){
 
     }
 
-    public Empleado(String correo, String contra, String nom, String apellido, TipoEmpleado tipo) {
+    public Empleado(String correo, String contra, String nom, String apellido, TipoEmpleado tipo, Empresa empresa) {
         //Crea un usuario con tipoUsuario = empleado.
         super(correo, contra, nom, apellido, TipoUsuario.empleado);
 
         this.tipoEmpleado = tipo;
+        this.empresa = empresa;
     }
 
     //Getters y Setters. *********

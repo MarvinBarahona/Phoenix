@@ -37,4 +37,11 @@ public class UsuarioServicio {
 		}
 		return usuario;
 	}
+	
+	public static Usuario buscarPorId(int id){
+		final Session session = Sesion.getSession();
+		Usuario u = (Usuario)session.get(Usuario.class, id);
+		session.clear();
+		return u;
+	}
 }

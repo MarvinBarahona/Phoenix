@@ -24,7 +24,7 @@ public class UbicacionServicio {
 		return result;
 	}
 	
-	public static Ubicacion buscarUbicacion(int id){
+	public static Ubicacion buscarPorId(int id){
 		final Session session = Sesion.getSession();
 		Ubicacion u = (Ubicacion)session.get(Ubicacion.class, id);
 		session.clear();

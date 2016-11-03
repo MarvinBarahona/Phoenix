@@ -5,12 +5,11 @@ import sesion.Sesion;
 import usuarios.Empleado;
 
 public class EmpleadoServicio {
-	public static Empleado findById(int number)
+	public static Empleado buscarPorId(int number)
 	{
 		final Session session = Sesion.getSession();
-		session.beginTransaction();
-		Empleado usuario = (Empleado)session.get(Empleado.class, number);
-		session.close();
-		return usuario;
+		Empleado emp = (Empleado)session.get(Empleado.class, number);
+		session.clear();
+		return emp;
 	}
 }
