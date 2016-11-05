@@ -7,8 +7,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
 import java.io.Serializable;
@@ -16,8 +14,7 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "usuario")
-@Inheritance(strategy=InheritanceType.JOINED)
-public abstract class Usuario implements Serializable{
+public class Usuario implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,7 +37,7 @@ public abstract class Usuario implements Serializable{
     @Column(name = "tipo_usuario")
     TipoUsuario tipoUsuario;
 
-    //Constructores ***********************
+    //Constructores *****************************************************************
     public Usuario(){
 
     }
@@ -53,50 +50,43 @@ public abstract class Usuario implements Serializable{
         this.tipoUsuario = tipoUsuario;
     }
 
-    //Getters y Setters ********************
+    //Getters y Setters *************************************************************
 
     // Atributo: codigo
     public int getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
-    }
-
+    // Atributo: correo
     public String getCorreo() {
         return correo;
     }
     
-    
-    // Atributo: correo
-    public void setCorreo(String correo) {
-        this.correo = correo;
-    }
-
+    // Atributo: contraseña
     public String getContra() {
         return contra;
     }
 
-    // Atributo: contraseña
+    
     public void setContra(String contra) {
         this.contra = contra;
     }
 
+    // Atributo: nombre
     public String getNombre() {
         return nombre;
     }
-
-    // Atributo: nombre
+    
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
+    // Atributo: apellido
     public String getApellido() {
         return apellido;
     }
 
-    // Atributo: apellido
+    
     public void setApellido(String apellido) {
         this.apellido = apellido;
     }
@@ -104,9 +94,5 @@ public abstract class Usuario implements Serializable{
     // Atributo: tipo
     public TipoUsuario getTipoUsuario() {
         return tipoUsuario;
-    }
-
-    public void setTipoUsuario(TipoUsuario tipoUsuario) {
-        this.tipoUsuario = tipoUsuario;
     }
 }

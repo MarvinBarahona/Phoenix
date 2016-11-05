@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import servicio.EmpleadoServicio;
 import servicio.UsuarioServicio;
 import usuarios.Empleado;
 import usuarios.TipoUsuario;
@@ -34,27 +35,21 @@ public class LoginController {
 		String password = request.getParameter("password");
 		
 		//Recupera el usuario
-		Usuario user = UsuarioServicio.buscarPorCorreo(email);
+		Usuario user = UsuarioServicio.validar(email, password);
 		
 		//Arma la respuesta.
 		if(user == null){
-			resp.setMsg("noExiste");
+			resp.setMsg("fracaso");
 		}
 		else{
-			int i = password.compareTo(user.getContra());
-			if(i==0){
-				resp.setMsg("exito");
-				//Si es exito, devuelve el tipo de usuario.
-				resp.setTipoUsuario(user.getTipoUsuario().toString());
-				
-				//Si es empleado, devuelve el tipo de empleado.
-				if(user.getTipoUsuario().equals(TipoUsuario.empleado)){
-					Empleado emp = (Empleado)user;
-					resp.setTipoEmpleado(emp.getTipoEmpleado().toString());
-				}
-			}
-			else{
-				resp.setMsg("fracaso");
+			resp.setMsg("exito");
+			//Si es exito, devuelve el tipo de usuario.
+			resp.setTipoUsuario(user.getTipoUsuario().toString());
+			
+			//Si es empleado, devuelve el tipo de empleado.
+			if(user.getTipoUsuario().equals(TipoUsuario.empleado)){
+				Empleado emp = EmpleadoServicio.buscarPorId(user.getCodigo());
+				resp.setTipoEmpleado(emp.getTipoEmpleado().toString());
 			}
 		}
 		

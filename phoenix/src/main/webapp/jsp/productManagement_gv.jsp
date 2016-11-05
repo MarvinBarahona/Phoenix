@@ -103,7 +103,7 @@
         <div class="from-group">
           <label class="control-label col-sm-3" for="descuento">Descuento:</label>
           <div class="col-sm-7">
-            <input type="number" class="form-control" nombre="descuento" id="descuento" placeholder="Valores de 0 a 100" min="0" max="100" step="5">
+            <input type="number" class="form-control" name="descuento" id="descuento" placeholder="Valores de 0 a 100" min="0" max="100" step="5">
           </div>
         </div><br>
 
@@ -116,7 +116,7 @@
       </form>
 
       <div class="table-responsive">
-        <table id="productos" class="display" width="100%">
+        <table id="productos" class="display">
         <!-- Fila a clonar!
           <tr>
             <td></td>

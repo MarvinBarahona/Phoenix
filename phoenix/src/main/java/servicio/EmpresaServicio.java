@@ -1,66 +1,69 @@
 package servicio;
 
+import java.util.List;
+
+import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
 import sesion.Sesion;
 import usuarios.Empresa;
+import usuarios.TipoEmpleado;
 import usuarios.Ubicacion;
 
-public class EmpresaServicio{
-	public static void guardarProvisional(){
-		final Session session = Sesion.getSession(); //Objeto de sesion necesario para todas las transacciones
-		//TipoEmpleado tipo1 = TipoEmpleado.gerenteGeneral;
-		//TipoEmpleado tipo2 = TipoEmpleado.gerenteInventario;
-		//TipoEmpleado tipo3 = TipoEmpleado.gerenteVentas;
-		Ubicacion ubi = new Ubicacion("Pais prueba","Ciudad prueba", "Direccion prueba", "12345");
-		//empleados[0] = new Empleado("correo1@gmail.com","contra1","nombre1","apellido1",tipo1);
-		//empleados[1] = new Empleado("correo2@gmail.com","contra2","nombre2","apellido2",tipo2);
-		//empleados[2] = new Empleado("correo3@gmail.com","contra3","nombre3","apellido3",tipo3);
-		Empresa empresa = new Empresa("Empresa prueba", "7898583", ubi);
-		//session.beginTransaction();
-		session.save(empresa);
-		session.getTransaction().commit();
+public class EmpresaServicio {
+
+	public static Empresa crear(String nombre, String correoG, String nombreG, String apellidoG){
+		Ubicacion ub = UbicacionServicio.crear("pendiente", "pendiente", "pendiente", "000");
+				
+		Empresa e = null;				
+		final Session session = Sesion.getSession();
+		
+		try{
+			e =  new Empresa(nombre, ub.getCodigo());
+			session.save(e);
+			session.getTransaction().commit();
+			
+			EmpleadoServicio.crear(correoG, "12345", nombreG, apellidoG, TipoEmpleado.gerenteGeneral, e.getCodigo());
+			EmpleadoServicio.crear("pendiente", "12345", "pendiente", "pendiente", TipoEmpleado.gerenteVentas, e.getCodigo());
+			EmpleadoServicio.crear("pendiente", "12345", "pendiente", "pendiente", TipoEmpleado.gerenteInventario, e.getCodigo());
+			
+		}catch(HibernateException exc){
+			session.getTransaction().rollback();
+		}
+		
+		return e;
 	}
 	
-	public static long conteoEmpresas(){
-		final Session session = Sesion.getSession();
-		long result;
-		session.beginTransaction();
-		result = (long) session.createQuery("select count(*) from Empresa").uniqueResult();
-		//session.close();
-		return result;
+	public static Empresa buscarPorId(int id){
+		final Session session = Sesion.getSession();		
+		Empresa e = session.get(Empresa.class, id);
+		session.clear();		
+		return e;
 	}
 	
-	public static int guardar(Empresa empresa)
-	{
+	public static int actualizar(Empresa e){
+		int r = 0;
+		UbicacionServicio.actualizar(e.getUbicacion());
+		
 		final Session session = Sesion.getSession();
-		session.beginTransaction();
-		session.save(empresa);
-		session.getTransaction().commit();
-		return 0;
+		
+		try{
+			session.update(e);
+			session.getTransaction().commit();
+		}
+		catch(HibernateException exc){
+			session.getTransaction().rollback();
+			r = 1;
+		}
+		
+		return r;
 	}
 	
-	public static Empresa buscarPorId(int codigo){
-		final Session session = Sesion.getSession();
-		Empresa empresa = (Empresa) session.get(Empresa.class, codigo);
-		session.clear();
-		return empresa;
-	}
-	
-	public static int actualizar(Empresa empresa){
-		final Session session = Sesion.getSession();
-		session.beginTransaction();
-		session.merge(empresa);
-		session.flush();
-		session.getTransaction().commit();
-		return 0;
-	}
-	
-	public static int borrar(Empresa empresa){
-		final Session session = Sesion.getSession();
-		session.beginTransaction();
-		session.delete(empresa);
-		session.getTransaction().commit();
-		return 0;
+	@SuppressWarnings("unchecked")
+	public static List<Empresa> obtenerEmpresas(){
+		Session session = Sesion.getSession();
+		Criteria criteria = session.createCriteria(Empresa.class);
+		return criteria.list();
 	}
 }

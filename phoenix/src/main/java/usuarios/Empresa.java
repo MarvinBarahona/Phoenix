@@ -1,126 +1,181 @@
 package usuarios;
 
-import javax.persistence.*;
-
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.criterion.Restrictions;
-
 import java.io.Serializable;
-import java.util.List;
 
-import productos.Producto;
-import sesion.Sesion;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 
-/**
- * Created by maosv on 15/10/2016.
- */
-//Edwin: Voy a agregar el atributo img como string para la url que no lo veo :V
+import servicio.EmpleadoServicio;
+import servicio.EmpresaServicio;
+import servicio.UbicacionServicio;
 
 @SuppressWarnings("serial")
 @Entity
-@Table(name = "empresa")
-public class Empresa implements Serializable {
-
-    @Id
-    @Column(name = "codigo_empresa")
-    int codigo;
-
-    @Column(name = "nombre_empresa")
-    String nombre;
-
-    @Column(name = "telefono_empresa")
-    String telefono;
-
-    @Column(name="img")
-    String img;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "codigo_ubicacion")
-    Ubicacion ubicacion;
-
-    /*@OrderColumn
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name="codigo_empresa") 
-    Set<Empleado> empleados = new HashSet<Empleado>();*/
-    
-    
-   // Empleado[] empleados = new Empleado[3];
-
-    /*@OneToMany(cascade= CascadeType.ALL)
-    @JoinColumn(name="codigo_empresa")
-    Set<productos.Producto> productos = new HashSet<productos.Producto>();*/
-    
-    
-    //Constructores ***************
-    public Empresa(){
-    	
-    }
-    
-    public Empresa(String nom, String tel, Ubicacion ubicacion){
-        this.nombre = nom;
-        this.telefono = tel;
-        this.ubicacion = ubicacion;
-       // this.empleados = empleados;
-       }
-
-    //Getters y Setters *******************
-    //Atributo: codigo
-    public int getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
-    }
-
-    //Atributo: nombre
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    //Atributo: telefono
-    public String getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
-
-    //Atributo: ubicacion
-    public Ubicacion getUbicacion() {
-        return this.ubicacion;
-    }
-
-    public void setUbicacion(Ubicacion ubicacion) {
-        this.ubicacion = ubicacion;
-    }
-
-    //Atributo: img
-    public String getImg() {
-        return this.img;
-    }
-
-    public void setImg(String imagen) {
-        this.img = imagen;
-    }
-
-    //Atributo: productos
-	@SuppressWarnings({ "unchecked" })
-	public List<Producto> getProductos() {
-		final Session session = Sesion.getSession();
-		Criteria criteria = session.createCriteria(Producto.class);
-		criteria.add(Restrictions.eq("empresa", codigo));
+@Table(name="empresa")
+public class Empresa implements Serializable{
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="codigo_empresa")
+	int codigo;
+	
+	@Column (name="codigo_ubicacion")
+    int codigoUbicacion;
+	
+	@Column(name="nombre_empresa")
+	String nombre;
+	
+	@Column(name="telefono_empresa")
+	String telefono;
+	
+	@Column(name="img")
+	String img;
+	
+	@Transient
+	Ubicacion ubicacion;
+	
+	@Transient
+	Empleado gerenteGeneral;
+	
+	@Transient
+	Empleado gerenteVentas;
+	
+	@Transient
+	Empleado gerenteInventario;
+	
+	//@Transient
+	//List<Producto> productos;
+	
+	//Constructores***********************************************************
+	
+	public Empresa(){
 		
-		List<Producto> result = criteria.list();
-		
-		return result;
 	}
-    
-    
+	
+	public Empresa(String nombre, int codigoUbicacion){
+		this.nombre = nombre;
+		this.codigoUbicacion = codigoUbicacion;
+	}	
+	
+	//Getter y setters. *****************************************************************
+	
+	//Atributo: codigo
+	public int getCodigo() {
+		return codigo;
+	}
+
+	//Atriburo: codigoUbicacion
+	public int getCodigoUbicacion() {
+		return codigoUbicacion;
+	}
+	
+	//Atributo: nombre
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	//Atributo: telefono
+	public String getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+
+	//Atributo: img
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
+	}
+	
+	//Otros atributos. ******************************************************************
+	//Atributo: ubicación y el resto de atributos de la clase Ubicacion.
+	public Ubicacion getUbicacion(){
+		if(ubicacion == null){
+			ubicacion = UbicacionServicio.buscarPorId(codigoUbicacion);
+		}
+		return ubicacion;
+	}
+	
+	//Pais
+	public String getPais(){
+		return getUbicacion().getPais();
+	}
+	
+	public void setPais(String pais){
+		getUbicacion().setPais(pais);
+	}
+	
+	//Ciudad
+	public String getCiudad(){
+		return getUbicacion().getCiudad();
+	}
+	
+	public void setCiudad(String ciudad){
+		getUbicacion().setCiudad(ciudad);
+	}
+	
+	//Direccion
+	public String getDireccion(){
+		return getUbicacion().getDireccion();
+	}
+	
+	public void setDireccion(String dir){
+		getUbicacion().setDireccion(dir);
+	}
+	
+	//Ciudad
+	public String getZip(){
+		return getUbicacion().getZip();
+	}
+	
+	public void setZip(String zip){
+		getUbicacion().setZip(zip);
+	}
+	
+	//NOTA: LOS EMPLEADOS NO SE PUEDEN ACTUALIZAR A PARTIR DE LA EMPRESA. DEBEN ACTUALIZARSE INDIVIDUALMENTE.
+	
+	//Atributo: gerenteGeneral
+	public Empleado getGerenteGeneral(){
+		if(gerenteGeneral == null){
+			gerenteGeneral = EmpleadoServicio.buscarPorEmpresa(getCodigo(), TipoEmpleado.gerenteGeneral);
+		}
+		return gerenteGeneral;
+	}
+	
+	//Atributo: gerenteVentas
+	public Empleado getGerenteVentas(){
+		if(gerenteVentas == null){
+			gerenteVentas = EmpleadoServicio.buscarPorEmpresa(getCodigo(), TipoEmpleado.gerenteVentas);
+		}
+		return gerenteVentas;
+	}
+	
+	public Empleado getGerenteInventario(){
+		if(gerenteInventario == null){
+			gerenteInventario = EmpleadoServicio.buscarPorEmpresa(getCodigo(), TipoEmpleado.gerenteInventario);
+		}
+		return gerenteInventario;
+	}
+	
+	//**Falta la lista de productos**
+	
+	//Otros métodos. ****************************************************************************
+	
+	public int actualizar(){
+		return EmpresaServicio.actualizar(this);
+	}
 }

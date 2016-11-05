@@ -1,106 +1,123 @@
 package usuarios;
 
-import javax.persistence.CascadeType;
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-//import javax.persistence.GeneratedValue;
-//import javax.persistence.GenerationType;
-//import javax.persistence.Id;
-import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
-import java.io.Serializable;
+import servicio.EmpleadoServicio;
+import servicio.EmpresaServicio;
+import servicio.UsuarioServicio;
 
-/**
- * Created by maosv on 15/10/2016.
- */
 @SuppressWarnings("serial")
 @Entity
-@Table(name = "empleado")
-@PrimaryKeyJoinColumn(name="codigo_usuario")  
-public class Empleado extends Usuario implements Serializable {
+@Table(name="empleado")
+public class Empleado implements Serializable{
+	@Id
+	@Column(name="codigo_usuario")
+	int codigo;
+	
+	@Column(name="codigo_empresa")
+	int codigoEmpresa;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name="tipo_empleado")
+	TipoEmpleado tipoEmpleado;
+	
+	@Transient
+	Usuario usuario;
+	
+	@Transient
+	Empresa empresa;
+	
+	//Constructores.*********************************************************
+	public Empleado(){
+		
+	}
+	
+	public Empleado(int codigo, int codigoEmpresa, TipoEmpleado tipoEmpleado){
+		this.codigo = codigo;
+		this.codigoEmpresa = codigoEmpresa; 
+		this.tipoEmpleado = tipoEmpleado;
+	}
+	
+	//Getters y Setters.*******************************************************
+	
+	//Atributo: codigo
+	public int getCodigo(){
+		return this.codigo;
+	}
+	
+	//Atributo: codigoEmpresa
+	public int getCodigoEmpresa(){
+		return this.codigoEmpresa;
+	}
+	
+	//Atributo: tipoEmpleado
+	public TipoEmpleado getTipoEmpleado(){
+		return this.tipoEmpleado;
+	}
+	
+	
+	//Atributo: usuario y los atributos de la clase Usuario
+	public Usuario getUsuario(){
+		if(this.usuario == null){
+			usuario = UsuarioServicio.buscarPorId(codigo);
+		}
+		return usuario;
+	}
 
-    @Enumerated (EnumType.STRING)
-    @Column(name = "tipo_empleado")
-    TipoEmpleado tipoEmpleado;
-    
-    @OneToOne(cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn(name = "codigo_empresa")
-    Empresa empresa;
-    
-    //Constructores. *********
-    public Empleado(){
-
-    }
-
-    public Empleado(String correo, String contra, String nom, String apellido, TipoEmpleado tipo, Empresa empresa) {
-        //Crea un usuario con tipoUsuario = empleado.
-        super(correo, contra, nom, apellido, TipoUsuario.empleado);
-
-        this.tipoEmpleado = tipo;
-        this.empresa = empresa;
-    }
-
-    //Getters y Setters. *********
-
-    //Atributo: tipoEmpleado
-    public TipoEmpleado getTipoEmpleado() {
-        return tipoEmpleado;
-    }
-
-    public void setTipoEmpleado(TipoEmpleado tipo) {
-        this.tipoEmpleado = tipo;
-    }
-    
-
-    // Atributo: codigo
-    public int getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
-    }
-
-    public String getCorreo() {
-        return correo;
-    }
-    
-    
-    // Atributo: correo
-    public void setCorreo(String correo) {
-        this.correo = correo;
-    }
-
-    public String getContra() {
-        return contra;
-    }
-
-    // Atributo: contraseña
-    public void setContra(String contra) {
-        this.contra = contra;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    // Atributo: nombre
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-
-    // Atributo: tipo
-    public TipoUsuario getTipoUsuario() {
-        return tipoUsuario;
-    }
-
-    public void setTipoUsuario(TipoUsuario tipoUsuario) {
-        this.tipoUsuario = tipoUsuario;
-    }
+	//Correo
+	public String getCorreo(){
+		return getUsuario().getCorreo();
+	}
+	
+	//Contra
+	public String getContra(){
+		return getUsuario().getContra();
+	}
+	
+	public void setContra(String contra){
+		getUsuario().setContra(contra);
+	}
+	
+	//Nombre
+	public String getNombre(){
+		return getUsuario().getNombre();
+	}
+	
+	public void setNombre(String nombre){
+		getUsuario().setNombre(nombre);
+	}
+	
+	//Apellido
+	public String getApellido(){
+		return getUsuario().getApellido();
+	}
+	
+	public void setApellido(String apellido){
+		getUsuario().setApellido(apellido);
+	}
+	
+	//Atributo: empresa. No se puede modificar a la empresa a partir de sus empleados, solo recuperarse.
+	public Empresa getEmpresa(){
+		if(empresa == null){
+			empresa = EmpresaServicio.buscarPorId(codigoEmpresa);
+		}
+		return empresa;
+	}
+	
+	//Otro métodos. *****************************************************************
+	public int actualizar(){
+		return EmpleadoServicio.actualizar(this);
+	}
+	
+	public int actualizarContra(String contra){
+		return UsuarioServicio.actualizarContra(getUsuario(), contra);
+	}
 }

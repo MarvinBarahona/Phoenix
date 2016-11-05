@@ -17,9 +17,6 @@ import servicio.UsuarioServicio;
 import usuarios.Cliente;
 import usuarios.Empleado;
 import usuarios.Empresa;
-import usuarios.Ubicacion;
-import usuarios.Usuario;
-
 import com.google.appengine.repackaged.com.google.gson.Gson;
 
 @Controller
@@ -42,44 +39,77 @@ public class TestMapeo {
 		String idString = request.getParameter("id");
 		int id;
 		
+		Cliente c;
+		Empleado empl;
+		//Usuario u;
+		Empresa empr;
+		
 		try{
 					
 			switch(selec){
 			case "0":
 				id = Integer.parseInt(idString);
-				Ubicacion ubi = UbicacionServicio.buscarPorId(id);
-				resp = ubi;
+				resp = UbicacionServicio.buscarPorId(id);
 				break;
 			case "1":
 				id = Integer.parseInt(idString);
-				Usuario u1 = UsuarioServicio.buscarPorId(id);
-				resp = u1;
+				resp = UsuarioServicio.buscarPorId(id);
 				break;
 			case "2":
-				id = Integer.parseInt(idString);
-				Usuario u2 = (Usuario)UsuarioServicio.buscarPorId(id);
-				resp = u2;
+				resp = UsuarioServicio.buscarPorCorreo(idString);
 				break;
 			case "3":
-				Empleado emp1 = (Empleado)UsuarioServicio.buscarPorId(1);
-				resp = emp1;
+				id = Integer.parseInt(idString);
+				resp = ClienteServicio.buscarPorId(id);
 				break;
 			case "4":
-				Cliente c1 = (Cliente)UsuarioServicio.buscarPorId(4);
-				resp = c1;
+				resp = ClienteServicio.buscarPorCorreo(idString);
 				break;
 			case "5":
-				Empleado emp2 = EmpleadoServicio.buscarPorId(1);
-				resp = emp2;
+				id = Integer.parseInt(idString);
+				resp = EmpleadoServicio.buscarPorId(id);
 				break;
 			case "6":
-				Cliente c2 = ClienteServicio.buscarPorId(4);
-				resp = c2;
+				resp = EmpleadoServicio.buscarPorCorreo(idString);
 				break;
-			case "7": 
+			case "7":
 				id = Integer.parseInt(idString);
-				Empresa e = EmpresaServicio.buscarPorId(id);
-				resp = e.getProductos();
+				c = ClienteServicio.buscarPorId(id);
+				resp = c.getUsuario();
+				break;
+			case "8":
+				id = Integer.parseInt(idString);
+				empl = EmpleadoServicio.buscarPorId(id);
+				resp = empl.getUsuario();
+				break;
+			case "9":
+				id = Integer.parseInt(idString);
+				resp = EmpresaServicio.buscarPorId(id);
+				break;
+			case "10":
+				id = Integer.parseInt(idString);
+				empl = EmpleadoServicio.buscarPorId(id);
+				resp = empl.getEmpresa();
+				break;
+			case "11":
+				id = Integer.parseInt(idString);
+				empr = EmpresaServicio.buscarPorId(id);
+				resp = empr.getGerenteGeneral();
+				break;
+			case "12":
+				id = Integer.parseInt(idString);
+				empr = EmpresaServicio.buscarPorId(id);
+				resp = empr.getGerenteVentas();
+				break;
+			case "13":
+				id = Integer.parseInt(idString);
+				empr = EmpresaServicio.buscarPorId(id);
+				resp = empr.getGerenteInventario();
+				break;
+			case "14":
+				id = Integer.parseInt(idString);
+				empr = EmpresaServicio.buscarPorId(id);
+				resp = empr.getUbicacion();
 				break;
 			default:
 				resp = "No implementado!";
@@ -87,6 +117,47 @@ public class TestMapeo {
 			}
 		}catch(NumberFormatException e){
 			resp = "Ingrese un número!";
+		}catch(NullPointerException e){
+			resp = "Nada encontrado";
+		}
+		
+		
+		if(resp == null){
+			resp = "Nada encontrado";
+		}
+		
+		return new Gson().toJson(resp);
+	}
+	
+	@RequestMapping( value="/testAjax2", headers="Accept=*/*", produces="application/json")	
+	public @ResponseBody String testAjax2(){
+		Object resp = null;
+		
+		//Ubicacion u = UbicacionServicio.guardar("pruebaP", "pruebaC", "pruebaD", "pruebaZ");
+		//resp = u.getCodigo();
+		
+		String selec = request.getParameter("selection");
+		
+					
+		switch(selec){
+		case "0":
+			resp = UbicacionServicio.obtenerUbicaciones();
+			break;
+		case "1":
+			resp = UsuarioServicio.obtenerUsuarios();
+			break;
+		case "2":
+			resp = ClienteServicio.obtenerClientes();
+			break;
+		case "3":
+			resp = EmpleadoServicio.obtenerEmpleados();
+			break;
+		case "4":
+			resp = EmpresaServicio.obtenerEmpresas();
+			break;
+		default:
+			resp = "No implementado!";
+			break;				
 		}
 		
 		if(resp == null){

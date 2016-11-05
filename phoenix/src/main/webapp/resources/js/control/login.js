@@ -11,13 +11,8 @@ function login(){
 	    	var r = JSON.parse(resp);
 	    	
 	    	//Si el correo no está registrado: 
-	        if(r.msg =="noExiste"){
-	        	redirectLogin("Este correo no está registrado!");
-	        }
-	        
-	        //Si el correo está registrado pero la contraseña es incorrecta: 
-	        else if(r.msg=="fracaso"){
-	        	redirectLogin("Contraseña incorrecta!");
+	        if(r.msg =="fracaso"){
+	        	redirectLogin("Cuenta o contraseña incorrectas!");
 	        }
 	        
 	        //Si se loguea con éxito: 
