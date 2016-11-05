@@ -5,29 +5,19 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 import sesion.Sesion;
-import usuarios.TipoUsuario;
 import usuarios.Usuario;
 
 public class UsuarioServicio {
 	
-	//Guardar un objeto usuario. Cada objeto usuario se vincula o con un empleado, o con un cliente. 
-	public static Usuario crear(String correo, String contra, String nom, String apell, TipoUsuario tipoUsuario){
+	//Recuperar un usuario a partir de su id.
+	public static Usuario buscarPorId(int id){
 		final Session session = Sesion.getSession();
-		
-		Usuario u = null;
-		
-		try{
-			u = new Usuario(correo, contra, nom, apell, tipoUsuario);
-			session.save(u);
-			session.getTransaction().commit();
-		}catch(HibernateException e){
-			session.getTransaction().rollback();
-		}
-		
-		//Retorna el objeto creado o null.
+		//Método para recuperar un objeto a partir de su identificador.
+		Usuario u = (Usuario)session.get(Usuario.class, id);
 		return u;
 	}
 	
@@ -46,42 +36,19 @@ public class UsuarioServicio {
 		return usuario;
 	}
 	
-	//Recuperar un usuario a partir de su id.
-	public static Usuario buscarPorId(int id){
-		final Session session = Sesion.getSession();
-		//Método para recuperar un objeto a partir de su identificador.
-		Usuario u = (Usuario)session.get(Usuario.class, id);
-		session.clear();
-		return u;
-	}
-	
-	//Actualizar un usuario
-	public static int actualizar(Usuario u){
-		int r = 0;
-		final Session session = Sesion.getSession();
-		
-		try{
-			session.update(u);
-			session.getTransaction().commit();
-		}catch(HibernateException e){
-			session.getTransaction().rollback();
-			r = 1;
-		}
-		
-		//Retorna 0->exito, 1->error
-		return r;
-	}
-	
+	//Actualiza la contraseña de un usuario.
 	public static int actualizarContra(Usuario u, String contra){
 		int r = 0;
 		final Session session = Sesion.getSession();
+		Transaction transaction = session.getTransaction();
 		
-		try{
+		try{			
 			u.setContra(contra);
 			session.update(u);
-			session.getTransaction().commit();
+			
+			transaction.commit();
 		}catch(HibernateException e){
-			session.getTransaction().rollback();
+			transaction.rollback();
 			r = 1;
 		}
 		return r;

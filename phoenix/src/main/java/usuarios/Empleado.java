@@ -77,6 +77,10 @@ public class Empleado implements Serializable{
 		return getUsuario().getCorreo();
 	}
 	
+	public void setCorreo(String correo){
+		getUsuario().setCorreo(correo);
+	}
+	
 	//Contra
 	public String getContra(){
 		return getUsuario().getContra();

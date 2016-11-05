@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import sesion.Sesion;
 import usuarios.Cliente;
@@ -16,26 +17,30 @@ public class ClienteServicio {
 	
 	//Guarda un cliente con su ubicación
 	public static Cliente guardar(String correo, String contra, String nom, String apell, String tarjeta,
-			String paypal, String pais, String ciudad, String direccion, String zip){
-		
-		//Genera el Usuario para este cliente.
-		Usuario us = UsuarioServicio.crear(correo, contra, nom, apell, TipoUsuario.cliente);
-		//Crea la Ubicación del cliente. 
-		Ubicacion ub = UbicacionServicio.crear(pais, ciudad, direccion, zip);
+			String paypal, String pais, String ciudad, String direccion, String zip) throws Exception{
 		
 		Cliente c = null;
 		Session session = Sesion.getSession();
+		Transaction transaction = session.getTransaction();
 		
-		try{
+		try{			
+			//Crea la ubicación vinculada
+			Ubicacion ub = new Ubicacion(pais, ciudad, direccion, zip);
+			session.save(ub);
+			
+			//Crea el usuario vinculado
+			Usuario us = new Usuario(correo, contra, nom, apell, TipoUsuario.cliente);
+			session.save(us);
+			
 			//Crea el objeto cliente, con los códigos del usuario y la ubicación vinculados.
 			c = new Cliente(us.getCodigo(), tarjeta, paypal, ub.getCodigo());
-			
-			//Salvar
 			session.save(c);
-			session.getTransaction().commit();
+			
+			transaction.commit();
 			
 		}catch(HibernateException e){
-			session.getTransaction().rollback();
+			transaction.rollback();
+			throw new Exception(e.getMessage());
 		}
 		
 		//Retorna el cliente creado o null si hubo error. 
@@ -48,7 +53,6 @@ public class ClienteServicio {
 		final Session session = Sesion.getSession();
 		//Consulta de clases por su id.
 		Cliente cliente = (Cliente)session.get(Cliente.class, number);
-		session.clear();
 		
 		return cliente;
 	}
@@ -71,20 +75,20 @@ public class ClienteServicio {
 	//Para utilizarlo, recuperar un cliente y ocupar los métodos set para modificar los datos a almacenar. 
 	public static int actualizar(Cliente c){
 		int r=0;
-		
-		//Actualiza los objetos vinculados. 
-		UsuarioServicio.actualizar(c.getUsuario());
-		UbicacionServicio.actualizar(c.getUbicacion());
-		
 		final Session session = Sesion.getSession();
+		Transaction transaction = session.getTransaction();
 		
 		try{
+			//Actualiza objetos vinculados
+			session.update(c.getUsuario());
+			session.update(c.getUbicacion());
+			
 			//Actualiza el objeto. 
 			session.update(c);
-			session.getTransaction().commit();
+			transaction.commit();
 			
-		}catch(HibernateException e){
-			session.getTransaction().rollback();
+		}catch(Exception e){
+			transaction.rollback();
 			r=1;
 		}
 		

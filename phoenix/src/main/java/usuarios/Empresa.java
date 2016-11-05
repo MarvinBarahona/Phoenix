@@ -1,11 +1,10 @@
 package usuarios;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -13,6 +12,7 @@ import javax.persistence.Transient;
 import servicio.EmpleadoServicio;
 import servicio.EmpresaServicio;
 import servicio.UbicacionServicio;
+import productos.Producto;
 
 @SuppressWarnings("serial")
 @Entity
@@ -20,7 +20,6 @@ import servicio.UbicacionServicio;
 public class Empresa implements Serializable{
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="codigo_empresa")
 	int codigo;
 	
@@ -48,8 +47,8 @@ public class Empresa implements Serializable{
 	@Transient
 	Empleado gerenteInventario;
 	
-	//@Transient
-	//List<Producto> productos;
+	@Transient
+	List<Producto> productos;
 	
 	//Constructores***********************************************************
 	
@@ -57,7 +56,8 @@ public class Empresa implements Serializable{
 		
 	}
 	
-	public Empresa(String nombre, int codigoUbicacion){
+	public Empresa(int codigo, String nombre, int codigoUbicacion){
+		this.codigo = codigo;
 		this.nombre = nombre;
 		this.codigoUbicacion = codigoUbicacion;
 	}	

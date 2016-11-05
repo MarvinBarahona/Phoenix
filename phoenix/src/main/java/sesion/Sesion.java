@@ -13,7 +13,7 @@ public class Sesion {
 		getSessions();
 		if(session == null || !session.isOpen()){
 			session = sessions.getCurrentSession();
-			session.beginTransaction();
+			session.beginTransaction();			
 		}
 		
 		return session;

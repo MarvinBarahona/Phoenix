@@ -3,44 +3,22 @@ package servicio;
 import java.util.List;
 
 import org.hibernate.Criteria;
-import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 import sesion.Sesion;
 import usuarios.Empleado;
 import usuarios.TipoEmpleado;
-import usuarios.TipoUsuario;
 import usuarios.Usuario;
 
 public class EmpleadoServicio {
 	
-	//Guarda un empleado.
-	public static Empleado crear(String correo, String contra, String nom, String apell, TipoEmpleado tipoEmpleado, int codigoEmpresa){
-		//Genera el objeto Usuario vinculado.
-		Usuario u = UsuarioServicio.crear(correo, contra, nom, apell, TipoUsuario.empleado);
-		
-		Empleado e = null;
-		final Session session = Sesion.getSession();
-		
-		try{
-			e = new Empleado(u.getCodigo(), codigoEmpresa, tipoEmpleado);
-			session.save(e);
-			session.getTransaction().commit();
-		}catch(HibernateException exc){
-			session.getTransaction().rollback();
-		}
-		
-		//Retorna el objeto creado o null.
-		return e;
-	}
-	
-	//Recupera una empresa por su identificador.
+	//Recupera un empleado por su identificador.
 	public static Empleado buscarPorId(int id){
 		final Session session = Sesion.getSession();
 		//Método para retorna un objeto a partir de su identificador.
-		Empleado emp = session.get(Empleado.class,id);
-		session.clear();
+		Empleado emp = (Empleado)session.get(Empleado.class,id);
 		return emp;
 	}
 	
@@ -80,18 +58,17 @@ public class EmpleadoServicio {
 	//Para usar el método, recuperar un empleado y ocupar los métodos set para realizar los cambios a registrar. 
 	public static int actualizar(Empleado emp){
 		int r = 0;
-		//Actualiza la ubicación vinculada.
-		UsuarioServicio.actualizar(emp.getUsuario());
-		
 		final Session session = Sesion.getSession();
-		
+		Transaction transaction = session.getTransaction();
 		
 		try{
-			session.update(emp);
-			session.getTransaction().commit();
+			session.update(emp.getUsuario());
 			
-		}catch(HibernateException e){
-			session.getTransaction().rollback();
+			session.update(emp);
+			transaction.commit();
+			
+		}catch(Exception e){
+			transaction.rollback();
 			r=1;
 		}
 		

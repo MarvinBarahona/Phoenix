@@ -61,6 +61,10 @@ public class Usuario implements Serializable{
     public String getCorreo() {
         return correo;
     }
+
+	public void setCorreo(String correo) {
+		this.correo = correo;
+	}
     
     // Atributo: contraseña
     public String getContra() {
