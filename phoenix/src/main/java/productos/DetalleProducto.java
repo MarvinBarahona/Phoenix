@@ -2,6 +2,8 @@ package productos;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -10,6 +12,7 @@ import javax.persistence.Table;
 public class DetalleProducto {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="codigo_detalleProducto")
 	int codigo;
 	
@@ -43,6 +46,10 @@ public class DetalleProducto {
 	//Atributo: valor
 	public String getValor() {
 		return valor;
+	}
+	
+	public void setValor(String valor){
+		this.valor = valor;
 	}
 
 	//Atributo: codigoDetalle

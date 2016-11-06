@@ -53,6 +53,8 @@
 			<option value="22">Producto disponibles de empresa(id)</option>
 			<option value="23">Productos de empresa(id) en dep 1 cat 2</option>
 			<option value="24">Productos de dep 1 en empresa(id)</option>
+			<option value="25">Detalle(id)</option>
+			<option value="26">Detalles de producto(id)</option>
 		</optgroup>
 	</select>
 	<br/>
@@ -86,6 +88,7 @@
 			<option value="6">Categoria</option>
 			<option value="7">Detalle</option>
 			<option value="8">Producto</option>
+			<option value="9">DetalleProducto</option>
 		</optgroup>
 		
 	</select>
@@ -101,10 +104,8 @@
 	<br/>
 	<label for="selection3">Accion:</label>
 	<select id="selection3">
-		<option value="0">Producto</option>
-		<option value="1">Actualizar de ventas</option>
-		<option value="2">Actualizar de inventario</option>
-		<option value="3">Actualizar existencias</option>
+		<option value="0">Actualizar detalle</option>
+		<option value="1">Detalle producto 2</option>
 	</select>
 	<br/>
 	<br/>

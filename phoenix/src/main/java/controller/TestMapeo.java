@@ -11,9 +11,11 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import productos.Categoria;
 import productos.Departamento;
+import productos.Producto;
 import servicio.CategoriaServicio;
 import servicio.ClienteServicio;
 import servicio.DepartamentoServicio;
+import servicio.DetalleProductoServicio;
 import servicio.DetalleServicio;
 import servicio.EmpleadoServicio;
 import servicio.EmpresaServicio;
@@ -55,10 +57,10 @@ public class TestMapeo {
 		
 		Cliente c;
 		Empleado empl;
-		//Usuario u;
 		Empresa empr;
 		Departamento dep;
 		Categoria cat;
+		Producto p;
 		
 		try{
 					
@@ -173,6 +175,15 @@ public class TestMapeo {
 				empr = EmpresaServicio.buscarPorId(id);
 				resp = empr.getProductos(1);
 				break;
+			case "25":
+				id = Integer.parseInt(idString);
+				resp = DetalleProductoServicio.buscarPorId(id);
+				break;
+			case "26":
+				id = Integer.parseInt(idString);
+				p = ProductoServicio.buscarPorId(id);
+				resp = p.getDetalles();
+				break;
 			default:
 				resp = "No implementado!";
 				break;				
@@ -226,6 +237,9 @@ public class TestMapeo {
 		case "8":
 			resp = ProductoServicio.obtenerProductos();
 			break;
+		case "9":
+			resp = DetalleProductoServicio.obtenerDetallesProducto();
+			break;
 		default:
 			resp = "No implementado!";
 			break;				
@@ -237,4 +251,32 @@ public class TestMapeo {
 		
 		return new Gson().toJson(resp);
 	}
+	
+	
+	//@RequestMapping( value="/testAjax3", headers="Accept=*/*", produces="application/json")	
+	/*public @ResponseBody String testAjax3(){
+		Object resp = null;
+		
+		String selec = request.getParameter("selection");
+
+		try{
+			switch(selec){
+			case "0":
+				break;
+			case "1":
+				break;
+			default:
+				resp = "No implementado!";
+				break;				
+			}
+		}catch(Exception exc){
+			resp = exc.getMessage();
+		}
+		
+		if(resp == null){
+			resp = "Nada encontrado";
+		}
+		
+		return new Gson().toJson(resp);
+	}*/
 }

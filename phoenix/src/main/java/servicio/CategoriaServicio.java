@@ -32,45 +32,45 @@ public class CategoriaServicio {
 	}
 	
 	//Buscar una categoria por id.
-		public static Categoria buscarPorId(int codigo){
-			final Session session = Sesion.getSession();
-			Categoria cat = (Categoria) session.get(Categoria.class, codigo);
-			return cat;
+	public static Categoria buscarPorId(int codigo){
+		final Session session = Sesion.getSession();
+		Categoria cat = (Categoria) session.get(Categoria.class, codigo);
+		return cat;
+	}
+	
+	//Actualiza la categoria dada. 
+	//Para usar el método, recuperar una categoria y usar los métodos set para registrar los cambios a guardar. 
+	public static int actualizar(Categoria cat){
+		int r = 0;
+		final Session session = Sesion.getSession();
+		Transaction transaction = session.getTransaction();
+		
+		try{
+			session.update(cat);
+			transaction.commit();
+		}catch(HibernateException e){
+			transaction.rollback();
+			r = 1;
 		}
 		
-		//Actualiza la categoria dada. 
-		//Para usar el método, recuperar una categoria y usar los métodos set para registrar los cambios a guardar. 
-		public static int actualizar(Categoria cat){
-			int r = 0;
-			final Session session = Sesion.getSession();
-			Transaction transaction = session.getTransaction();
-			
-			try{
-				session.update(cat);
-				transaction.commit();
-			}catch(HibernateException e){
-				transaction.rollback();
-				r = 1;
-			}
-			
-			return r;
-		}
-		
-		
-		//Obtiene todos las categorias
-		@SuppressWarnings("unchecked")
-		public static List<Categoria> obtenerCategorias(){
-			final Session session = Sesion.getSession();
-			Criteria criteria = session.createCriteria(Categoria.class);
-			return criteria.list();
-		}
-		
-		//Obtiene las categorias de un departamento especifico.
-		@SuppressWarnings("unchecked")
-		public static List<Categoria> obtenerCategorias(int codigoDepartamento){
-			final Session session = Sesion.getSession();
-			Criteria criteria = session.createCriteria(Categoria.class);
-			criteria.add(Restrictions.eq("codigoDepartamento", codigoDepartamento));
-			return criteria.list();
-		}
+		return r;
+	}
+	
+	
+	//Obtiene todos las categorias
+	@SuppressWarnings("unchecked")
+	public static List<Categoria> obtenerCategorias(){
+		final Session session = Sesion.getSession();
+		Criteria criteria = session.createCriteria(Categoria.class);
+		return criteria.list();
+	}
+	
+	//Obtiene las categorias de un departamento especifico.
+	@SuppressWarnings("unchecked")
+	public static List<Categoria> obtenerCategorias(int codigoDepartamento){
+		final Session session = Sesion.getSession();
+		Criteria criteria = session.createCriteria(Categoria.class);
+		criteria.add(Restrictions.eq("codigoDepartamento", codigoDepartamento));
+		return criteria.list();
+	}
 }

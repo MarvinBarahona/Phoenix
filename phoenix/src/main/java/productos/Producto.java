@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import servicio.DetalleProductoServicio;
 import servicio.ProductoServicio;
 
 @Entity
@@ -160,6 +161,14 @@ public class Producto {
 		this.disponible = disponible;
 	}
 
+	//Atributo: detalles
+	public List<DetalleProducto> getDetalles(){
+		if(detalles == null){
+			detalles = DetalleProductoServicio.obtenerDetallesProducto(codigo);
+		}
+		return detalles;
+	}
+
 	//Otros métodos
 	public int actualizarInventario(String nombre, Categoria categoria, boolean disponible){
 		return ProductoServicio.actualizarInventario(this, nombre, categoria, disponible);
@@ -173,4 +182,15 @@ public class Producto {
 		return ProductoServicio.actualizarVentas(this, descripcion, precio, descuento);
 	}
 	
+	public int actualizarDetalle(int codigoDetalle, String valor){
+		getDetalles();
+		int r = 1;
+		for(DetalleProducto d : detalles){
+			if(d.getCodigoDetalle() == codigoDetalle){
+				r = DetalleProductoServicio.actualizar(d.getCodigo(), valor);
+				break;
+			}
+		}
+		return r;
+	}
 }
