@@ -1,11 +1,8 @@
 package productos;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 @Entity
@@ -13,41 +10,48 @@ import javax.persistence.Table;
 public class DetalleProducto {
 	
 	@Id
-	@Column(name="codigo_producto")
+	@Column(name="codigo_detalleProducto")
 	int codigo;
 	
 	@Column(name="valor")
-	String valorDetalle;
+	String valor;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-	@PrimaryKeyJoinColumn
-	Detalle detalle;
+	@Column(name="codigo_detalle")
+	int codigoDetalle;
+	
+	@Column(name="codigo_producto")
+	int codigoProducto;
 	
 	//Constructores**********************************
 	public DetalleProducto(){
 		
 	}
 
-	public DetalleProducto(String valorDetalle, Detalle detalle) {
-		this.valorDetalle = valorDetalle;
-		this.detalle = detalle;
+	public DetalleProducto(String valor, int codigoDetalle, int codigoProducto) {
+		this.valor = valor;
+		this.codigoDetalle = codigoDetalle;
+		this.codigoProducto = codigoProducto;
 	}	
 	
 	//Getters y Setters*************************************
-	public String getValorDetalle() {
-		return valorDetalle;
-	}
-
-	public void setValorDetalle(String valorDetalle) {
-		this.valorDetalle = valorDetalle;
-	}
-
-	public Detalle getDetalle() {
-		return detalle;
-	}
-
-	public void setDetalle(Detalle detalle) {
-		this.detalle = detalle;
+	
+	//Atributo: codigo
+	public int getCodigo(){
+		return this.codigo;
 	}
 	
+	//Atributo: valor
+	public String getValor() {
+		return valor;
+	}
+
+	//Atributo: codigoDetalle
+	public int getCodigoDetalle() {
+		return codigoDetalle;
+	}
+
+	//Atributo: codigoProducto
+	public int getCodigoProducto() {
+		return codigoProducto;
+	}	
 }

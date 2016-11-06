@@ -1,11 +1,16 @@
 package productos;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import servicio.DetalleServicio;
 
 @Entity 
 @Table(name="categoria")
@@ -22,31 +27,40 @@ public class Categoria {
 	@Column(name="descripcion_categoria")
 	String descripcion;
 	
-	//@OneToMany(cascade= CascadeType.ALL)
-	//@JoinColumn(name="codigo_categoria")
-	//Set<Detalle> detalles = new HashSet<Detalle>();
+	@Column(name="codigo_departamento")
+	int codigoDepartamento;
 	
-	
+	@Transient
+	List<Detalle> detalles;
 	
 	//Constructores. *****************************************
 	public Categoria(){
 		
 	}
 
-	public Categoria(String nombre, String descripcion) {
+	public Categoria(String nombre, String descripcion, int codigoDepartamento) {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
+		this.codigoDepartamento = codigoDepartamento;
 	}
 	
 	//Getters y Setters **************************************
+	
+	//Atributo: codigo
 	public int getCodigo() {
 		return codigo;
 	}
-
-	public void setCodigo(int codigo) {
-		this.codigo = codigo;
+	
+	//Atributo: codigoDepartamento
+	public int getCodigoDepartamento(){
+		return this.codigoDepartamento;
+	}
+	
+	public void setCodigoDepartamento(int codigoDepartamento){
+		this.codigoDepartamento = codigoDepartamento;
 	}
 
+	//Atributo: nombre
 	public String getNombre() {
 		return nombre;
 	}
@@ -55,11 +69,21 @@ public class Categoria {
 		this.nombre = nombre;
 	}
 
+	//Atributo: descripción
 	public String getDescripcion() {
 		return descripcion;
 	}
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+	
+	//Atributo: detalles
+	public List<Detalle> getDetalles(){
+		if(detalles == null){
+			detalles = DetalleServicio.obtenerDetalles(codigo);
+		}
+		return this.detalles;
+		
 	}
 }

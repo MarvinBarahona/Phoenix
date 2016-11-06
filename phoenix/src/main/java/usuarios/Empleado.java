@@ -32,9 +32,6 @@ public class Empleado implements Serializable{
 	@Transient
 	Usuario usuario;
 	
-	@Transient
-	Empresa empresa;
-	
 	//Constructores.*********************************************************
 	public Empleado(){
 		
@@ -110,10 +107,7 @@ public class Empleado implements Serializable{
 	
 	//Atributo: empresa. No se puede modificar a la empresa a partir de sus empleados, solo recuperarse.
 	public Empresa getEmpresa(){
-		if(empresa == null){
-			empresa = EmpresaServicio.buscarPorId(codigoEmpresa);
-		}
-		return empresa;
+		return EmpresaServicio.buscarPorId(codigoEmpresa);
 	}
 	
 	//Otro métodos. *****************************************************************

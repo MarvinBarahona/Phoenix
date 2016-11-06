@@ -13,23 +13,47 @@
 </head>
 <body>
 	
+	<label for="sitio">Ir a: </label>
+	<input type="text" id="sitio">
+	<br/>
+	<br/>
+	<input type="button" id="boton" onclick="consultaJSP()" value="Consultar JSP">
+	
+	<br/>
+	<br/>
+	<br/>
+	
 	<label for="selecion">Opción: </label>
 	<select id="selection">
-		<option value="0">Ubicación (id)</option>
-		<option value="1">Usuario (id)</option>
-		<option value="2">Usuario(correo)</option>
-		<option value="3">Cliente(id)</option>
-		<option value="4">Cliente(correo)</option>
-		<option value="5">Empleado(id)</option>
-		<option value="6">Empleado(correo)</option>
-		<option value="7">Usuario del cliente(id)</option>
-		<option value="8">Usuario del empleado(id)</option>
-		<option value="9">Empresa(id)</option>
-		<option value="10">Empresa del empleado(id)</option>
-		<option value="11">Gerente General de empresa(id)</option>
-		<option value="12">Gerente Ventas de empresa(id)</option>
-		<option value="13">Gerente Inventario de empresa(id)</option>
-		<option value="14">Ubicacion de empresa(id)</option>
+		<optgroup label="Paquete usuarios">
+			<option value="0">Ubicación (id)</option>
+			<option value="1">Usuario (id)</option>
+			<option value="2">Usuario(correo)</option>
+			<option value="3">Cliente(id)</option>
+			<option value="4">Cliente(correo)</option>
+			<option value="5">Empleado(id)</option>
+			<option value="6">Empleado(correo)</option>
+			<option value="7">Usuario del cliente(id)</option>
+			<option value="8">Usuario del empleado(id)</option>
+			<option value="9">Empresa(id)</option>
+			<option value="10">Empresa del empleado(id)</option>
+			<option value="11">Gerente General de empresa(id)</option>
+			<option value="12">Gerente Ventas de empresa(id)</option>
+			<option value="13">Gerente Inventario de empresa(id)</option>
+			<option value="14">Ubicacion de empresa(id)</option>
+		</optgroup>
+		<optgroup label="Paquete productos">
+			<option value="15">Departamento(id)</option>
+			<option value="16">Categoria(id)</option>
+			<option value="17">Detalle(id)</option>
+			<option value="18">Categorias de departamento(id)</option>
+			<option value="19">Detalles de categoria(id)</option>
+			<option value="20">Producto(id)</option>
+			<option value="21">Productos de empresa(id)</option>
+			<option value="22">Producto disponibles de empresa(id)</option>
+			<option value="23">Productos de empresa(id) en dep 1 cat 2</option>
+			<option value="24">Productos de dep 1 en empresa(id)</option>
+		</optgroup>
 	</select>
 	<br/>
 	<br/>
@@ -50,11 +74,20 @@
 	<br/>
 	<label for="selection2">Tabla:</label>
 	<select id="selection2">
-		<option value="0">Ubicacion</option>
-		<option value="1">Usuario</option>
-		<option value="2">Cliente</option>
-		<option value="3">Empleado</option>
-		<option value="4">Empresa</option>
+		<optgroup label="Paquete usuarios">
+			<option value="0">Ubicacion</option>
+			<option value="1">Usuario</option>
+			<option value="2">Cliente</option>
+			<option value="3">Empleado</option>
+			<option value="4">Empresa</option>
+		</optgroup>
+		<optgroup label="Paquete productos">
+			<option value="5">Departamento</option>
+			<option value="6">Categoria</option>
+			<option value="7">Detalle</option>
+			<option value="8">Producto</option>
+		</optgroup>
+		
 	</select>
 	<br/>
 	<br/>
@@ -63,7 +96,35 @@
 	<br/>
 	<textarea rows="7" cols="150" id="output2"></textarea>
 	
+	<!-- <br/>
+	<br/>
+	<br/>
+	<label for="selection3">Accion:</label>
+	<select id="selection3">
+		<option value="0">Producto</option>
+		<option value="1">Actualizar de ventas</option>
+		<option value="2">Actualizar de inventario</option>
+		<option value="3">Actualizar existencias</option>
+	</select>
+	<br/>
+	<br/>
+	<input type="button" id="btn3" onclick="crear()" value="Crear">
+	<br/>
+	<br/>
+	<textarea rows="7" cols="150" id="output3"></textarea> -->
+	
 	<script>
+		function consultaJSP(){
+			$.redirect(
+				"testJSP.html",
+				{
+					sitio: $('#sitio').val()
+				}, 
+				"POST",
+				"_blank"
+			);
+		}
+	
 		function consulta(){
 			$("#output").val("");
 			$.ajax({
@@ -92,6 +153,21 @@
 				
 				success: function(resp){
 					$('#output2').val(resp);
+				}
+			});
+		}
+		
+		function crear(){
+			$('#output3').val("");
+			$.ajax({
+				type: "POST",
+				url: "testAjax3.html", 
+				data:{
+					selection: $('#selection3').val()
+				},
+				
+				success: function(resp){
+					$('#output3').val(resp);
 				}
 			});
 		}

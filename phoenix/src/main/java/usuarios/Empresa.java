@@ -1,6 +1,7 @@
 package usuarios;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -11,6 +12,7 @@ import javax.persistence.Transient;
 
 import servicio.EmpleadoServicio;
 import servicio.EmpresaServicio;
+import servicio.ProductoServicio;
 import servicio.UbicacionServicio;
 import productos.Producto;
 
@@ -164,6 +166,7 @@ public class Empresa implements Serializable{
 		return gerenteVentas;
 	}
 	
+	//Atributo: gerenteInventario
 	public Empleado getGerenteInventario(){
 		if(gerenteInventario == null){
 			gerenteInventario = EmpleadoServicio.buscarPorEmpresa(getCodigo(), TipoEmpleado.gerenteInventario);
@@ -171,11 +174,45 @@ public class Empresa implements Serializable{
 		return gerenteInventario;
 	}
 	
+	//Atributo: productos
+	//Solo se usará una de las dos posibilidades de gestionar a la vez, si se usan ambas solo se cumple la primera (porque almacena resultado)
+	public List<Producto> getProductos(boolean gestionar){
+		if(productos == null){
+			productos = ProductoServicio.obtenerProductos(codigo, gestionar);
+		}
+		
+		return productos;
+	}
+	
 	//**Falta la lista de productos**
 	
 	//Otros métodos. ****************************************************************************
 	
+	//Actualiza este empleado; registra los cambios hechos con los metodos set. 
 	public int actualizar(){
 		return EmpresaServicio.actualizar(this);
+	}	
+	
+	public List<Producto> getProductos(int codigoDepartamento, int codigoCategoria){
+		List<Producto> r = new ArrayList<Producto>(); 
+		getProductos(false);
+		for(Producto p : productos){
+			if(p.getCodigoCategoria() == codigoCategoria && p.getCodigoDepartamento() == codigoDepartamento){
+				r.add(p);
+			}
+		}		
+		return r;
 	}
+	
+	public List<Producto> getProductos(int codigoDepartamento){
+		List<Producto> r = new ArrayList<Producto>(); 
+		getProductos(false);
+		for(Producto p : productos){
+			if(p.getCodigoDepartamento() == codigoDepartamento){
+				r.add(p);
+			}
+		}		
+		return r;
+	}
+	
 }

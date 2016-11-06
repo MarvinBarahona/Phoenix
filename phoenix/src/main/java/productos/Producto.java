@@ -1,13 +1,16 @@
 package productos;
-import javax.persistence.CascadeType;
+
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import servicio.ProductoServicio;
 
 @Entity
 @Table(name="producto")
@@ -17,6 +20,15 @@ public class Producto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "codigo_producto")
 	int codigo;
+	
+	@Column(name = "codigo_categoria")
+	int codigoCategoria;
+	
+	@Column(name = "codigo_departamento")
+	int codigoDepartamento;
+	
+	@Column(name = "codigo_empresa")
+	int codigoEmpresa;
 	
 	@Column(name = "nombre_producto")
 	String nombre;
@@ -31,43 +43,61 @@ public class Producto {
 	int existencias;
 	
 	@Column(name = "descuento")
-	int descuento;
-	
-	@OneToOne(cascade = CascadeType.ALL)
-	@PrimaryKeyJoinColumn
-	Categoria categoria;
+	int descuento;	
 	
 	@Column(name = "img")
 	String img;
 	
-	//@OneToMany(cascade= CascadeType.ALL)
-    //@JoinColumn(name="codigo_producto")
-	//Set<Detalle> detalles  = new HashSet<Detalle>();
+	@Column(name = "disponible")
+	boolean disponible;
+	
+	@Transient
+	List<DetalleProducto> detalles;
 	
 	//Constructores ************************************
 	public Producto() {
 		
 	}
 	
-	public Producto(String nombre, String descripcion, double precio, int existencias, int descuento, Categoria categoria) {
+	public Producto(String nombre, int existencias, Categoria categoria, int codigoEmpresa) {
 		this.nombre = nombre;
-		this.descripcion = descripcion;
-		this.precio = precio;
-		this.existencias = existencias;
-		this.descuento = descuento;
-		//this.categoria = categoria;
+		this.existencias = existencias; 
+		this.codigoEmpresa = codigoEmpresa;
+		this.codigoCategoria = categoria.getCodigo();
+		this.codigoDepartamento = categoria.getCodigoDepartamento();
 	}
 
 	//Getters y Setters ***********************************
 	
+	//Atributo: codigo
 	public int getCodigo() {
 		return codigo;
 	}
 
-	public void setCodigo(int codigo) {
-		this.codigo = codigo;
+	//Atributo: codigoEmpresa
+	public int getCodigoEmpresa() {
+		return codigoEmpresa;
 	}
-
+	
+	//Atributo:codigoDepartamento
+	public int getCodigoDepartamento(){
+		return this.codigoDepartamento;
+	}
+	
+	public void setCodigoDepartamento(int codigoDepartamento){
+		this.codigoDepartamento = codigoDepartamento;
+	}
+	
+	//Atributo: codigoCategoria
+	public int getCodigoCategoria() {
+		return codigoCategoria;
+	}
+	
+	public void setCodigoCategoria(int codigoCategoria){
+		this.codigoCategoria = codigoCategoria;
+	}
+	
+	//Atributo: nombre
 	public String getNombre() {
 		return nombre;
 	}
@@ -76,6 +106,7 @@ public class Producto {
 		this.nombre = nombre;
 	}
 
+	//Atributo: descripción
 	public String getDescripcion() {
 		return descripcion;
 	}
@@ -84,6 +115,7 @@ public class Producto {
 		this.descripcion = descripcion;
 	}
 
+	//Atributo: precio
 	public double getPrecio() {
 		return precio;
 	}
@@ -92,6 +124,7 @@ public class Producto {
 		this.precio = precio;
 	}
 
+	//Atributo: existencias.
 	public int getExistencias() {
 		return existencias;
 	}
@@ -100,6 +133,7 @@ public class Producto {
 		this.existencias = existencias;
 	}
 
+	//Atributo: descuento
 	public int getDescuento() {
 		return descuento;
 	}
@@ -108,11 +142,35 @@ public class Producto {
 		this.descuento = descuento;
 	}
 
-	public Categoria getCategoria() {
-		return categoria;
+	//Atributo: img
+	public String getImg() {
+		return img;
 	}
 
-	public void setCategoria(Categoria categoria) {
-		this.categoria = categoria;
+	public void setImg(String img) {
+		this.img = img;
 	}
+
+	//Atributo: disponible
+	public boolean isDisponible() {
+		return disponible;
+	}
+
+	public void setDisponible(boolean disponible) {
+		this.disponible = disponible;
+	}
+
+	//Otros métodos
+	public int actualizarInventario(String nombre, Categoria categoria, boolean disponible){
+		return ProductoServicio.actualizarInventario(this, nombre, categoria, disponible);
+	}
+	
+	public int actualizarExistencias(boolean aumentar, int cantidad){
+		return ProductoServicio.actualizarExistencias(this, aumentar, cantidad);
+	}
+	
+	public int actualizarVentas(String descripcion, double precio, int descuento){
+		return ProductoServicio.actualizarVentas(this, descripcion, precio, descuento);
+	}
+	
 }

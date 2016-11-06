@@ -9,14 +9,21 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import productos.Categoria;
+import productos.Departamento;
+import servicio.CategoriaServicio;
 import servicio.ClienteServicio;
+import servicio.DepartamentoServicio;
+import servicio.DetalleServicio;
 import servicio.EmpleadoServicio;
 import servicio.EmpresaServicio;
+import servicio.ProductoServicio;
 import servicio.UbicacionServicio;
 import servicio.UsuarioServicio;
 import usuarios.Cliente;
 import usuarios.Empleado;
 import usuarios.Empresa;
+
 import com.google.appengine.repackaged.com.google.gson.Gson;
 
 @Controller
@@ -28,6 +35,13 @@ public class TestMapeo {
 	@RequestMapping(value="/test")
 	public ModelAndView test(){
 		ModelAndView model = new ModelAndView("test");
+		return model;
+	}
+	
+	@RequestMapping(value="testJSP")
+	public ModelAndView testJSP(){
+		String jsp = request.getParameter("sitio");
+		ModelAndView model = new ModelAndView(jsp);
 		return model;
 	}
 	
@@ -43,6 +57,8 @@ public class TestMapeo {
 		Empleado empl;
 		//Usuario u;
 		Empresa empr;
+		Departamento dep;
+		Categoria cat;
 		
 		try{
 					
@@ -111,6 +127,52 @@ public class TestMapeo {
 				empr = EmpresaServicio.buscarPorId(id);
 				resp = empr.getUbicacion();
 				break;
+			case "15":
+				id = Integer.parseInt(idString);
+				resp = DepartamentoServicio.buscarPorId(id);
+				break;
+			case "16":
+				id = Integer.parseInt(idString);
+				resp = CategoriaServicio.buscarPorId(id);
+				break;
+			case "17":
+				id = Integer.parseInt(idString);
+				resp = DetalleServicio.buscarPorId(id);
+				break;
+			case "18":
+				id = Integer.parseInt(idString);
+				dep = DepartamentoServicio.buscarPorId(id);
+				resp = dep.getCategorias();
+				break;
+			case "19":
+				id = Integer.parseInt(idString);
+				cat = CategoriaServicio.buscarPorId(id);
+				resp = cat.getDetalles();
+				break;
+			case "20":
+				id = Integer.parseInt(idString);
+				resp = ProductoServicio.buscarPorId(id);
+				break;
+			case "21":
+				id = Integer.parseInt(idString);
+				empr = EmpresaServicio.buscarPorId(id);
+				resp = empr.getProductos(true);
+				break;
+			case "22":
+				id = Integer.parseInt(idString);
+				empr = EmpresaServicio.buscarPorId(id);
+				resp = empr.getProductos(false);
+				break;
+			case "23":
+				id = Integer.parseInt(idString);
+				empr = EmpresaServicio.buscarPorId(id);
+				resp = empr.getProductos(1, 1);
+				break;
+			case "24":
+				id = Integer.parseInt(idString);
+				empr = EmpresaServicio.buscarPorId(id);
+				resp = empr.getProductos(1);
+				break;
 			default:
 				resp = "No implementado!";
 				break;				
@@ -133,9 +195,6 @@ public class TestMapeo {
 	public @ResponseBody String testAjax2(){
 		Object resp = null;
 		
-		//Ubicacion u = UbicacionServicio.guardar("pruebaP", "pruebaC", "pruebaD", "pruebaZ");
-		//resp = u.getCodigo();
-		
 		String selec = request.getParameter("selection");
 		
 					
@@ -154,6 +213,18 @@ public class TestMapeo {
 			break;
 		case "4":
 			resp = EmpresaServicio.obtenerEmpresas();
+			break;
+		case "5":
+			resp = DepartamentoServicio.obtenerDepartamentos();
+			break;
+		case "6":
+			resp = CategoriaServicio.obtenerCategorias();
+			break;
+		case "7":
+			resp = DetalleServicio.obtenerDetalles();
+			break;
+		case "8":
+			resp = ProductoServicio.obtenerProductos();
 			break;
 		default:
 			resp = "No implementado!";

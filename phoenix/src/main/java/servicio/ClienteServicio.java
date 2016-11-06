@@ -16,7 +16,7 @@ import usuarios.Usuario;
 public class ClienteServicio {
 	
 	//Guarda un cliente con su ubicación
-	public static Cliente guardar(String correo, String contra, String nom, String apell, String tarjeta,
+	public static Cliente crear(String correo, String contra, String nom, String apell, String tarjeta,
 			String paypal, String pais, String ciudad, String direccion, String zip) throws Exception{
 		
 		Cliente c = null;
