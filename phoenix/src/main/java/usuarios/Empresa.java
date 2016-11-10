@@ -1,7 +1,6 @@
 package usuarios;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -40,18 +39,6 @@ public class Empresa implements Serializable{
 	
 	@Transient
 	Ubicacion ubicacion;
-	
-	@Transient
-	Empleado gerenteGeneral;
-	
-	@Transient
-	Empleado gerenteVentas;
-	
-	@Transient
-	Empleado gerenteInventario;
-	
-	@Transient
-	List<Producto> productos;
 	
 	//Constructores***********************************************************
 	
@@ -96,8 +83,8 @@ public class Empresa implements Serializable{
 	}
 
 	//Atributo: img
-	public String getImg() {
-		return UploadURL.getImageURL(img);
+	public String getImg(String servername) {
+		return UploadURL.getImageURL(img, servername);
 	}
 
 	public void setImg(String img) {
@@ -153,36 +140,23 @@ public class Empresa implements Serializable{
 	
 	//Atributo: gerenteGeneral
 	public Empleado getGerenteGeneral(){
-		if(gerenteGeneral == null){
-			gerenteGeneral = EmpleadoServicio.buscarPorEmpresa(getCodigo(), TipoEmpleado.gerenteGeneral);
-		}
-		return gerenteGeneral;
+		return EmpleadoServicio.buscarPorEmpresa(getCodigo(), TipoEmpleado.gerenteGeneral);
 	}
 	
 	//Atributo: gerenteVentas
 	public Empleado getGerenteVentas(){
-		if(gerenteVentas == null){
-			gerenteVentas = EmpleadoServicio.buscarPorEmpresa(getCodigo(), TipoEmpleado.gerenteVentas);
-		}
-		return gerenteVentas;
+		return EmpleadoServicio.buscarPorEmpresa(getCodigo(), TipoEmpleado.gerenteVentas);
 	}
 	
 	//Atributo: gerenteInventario
 	public Empleado getGerenteInventario(){
-		if(gerenteInventario == null){
-			gerenteInventario = EmpleadoServicio.buscarPorEmpresa(getCodigo(), TipoEmpleado.gerenteInventario);
-		}
-		return gerenteInventario;
+		return EmpleadoServicio.buscarPorEmpresa(getCodigo(), TipoEmpleado.gerenteInventario);
 	}
 	
 	//Atributo: productos
 	//Solo se usará una de las dos posibilidades de gestionar a la vez, si se usan ambas solo se cumple la primera (porque almacena resultado)
-	public List<Producto> getProductos(boolean gestionar){
-		if(productos == null){
-			productos = ProductoServicio.obtenerProductos(codigo, gestionar);
-		}
-		
-		return productos;
+	public List<Producto> getProductos(boolean gestionar){		
+		return  ProductoServicio.obtenerProductos(getCodigo(), gestionar);
 	}
 	
 	//**Falta la lista de productos**
@@ -195,25 +169,11 @@ public class Empresa implements Serializable{
 	}	
 	
 	public List<Producto> getProductos(int codigoDepartamento, int codigoCategoria){
-		List<Producto> r = new ArrayList<Producto>(); 
-		getProductos(false);
-		for(Producto p : productos){
-			if(p.getCodigoCategoria() == codigoCategoria && p.getCodigoDepartamento() == codigoDepartamento){
-				r.add(p);
-			}
-		}		
-		return r;
+		return ProductoServicio.obtenerProductos(getCodigo(), codigoDepartamento, codigoCategoria);
 	}
 	
 	public List<Producto> getProductos(int codigoDepartamento){
-		List<Producto> r = new ArrayList<Producto>(); 
-		getProductos(false);
-		for(Producto p : productos){
-			if(p.getCodigoDepartamento() == codigoDepartamento){
-				r.add(p);
-			}
-		}		
-		return r;
+		return ProductoServicio.obtenerProductos(getCodigo(), codigoDepartamento);
 	}
 	
 }

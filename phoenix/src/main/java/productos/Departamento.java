@@ -8,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import servicio.CategoriaServicio;
 
@@ -26,10 +25,7 @@ public class Departamento {
 	
 	@Column(name = "descripcion_departamento")
 	String descripcion;
-	
-	@Transient
-	List<Categoria> categorias; 
-	
+		
 	
 	//Constructores. *****************************************
 	public Departamento(){
@@ -68,9 +64,6 @@ public class Departamento {
 	
 	//Atributo: categorias
 	public List<Categoria> getCategorias(){
-		if(categorias == null){
-			categorias = CategoriaServicio.obtenerCategorias(codigo);
-		}
-		return this.categorias;
+		return CategoriaServicio.obtenerCategorias(codigo);
 	}
 }

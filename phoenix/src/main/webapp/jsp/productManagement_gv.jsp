@@ -106,19 +106,9 @@
             <input type="number" class="form-control" name="descuento" id="descuento" placeholder="Valores de 0 a 100" min="0" max="100" step="5">
           </div>
         </div><br>
-        
-        <div class="from-group">
-          <label class="control-label col-sm-3" for="imagen">Imagen:</label>
-          <div class="col-sm-7">
-            <div class="form-group">
-              <input type="file" id="imagen_url" name="imagen_url" />
-              <img alt="Imagen del producto" id="img_destino" src="#"/>
-            </div>
-          </div>
-        </div><br/>
 
         <div class="form-group">
-          <div class="col-sm-offset-2 col-sm-10 botones">
+          <div class="col-sm-offset-2 col-sm-7 botones">
             <button type="button" class="btn btn-default" id="btnGuardar">Guardar</button>
             <button type="button" class="btn btn-default" disabled>Modificar</button>
           </div>
@@ -193,7 +183,6 @@
         });
       </script>
       
-      <script type="text/javascript" src="${jsControl}guardarImagen.js"></script>
       <script type="text/javascript" src="${jsControl}productManagement_gv.js"></script>
 
   </body>

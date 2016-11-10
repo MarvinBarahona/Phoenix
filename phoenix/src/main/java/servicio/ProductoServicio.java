@@ -115,4 +115,29 @@ public class ProductoServicio {
 		
 		return criteria.list();
 	}
+	
+	//Retorna los productos disponibles de una empresa dentro de un departamento dado. (Todo a través de sus id)
+	@SuppressWarnings("unchecked")
+	public static List<Producto> obtenerProductos(int codigoEmpresa, int departamento){
+		final Session session = Sesion.getSession();
+		Criteria criteria = session.createCriteria(Producto.class);
+		criteria.add(Restrictions.eq("codigoEmpresa", codigoEmpresa));
+		criteria.add(Restrictions.eq("codigoDepartamento", departamento));
+		criteria.add(Restrictions.eq("disponible", true));
+		
+		return criteria.list();
+	}
+	
+	//Retorna los productos disponibles de una empresa dentro de un departamento y categoria dado. (Todo a través de sus id)
+		@SuppressWarnings("unchecked")
+		public static List<Producto> obtenerProductos(int codigoEmpresa, int departamento, int categoria){
+			final Session session = Sesion.getSession();
+			Criteria criteria = session.createCriteria(Producto.class);
+			criteria.add(Restrictions.eq("codigoEmpresa", codigoEmpresa));
+			criteria.add(Restrictions.eq("codigoDepartamento", departamento));
+			criteria.add(Restrictions.eq("codigoCategoria", categoria));
+			criteria.add(Restrictions.eq("disponible", true));
+			
+			return criteria.list();
+		}
 }

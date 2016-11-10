@@ -7,7 +7,19 @@ public class UploadURL {
 		return BlobstoreServiceFactory.getBlobstoreService().createUploadUrl("/subirImagen.html");
 	}
 	
-	public static String getImageURL(String blobkey){
-		return "http://localhost:8080/imagenServicio?blob-key=" + blobkey + '"';
+	public static String getImageURL(String blobkey, String servername){
+		String url;
+		
+		if(blobkey == null || blobkey == ""){
+			blobkey = "aPFZxqqadGndlqY17jnItg";
+		}
+		
+		if("localhost".equals(servername)){
+			url = "http://localhost:8080/imagenServicio?blob-key=" + blobkey + '"';
+		}
+		else{
+			url = "http://" + servername + "/imagenServicio?blob-key=" + blobkey + '"';
+		}
+		return url;	
 	}
 }

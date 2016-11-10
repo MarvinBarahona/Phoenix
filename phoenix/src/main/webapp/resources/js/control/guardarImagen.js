@@ -1,5 +1,5 @@
 //Guarda una imagen seleccionada dentro del jsp. 
-//Para usar, colocar un input type='file' con el id='imagen_url'.
+//Para usar, colocar un input type='file' con el id='file_url'.
 
 //Agregar parametros para decidir dónde guardar el atributo img. 
 function guardarImagen(){
@@ -10,7 +10,7 @@ function guardarImagen(){
 		success: function(resp){
 			r = JSON.parse(resp)
 			
-			var inputFileImage = $('#imagen_url')[0];
+			var inputFileImage = $('#file_url')[0];
 			var file = inputFileImage.files[0];
 			
 			var data = new FormData();

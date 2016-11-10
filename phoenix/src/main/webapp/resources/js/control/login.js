@@ -26,7 +26,7 @@ function login(){
 	        		switch(r.tipoEmpleado){
 	        		
 	        		case "gerenteGeneral":
-	        			redirectLogin("Es un gerenteGeneral pero no está implmentado todavia xD!"); //Cambiar!!
+	        			redirectLogin("Es un gerenteGeneral pero no está implementado todavia xD!"); //Cambiar!!
 	        			break;
 	        			
 	        		case "gerenteVentas":
@@ -60,9 +60,6 @@ function redirectLogin(mensaje){
 function redirectVentas(){
 	$.redirect(
 		"product_gv.html",
-		{
-			email: $('#loginEmail').val()
-		},
 		"POST"
 	);
 }
@@ -71,9 +68,6 @@ function redirectVentas(){
 function redirectInventario(){
 	$.redirect(
 		"product_gi.html",
-		{
-			email: $('#loginEmail').val()
-		},
 		"POST"
 	);
 }
