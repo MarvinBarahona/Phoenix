@@ -8,7 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import productos.Departamento;
-import sesion.Sesion;
+import util.Sesion;
 
 public class DepartamentoServicio {
 	

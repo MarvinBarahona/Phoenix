@@ -1,4 +1,4 @@
-package sesion;
+package util;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -20,7 +20,7 @@ public class Sesion {
 	}
 	
 	public static void getSessions(){
-		if(sessions == null){
+		if(sessions == null || sessions.isClosed()){
 			Configuration cfg = new Configuration()
 
 			//Clases mapeadas
@@ -44,16 +44,6 @@ public class Sesion {
 			.setProperty("hibernate.connection.pool_size","1")
 			.setProperty("hibernate.current_session_context_class","thread")
 			.setProperty("hibernate.temp.use_jdbc_metadata_defaults","false");
-
-			//Configuración del pool.
-	        /*.setProperty("hibernate.c3p0.min_size", "1")
-	        .setProperty("hibernate.c3p0.max_size", "32")
-	        .setProperty("hibernate.c3p0.initialPoolSize", "1")
-	        .setProperty("hibernate.c3p0.timeout", "5000")
-	        .setProperty("hibernate.c3p0.acquire_increment", "1")
-	        .setProperty("hibernate.c3p0.max_statements", "50")
-	        .setProperty("hibernate.c3p0.idle_test_period", "300")
-	        .setProperty("hibernate.c3p0.numHelperThreads", "4");*/
 
 			sessions = cfg.buildSessionFactory();
 		}

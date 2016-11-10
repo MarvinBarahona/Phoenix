@@ -17,6 +17,7 @@ import usuarios.TipoUsuario;
 import usuarios.Usuario;
 
 import com.google.appengine.repackaged.com.google.gson.Gson;
+import com.google.appengine.repackaged.com.google.gson.JsonObject;
 
 @Controller
 @EnableWebMvc
@@ -28,7 +29,7 @@ public class LoginController {
 	@PostMapping( value="/login", headers="Accept=*/*", produces="application/json")	
 	public @ResponseBody String login(){
 		//Ver clase "Respuesta.java"
-		Respuesta resp = new Respuesta();
+		JsonObject resp = new JsonObject();
 		
 		//Recupera los parámetros enviados. 
 		String email = request.getParameter("email");
@@ -39,17 +40,17 @@ public class LoginController {
 		
 		//Arma la respuesta.
 		if(user == null){
-			resp.setMsg("fracaso");
+			resp.addProperty("msg", "fracaso");
 		}
 		else{
-			resp.setMsg("exito");
+			resp.addProperty("msg", "exito");
 			//Si es exito, devuelve el tipo de usuario.
-			resp.setTipoUsuario(user.getTipoUsuario().toString());
+			resp.addProperty("tipoUsuario", user.getTipoUsuario().toString());
 			
 			//Si es empleado, devuelve el tipo de empleado.
 			if(user.getTipoUsuario().equals(TipoUsuario.empleado)){
 				Empleado emp = EmpleadoServicio.buscarPorId(user.getCodigo());
-				resp.setTipoEmpleado(emp.getTipoEmpleado().toString());
+				resp.addProperty("tipoEmpleado", emp.getTipoEmpleado().toString());
 			}
 		}
 		

@@ -18,7 +18,7 @@
 	<c:set var="img">../resources/img/</c:set>
 
     <!--  Favicon -->
-    <link rel="icon" type="image/png" href="${img}]favicon.png" />
+    <link rel="icon" type="image/png" href="${img}favicon.png" />
     <!--  Fonts  -->
     <link href="https://fonts.googleapis.com/css?family=Allerta+Stencil|Nobile:700i|Noto+Sans" rel="stylesheet">
 
@@ -41,11 +41,11 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand"><img src="${img}no-image.jpg" alt="'Empresa'" class="logo"/></a>
+          <a class="navbar-brand"><img src="${imagenEmpresa}" alt="${nombreEmpresa}" class="logo"/></a>
         </div>
         <div class="collapse navbar-collapse" id="myNavbarE">
           <ul class="nav navbar-nav">
-            <li><a>'Nombre de la empresa'</a></li>
+            <li><a>${nombreEmpresa}</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
@@ -77,7 +77,7 @@
 
     <!--  Contenido -->
     <section class="col-md-9">
-      <form action="guardar_empresaProv" class="form-horizontal formularios">
+      <form action="" class="form-horizontal formularios">
         <legend>Productos</legend>
         <div class="from-group">
           <label class="control-label col-sm-3" for="producto">Producto:</label>
@@ -106,11 +106,21 @@
             <input type="number" class="form-control" name="descuento" id="descuento" placeholder="Valores de 0 a 100" min="0" max="100" step="5">
           </div>
         </div><br>
+        
+        <div class="from-group">
+          <label class="control-label col-sm-3" for="imagen">Imagen:</label>
+          <div class="col-sm-7">
+            <div class="form-group">
+              <input type="file" id="imagen_url" name="imagen_url" />
+              <img alt="Imagen del producto" id="img_destino" src="#"/>
+            </div>
+          </div>
+        </div><br/>
 
         <div class="form-group">
           <div class="col-sm-offset-2 col-sm-10 botones">
-            <button type="submit" class="btn btn-default">Guardar</button>
-            <button type="submit" class="btn btn-default" disabled>Modificar</button>
+            <button type="button" class="btn btn-default" id="btnGuardar">Guardar</button>
+            <button type="button" class="btn btn-default" disabled>Modificar</button>
           </div>
         </div>
       </form>
@@ -150,38 +160,41 @@
         } );
       </script>
       <!-- Para desplegar sidebar -->
-        <script type="text/javascript">
-          $(document).ready(function(){
-            $('.menujq > ul > li:has(ul)').addClass('desplegable');
-             $('.menujq > ul > li > a').click(function() {
-               var comprobar = $(this).next();
-               $('.menujq li').removeClass('active');
-               $(this).closest('li').addClass('active');
-               if((comprobar.is('ul')) && (comprobar.is(':visible'))) {
-                  $(this).closest('li').removeClass('active');
-                  comprobar.slideUp('normal');
-               }
-               if((comprobar.is('ul')) && (!comprobar.is(':visible'))) {
-                  $('.menujq ul ul:visible').slideUp('normal');
-                  comprobar.slideDown('normal');
-               }
-            });
-            $('.menujq > ul > li > ul > li:has(ul)').addClass('desplegable');
-             $('.menujq > ul > li > ul > li > a').click(function() {
-               var comprobar = $(this).next();
-               $('.menujq ul ul li').removeClass('active');
-               $(this).closest('ul ul li').addClass('active');
-               if((comprobar.is('ul ul')) && (comprobar.is(':visible'))) {
-                  $(this).closest('ul ul li').removeClass('active');
-                  comprobar.slideUp('normal');
-               }
-               if((comprobar.is('ul ul')) && (!comprobar.is(':visible'))) {
-                  $('.menujq ul ul ul:visible').slideUp('normal');
-                  comprobar.slideDown('normal');
-               }
-            });
+      <script type="text/javascript">
+        $(document).ready(function(){
+          $('.menujq > ul > li:has(ul)').addClass('desplegable');
+           $('.menujq > ul > li > a').click(function() {
+             var comprobar = $(this).next();
+             $('.menujq li').removeClass('active');
+             $(this).closest('li').addClass('active');
+             if((comprobar.is('ul')) && (comprobar.is(':visible'))) {
+                $(this).closest('li').removeClass('active');
+                comprobar.slideUp('normal');
+             }
+             if((comprobar.is('ul')) && (!comprobar.is(':visible'))) {
+                $('.menujq ul ul:visible').slideUp('normal');
+                comprobar.slideDown('normal');
+             }
           });
-        </script>
+          $('.menujq > ul > li > ul > li:has(ul)').addClass('desplegable');
+           $('.menujq > ul > li > ul > li > a').click(function() {
+             var comprobar = $(this).next();
+             $('.menujq ul ul li').removeClass('active');
+             $(this).closest('ul ul li').addClass('active');
+             if((comprobar.is('ul ul')) && (comprobar.is(':visible'))) {
+                $(this).closest('ul ul li').removeClass('active');
+                comprobar.slideUp('normal');
+             }
+             if((comprobar.is('ul ul')) && (!comprobar.is(':visible'))) {
+                $('.menujq ul ul ul:visible').slideUp('normal');
+                comprobar.slideDown('normal');
+             }
+          });
+        });
+      </script>
+      
+      <script type="text/javascript" src="${jsControl}guardarImagen.js"></script>
+      <script type="text/javascript" src="${jsControl}productManagement_gv.js"></script>
 
   </body>
 </html>

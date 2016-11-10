@@ -7,7 +7,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import sesion.Sesion;
+import util.Sesion;
 import usuarios.Cliente;
 import usuarios.TipoUsuario;
 import usuarios.Ubicacion;

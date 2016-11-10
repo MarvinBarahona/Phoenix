@@ -9,7 +9,7 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 import productos.Categoria;
-import sesion.Sesion;
+import util.Sesion;
 
 public class CategoriaServicio {
 	

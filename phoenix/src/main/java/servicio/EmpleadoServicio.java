@@ -7,7 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
-import sesion.Sesion;
+import util.Sesion;
 import usuarios.Empleado;
 import usuarios.TipoEmpleado;
 import usuarios.Usuario;

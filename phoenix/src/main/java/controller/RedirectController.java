@@ -9,7 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import servicio.EmpleadoServicio;
 import usuarios.Empleado;
-
+import usuarios.Empresa;
 @Controller
 public class RedirectController {
 	@Autowired private HttpServletRequest request;
@@ -32,11 +32,18 @@ public class RedirectController {
 	public ModelAndView viewProduct_gv(){
 		//Recupera el empleado (como un usuario)
 		String email = request.getParameter("email");
+		ModelAndView model = new ModelAndView("productManagement_gv");
+		
+		
 		Empleado emp = EmpleadoServicio.buscarPorCorreo(email);
 		
-		ModelAndView model = new ModelAndView("productManagement_gv");
-		//Asigna el nombre al campo correspondiente en la página.
-		model.addObject("nombre", emp.getNombre() + " " + emp.getApellido());
+		if(emp != null){
+			//Asigna el nombre al campo correspondiente en la página.
+			model.addObject("nombre", emp.getNombre() + " " + emp.getApellido());
+			Empresa e = emp.getEmpresa();
+			model.addObject("imagenEmpresa", e.getImg());
+			model.addObject("nombreEmpresa",e.getNombre());
+		}
 		
 		return model;
 	}

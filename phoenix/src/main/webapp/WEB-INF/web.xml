@@ -15,4 +15,15 @@
 	<welcome-file-list>
     	<welcome-file>index.jsp</welcome-file>
   	</welcome-file-list>
+  	
+  	<!-- Servlet para la recuperación de blobs de app engine (para recuperar imagenes) -->
+  	<servlet>
+  		<servlet-name>ImagenServicio</servlet-name>
+  		<servlet-class>controller.ImagenServicio</servlet-class>
+  	</servlet>
+  	
+  	<servlet-mapping>
+  	<servlet-name>ImagenServicio</servlet-name>
+  	<url-pattern>/imagenServicio</url-pattern>
+  	</servlet-mapping>
 </web-app>

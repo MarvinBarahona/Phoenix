@@ -10,7 +10,7 @@ import org.hibernate.criterion.Restrictions;
 
 import productos.Categoria;
 import productos.Producto;
-import sesion.Sesion;
+import util.Sesion;
 
 public class ProductoServicio {
 	

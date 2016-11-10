@@ -5,7 +5,7 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 
-import sesion.Sesion;
+import util.Sesion;
 import usuarios.Ubicacion;
 
 public class UbicacionServicio {

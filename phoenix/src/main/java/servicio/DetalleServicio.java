@@ -9,7 +9,7 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 import productos.Detalle;
-import sesion.Sesion;
+import util.Sesion;
 
 public class DetalleServicio {
 	//Crea un nuevo detalle dentro de la categoria dada.

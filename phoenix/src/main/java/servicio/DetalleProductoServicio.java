@@ -9,7 +9,7 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 import productos.DetalleProducto;
-import sesion.Sesion;
+import util.Sesion;
 
 public class DetalleProductoServicio {
 	
@@ -34,7 +34,7 @@ public class DetalleProductoServicio {
 	//Buscar un detalle de producto por id.
 	public static DetalleProducto buscarPorId(int codigo){
 		final Session session = Sesion.getSession();
-		DetalleProducto d = session.get(DetalleProducto.class, codigo);
+		DetalleProducto d = (DetalleProducto)session.get(DetalleProducto.class, codigo);
 		return d;
 	}
 	

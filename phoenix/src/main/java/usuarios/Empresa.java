@@ -14,6 +14,7 @@ import servicio.EmpleadoServicio;
 import servicio.EmpresaServicio;
 import servicio.ProductoServicio;
 import servicio.UbicacionServicio;
+import util.UploadURL;
 import productos.Producto;
 
 @SuppressWarnings("serial")
@@ -96,7 +97,7 @@ public class Empresa implements Serializable{
 
 	//Atributo: img
 	public String getImg() {
-		return img;
+		return UploadURL.getImageURL(img);
 	}
 
 	public void setImg(String img) {

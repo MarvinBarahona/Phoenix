@@ -7,7 +7,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import sesion.Sesion;
+import util.Sesion;
 import usuarios.Empleado;
 import usuarios.Empresa;
 import usuarios.TipoEmpleado;
