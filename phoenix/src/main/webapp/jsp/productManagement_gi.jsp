@@ -57,7 +57,7 @@
                   <a href="#"><i class="glyphicon glyphicon-cog"></i> Settings</a>
                 </li>
                 <li class="divider"></li>
-                <li><a href="">
+                <li><a href="#" id="btnLogout">
                   <i class="glyphicon glyphicon-log-out"></i> Logout</a>
                 </li>
     					</ul>
@@ -183,6 +183,7 @@
         } );
       </script>
       
+      <script src="${jsControl}jquery.redirect.js"></script>
       <script type="text/javascript" src="${jsControl}guardarImagen.js"></script>
       <script type="text/javascript" src="${jsControl}productManagement_gi.js"></script>
   </body>

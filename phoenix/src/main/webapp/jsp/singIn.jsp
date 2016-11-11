@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <!DOCTYPE html>
 <html>
   <head>
@@ -10,8 +9,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Phoenix</title>
-    
+    <title>Crear cuenta</title>
+
     <c:set var="css">../resources/css/</c:set>
 	<c:set var="js" >../resources/js/vistas/</c:set>
 	<c:set var="jsControl">../resources/js/control/</c:set>
@@ -27,8 +26,7 @@
 	<script src="${js}jquery.min.js"></script>
     <script src="${js}bootstrap.min.js"></script>
   </head>
-  <body>
-    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+  <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
       <div class="container-fluid">
           <div class="navbar-header">
               <a class="navbar-brand page-scroll" href="/"><span class="glyphicon glyphicon-fire">PHOENIX</span></a>
@@ -38,33 +36,33 @@
     <header class="auxiliar">
         <div class="header-content" >
             <div class="header-content-inner">
-              <h4 class="tituloE">Iniciar sesión</h4>
+              <h4 class="tituloE">Registrarse</h4>
             </div>
             <div class="container-fluid col-sm-6 col-sm-offset-3">
                 <form class="form-horizontal formularios sing">
-                  <span class="error">${msg}</span><!--Si el formato no es correcto-->
+                  <span class="text-info">Gracias por decidir formar parte de nosotros.</span>
+
+                  <label class="control-label col-sm-2" for="nombre">Nombre:</label>
+                  <input type="text" id="nombre" class="form-control" id="nombre" required>
+
+                  <label class="control-label col-sm-2" for="apellido">Apellido:</label>
+                  <input type="text" id="apellido" class="form-control" required>
 
                   <div class="form-group">
                     <label class="control-label col-sm-2" for="e-mail">Correo:</label>
-                    <input type="email" id="loginEmail"class="form-control" placeholder="ejemplo@dominio.com" value="${correo}" required>
+                    <input type="email" id="email" class="form-control" placeholder="ejemplo@dominio.com" required>
                   </div>
 
                   <div class="form-group">
                     <label class="control-label col-sm-2" for="contraseña">Contraseña:</label>
-                    <input type="password" id="password" class="form-control" placeholder="" required>
+                    <input type="password" id="password" class="form-control" required>
                   </div>
-                  <button type="button" class="btn btn-default" id="btnLogin">
+                  <button type="button" class="btn btn-default" id="btnRegistrar">
                     Aceptar
                   </button>
                 </form>
-                <br/>
-                <p><a href="recoverPassword.html">¿Olvidó su contraseña?</a></p>
-                <p><a href="singIn.html">¿No tiene una cuenta?</a></p>
             </div>
         </div><!--/.header-content-->
     </header>
-    
-    <script src="${jsControl}jquery.redirect.js"></script>
-    <script src="${jsControl}login.js"></script>
   </body>
 </html>

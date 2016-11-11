@@ -21,6 +21,10 @@
     <!--  Favicon -->
     <link rel="icon" type="image/png" href="${img}favicon.png" />
     
+    <!--  Fonts  -->
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Rancho&effect=3d-float" rel="stylesheet">
+    
     <link href="${css}bootstrap.min.css" rel="stylesheet">
     <link href="${css}magnific-popup.css" rel="stylesheet">
     <link href="${css}creative.min.css" rel="stylesheet">
@@ -38,7 +42,7 @@
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span> Menú <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand page-scroll" href="#page-top"><span class="glyphicon glyphicon-fire"></span></a>
+                <a class="navbar-brand page-scroll" href="#page-top"><span class="glyphicon glyphicon-fire">PHOENIX</span></a>
             </div>
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -62,27 +66,18 @@
     <header>
         <div class="header-content" >
             <div class="header-content-inner">
-              <div class="col-lg-9 col-lg-offset-3 empresas">
-                <div class="col-lg-3">
-                  <a class="" href="#">
-                    <img class="img-responsive base-orange" src="http://placehold.it/200x200" alt="">
+              <div class="col-md-9 col-md-offset-3 empresas">
+                <!--Bloque a clonar por empresa-->
+                <div class="col-md-3">
+                  <a class="" href="">
+                    <img class="img-responsive base-orange" src="http://placehold.it/150x150" alt="">
                   </a>
                 </div>
-                <div class="col-lg-3">
-                  <a class="" href="#">
-                    <img class="img-responsive base-orange" src="http://placehold.it/200x200" alt="">
-                  </a>
-                </div>
-                <div class="col-lg-3 ">
-                  <a class="" href="#">
-                    <img class="img-responsive base-orange" src="http://placehold.it/200x200" alt="">
-                  </a>
-                </div>
+
               </div>
               <h4 class="tituloE">Ingresa a la empresa de tu preferencia</h4>
             </div>
-        </div>
-
+        </div><!--/.header-content-->
     </header>
 
     <section class="bg-primary" id="phoenix">
@@ -92,7 +87,9 @@
                     <h2 class="section-heading">Phoenix</h2>
                     <hr class="light">
                     <p class="text-faded">
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                      Sitio dedicado a la ayuda constante a las grandes empresas
+                      de tecnologias en la comunicación con sus clientes de una manera organizada y segura.
+                      <span> "<<"En proceso...">>"</span>
                     </p>
                 </div>
             </div>
@@ -101,35 +98,42 @@
 
     <section id="contact">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 text-center">
+            <div class="row  text-center">
+                <div class="col-sm-12 col-sms-offset-4">
                     <h2 class="section-heading">Contáctanos</h2>
                     <hr class="primary">
                     <p>¿Listo para unirte? Dejanos un mensaje y te responderemos tan pronto como sea posible.</p>
                 </div>
 
-                <div class="col-lg-4 col-lg-offset-2 text-center">
+                <div class="col-sm-6 col-sm-offset-3">
                   <form class="form-horizontal formularios">
                     <label class="control-label col-sm-2" for="nombre">Nombre:</label>
-                    <input type="text" class="form-control" id="nombre" placeholder="">
+                    <input type="text" class="form-control" id="nombre" placeholder="Nombre" required>
 
                     <label class="control-label col-sm-2" for="apellido">Apellido:</label>
-                    <input type="text" class="form-control" id="apellido" placeholder="">
+                    <input type="text" class="form-control" placeholder="Apellido" required>
 
                     <div class="form-group">
                       <label class="control-label col-sm-2" for="asunto">Asunto:</label>
-                      <select name="puesto">
+                      <select name="asunto" class="col-sm-6">
                         <option value="solicitud">Solicitar cuenta</option>
                         <option value="opinion">Opinión</option>
                         <option value="consulta">Consulta</option>
                       </select>
                     </div>
 
-                    <label class="control-label col-sm-2" for="e-mail">Correo:</label>
-                    <input type="email" class="form-control" id="email" placeholder="">
+                    <div class="form-group">
+                      <label class="control-label col-sm-2" for="e-mail">Correo:</label>
+                      <input type="email" class="form-control" placeholder="ejemplo@dominio.com" required>
+                    </div>
 
                     <div class="form-group">
-                      <div class="col-sm-offset-2 col-sm-10">
+                      <label class="control-label col-sm-2" for="Mensaje">Comentario</label>
+                      <textarea name="comentario" rows="3" class="col-sm-6"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                      <div class="col-sm-12 col-sm-offset-4">
                         <button type="submit" class="btn btn-default">Enviar</button>
                       </div>
                     </div>
@@ -139,44 +143,53 @@
         </div>
     </section>
 
-    <aside class="bg-dark"></aside>
+    <aside class="bg-dark">
+    </aside>
 
     <footer>
-    	<hr class="primary">
-      	<p>
-        	Logo <a href="https://www.instagram.com/lbtheonly/" target="_blank">@lbtheonly</a>
-      	</p>
+      <hr class="primary">
+      <p>
+        Logo <a href="https://www.instagram.com/lbtheonly/" target="_blank">@lbtheonly</a>
+      </p>
 
-      <p id="copy">NightHawks 2016 ©</p>
+      <p id="copy">© NightHawks 2016</p>
     </footer>
 
     <!--  Contenedor modal: Login-->
     <div class="modal fade" id="modal-container-957470" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-					<h4 class="modal-title" id="myModalLabel">Inicia sesión</h4>
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+								×
+							</button>
+							<h4 class="modal-title" id="myModalLabel">
+								Inicia sesión
+							</h4>
+						</div>
+						<div class="modal-body">
+							<form class="form-horizontal formularios">
+                <input type="email" class="form-control" id="loginEmail" placeholder="Correo electrónico" required>
+                <input type="password" name="name" id="password" class="form-control" placeholder="Contraseña" required>
+              </form>
+              <p><a href="recoverPassword.html">¿Olvidó su contraseña?</a></p>
+
+              <p>¿No tiene una cuenta? <a href="singIn.html"> Cree una</a></p>
+
+						</div>
+
+						<div class="modal-footer">
+
+							<button type="button" class="btn btn-default" data-dismiss="modal" id="btnLogin">
+								Entrar
+							</button>
+						</div>
+					</div>
+
 				</div>
-				<div class="modal-body">
-					<form class="form-horizontal formularios">
-                		<input type="email" id="loginEmail"  class="form-control" placeholder="Correo electrónico" required>
-                		<span class="error">Formato de correo incorrecto</span>		<!--Si el formato no es correcto-->
-                		<input type="password" id="password" name="name" value="" class="form-control" placeholder="Contraseña" required>
-              		</form>
-              		
-              		<p><a href="#">¿Olvidó su contraseña?</a></p>
-              		<p>¿No tiene una cuenta? <a href="#"> Cree una</a></p>
-              	</div>
 
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal" onclick=login()>Entrar</button>
-				</div>
-			</div>
-
-		</div>
-
-	</div><!--/#modal-container-->
+			</div><!--/#modal-container-->
 
     <!-- Plugin JavaScript -->
     <script src="${js}jquery.easing.min.js"></script>

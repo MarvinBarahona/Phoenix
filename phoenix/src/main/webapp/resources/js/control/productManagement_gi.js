@@ -6,3 +6,15 @@ $('#btnGuardar').click(function(){
 	}
 	//guardarDatos();      		
 });
+
+$('#btnLogout').click(function(){
+	$.ajax({
+		url: "logout.html",
+		type: "POST",
+	});
+	
+	$.redirect(
+		"/",
+		"POST"
+	);
+});

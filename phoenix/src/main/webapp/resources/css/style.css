@@ -1,16 +1,17 @@
+/* ==========================================================================
+
+   ========================================================================== */
   html {
     height: 100%;
     box-sizing: border-box;
+    position: relative;
   }
 
   body {
-    width: 100%;
-    position: relative;
-    margin: 0;
-    padding-bottom: 6rem;
-    min-height: 100%;
     font-family: 'PT Sans', sans-serif;
     font-size: 1.2em!important;
+    margin: 0;
+    /*margin-bottom: 50px;mismo alto que footer*/
   }
     .content{margin-top: 5%;   }
 
@@ -21,7 +22,7 @@
       background-image: url(../img/.png);
       border-radius: 0;
     }
-
+    .principal{margin: 0 auto -200px;}
     #myNavbarE a, #myNavbarE .dropdown li a:hover{
       color: white;
     }
@@ -38,8 +39,8 @@
       background: #F2F1F0;
     }
 
-    .modal .fade{
-      background-color: red;
+    #modal-container-957470 .modal-dialog .modal-content{
+      max-width: 500px;
     }
     /*search input*/
     input[type="search"]{
@@ -72,12 +73,11 @@
       right: 0;
       bottom: 0;
       left: 0;
+      height: 50px;
     }
 
     #credito{font-size: 11px}
-    .footer{
-      margin-top: 90%!important;
-    }
+
   .carousel-inner img {
       width: 100%;
       margin: auto;
@@ -163,9 +163,10 @@
     transition: border 0.3s;
     margin-bottom: 10px;
   }
-
+  select{margin-right: 10%;}
   input[type="text"]:focus, input[type="tel"]:focus,
-  input[type="email"]:focus, input[type="search"]:focus{
+  input[type="email"]:focus, input[type="search"]:focus,
+  select.focus{
     outline: none;
     border-bottom: solid 2px #F05F40;
   }

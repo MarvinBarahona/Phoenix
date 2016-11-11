@@ -29,6 +29,21 @@ public class RedirectController {
 		return model;
 	}
 	
+	@RequestMapping(value="singIn")
+	public ModelAndView singIn(){
+		return new ModelAndView("singIn");
+	}
+	
+	@RequestMapping(value="restorePassword")
+	public ModelAndView restorePassword(){
+		return new ModelAndView("restorePassword");
+	}
+	
+	@RequestMapping(value="recoverPassword")
+	public ModelAndView recoverPassword(){
+		return new ModelAndView("recoverPassword");
+	}
+	
 	@RequestMapping("/product_gi")
 	public ModelAndView viewProduct_gi() {
 		HttpSession session = request.getSession();

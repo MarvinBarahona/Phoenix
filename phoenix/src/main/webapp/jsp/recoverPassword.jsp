@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <!DOCTYPE html>
 <html>
   <head>
@@ -10,8 +9,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Phoenix</title>
-    
+    <title>Reestablecer contraseña</title>
+
     <c:set var="css">../resources/css/</c:set>
 	<c:set var="js" >../resources/js/vistas/</c:set>
 	<c:set var="jsControl">../resources/js/control/</c:set>
@@ -38,33 +37,19 @@
     <header class="auxiliar">
         <div class="header-content" >
             <div class="header-content-inner">
-              <h4 class="tituloE">Iniciar sesión</h4>
+              <h4 class="tituloE">Recuperar contraseña</h4>
             </div>
             <div class="container-fluid col-sm-6 col-sm-offset-3">
-                <form class="form-horizontal formularios sing">
-                  <span class="error">${msg}</span><!--Si el formato no es correcto-->
-
-                  <div class="form-group">
-                    <label class="control-label col-sm-2" for="e-mail">Correo:</label>
-                    <input type="email" id="loginEmail"class="form-control" placeholder="ejemplo@dominio.com" value="${correo}" required>
-                  </div>
-
-                  <div class="form-group">
-                    <label class="control-label col-sm-2" for="contraseña">Contraseña:</label>
-                    <input type="password" id="password" class="form-control" placeholder="" required>
-                  </div>
-                  <button type="button" class="btn btn-default" id="btnLogin">
-                    Aceptar
-                  </button>
+                <form class="form-horizontal formularios">
+                  <span class="text-warning">Se enviará al correo electrónico que ingrese un enlace para reestrablecer la contraseña</span>
+                  <input type="email" class="form-control" placeholder="Correo electrónico" required>
+                  <span class="error" id="errorMsg"></span>
                 </form>
-                <br/>
-                <p><a href="recoverPassword.html">¿Olvidó su contraseña?</a></p>
-                <p><a href="singIn.html">¿No tiene una cuenta?</a></p>
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                  Aceptar
+                </button>
             </div>
         </div><!--/.header-content-->
     </header>
-    
-    <script src="${jsControl}jquery.redirect.js"></script>
-    <script src="${jsControl}login.js"></script>
   </body>
 </html>

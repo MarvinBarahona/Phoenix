@@ -25,7 +25,7 @@ public class LoginController {
 	//Para recuperar parámetros.
 	@Autowired private HttpServletRequest request;
 		
-	@PostMapping( value="/login", headers="Accept=*/*", produces="application/json")	
+	@PostMapping(value="/login", headers="Accept=*/*", produces="application/json")	
 	public @ResponseBody String login(){
 		
 		JsonObject resp = new JsonObject();
@@ -61,5 +61,11 @@ public class LoginController {
 		}
 		
 		return new Gson().toJson(resp);
-	}	
+	}
+	
+	@PostMapping(value="/logout")
+	public void logout(){
+		HttpSession session = request.getSession();
+		session.removeAttribute("correo");
+	}
 }
