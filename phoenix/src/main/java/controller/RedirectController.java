@@ -7,11 +7,13 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import servicio.EmpleadoServicio;
 import usuarios.Empleado;
 import usuarios.Empresa;
+import util.Encoder;
 import util.UploadURL;
 @Controller
 public class RedirectController {
@@ -29,19 +31,24 @@ public class RedirectController {
 		return model;
 	}
 	
-	@RequestMapping(value="singIn")
+	@RequestMapping(value="/singIn")
 	public ModelAndView singIn(){
 		return new ModelAndView("singIn");
 	}
 	
-	@RequestMapping(value="restorePassword")
+	@RequestMapping(value="recoverPassword")
 	public ModelAndView restorePassword(){
-		return new ModelAndView("restorePassword");
+		return new ModelAndView("recoverPassword");
 	}
 	
-	@RequestMapping(value="recoverPassword")
+	//Página para recuperar la contra. 
+	@RequestMapping(value="/restorePassword", method=RequestMethod.GET)	
 	public ModelAndView recoverPassword(){
-		return new ModelAndView("recoverPassword");
+		String user = request.getParameter("user");
+		String correo = Encoder.decodificarCorreo(user);		
+		ModelAndView model = new ModelAndView("restorePassword");
+		model.addObject("correo", correo);
+		return model;
 	}
 	
 	@RequestMapping("/product_gi")
@@ -57,6 +64,9 @@ public class RedirectController {
 		//Asigna el nombre al campo correspondiente en la página.
 		if(emp != null){
 			model.addObject("nombre", emp.getNombre() + " " + emp.getApellido());
+			Empresa e = emp.getEmpresa();
+			model.addObject("imagenEmpresa", e.getImg(request.getServerName()));
+			model.addObject("nombreEmpresa", e.getNombre());
 		}		
 		
 		return model;

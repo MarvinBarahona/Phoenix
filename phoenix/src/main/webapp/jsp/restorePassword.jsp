@@ -41,7 +41,7 @@
             </div>
             <div class="container-fluid col-sm-4 col-sm-offset-4">
                 <form class="form-horizontal formularios">
-                  <span class="text-info">Ingrese la nueva contraseña</span>
+                  <span class="text-info">Recuperación de contraseña para el usuario: ${correo}</span>
                   <input type="password" class="form-control" placeholder="Nueva contraseña" required>
                   <input type="password" class="form-control" placeholder="Confirmar contraseña" required>
                   <span class="error">Ambas contraseñas deben coincidir</span><!--Si las contraseñas no coinciden-->

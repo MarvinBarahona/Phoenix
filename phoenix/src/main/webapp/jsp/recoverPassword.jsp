@@ -42,14 +42,18 @@
             <div class="container-fluid col-sm-6 col-sm-offset-3">
                 <form class="form-horizontal formularios">
                   <span class="text-warning">Se enviará al correo electrónico que ingrese un enlace para reestrablecer la contraseña</span>
-                  <input type="email" class="form-control" placeholder="Correo electrónico" required>
+                  <input type="email" id="correo" class="form-control" placeholder="Correo electrónico" required>
                   <span class="error" id="errorMsg"></span>
                 </form>
-                <button type="button" class="btn btn-default" data-dismiss="modal">
+                <button type="button" class="btn btn-default" id="btnAceptar" data-dismiss="modal">
                   Aceptar
                 </button>
             </div>
         </div><!--/.header-content-->
     </header>
+    
+    <script src="${jsControl}validate.js"></script>
+    <script src="${jsControl}recoverPassword.js"></script>
+    
   </body>
 </html>

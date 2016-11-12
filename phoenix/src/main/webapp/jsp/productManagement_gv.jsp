@@ -29,6 +29,7 @@
 
     <script src="${js}jquery.min.js"></script>
     <script src="${js}jquery.dataTables.min.js"></script>
+    <script src="${js}bootstrap.min.js"></script>
   </head>
 
   <body>
@@ -48,17 +49,18 @@
             <li><a>${nombreEmpresa}</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
+
             <li class="dropdown">
     			<a href="#" data-toggle="dropdown" class="dropdown-toggle"><span class="glyphicon glyphicon-user"></span>${nombre}<strong class="caret"></strong></a>
-    				<ul class="dropdown-menu">
-                		<li>
-                  			<a href="#"><i class="glyphicon glyphicon-cog"></i> Settings</a>
-                		</li>
-                		<li class="divider"></li>
-                		<li>
-                			<a href=""><i class="glyphicon glyphicon-log-out"></i> Logout</a>
-                		</li>
-    				</ul>
+    			<ul class="dropdown-menu">
+                	<li>
+                  		<a href="#"><i class="glyphicon glyphicon-cog"></i> Settings</a>
+                	</li>
+                	<li class="divider"></li>
+                	<li><a href="#" id="btnLogout">
+                  		<i class="glyphicon glyphicon-log-out"></i> Logout</a>
+                	</li>
+    			</ul>
     		</li>
           </ul>
         </div>
@@ -183,7 +185,9 @@
         });
       </script>
       
+      <script src="${jsControl}jquery.redirect.js"></script>
       <script type="text/javascript" src="${jsControl}productManagement_gv.js"></script>
+      <script type="text/javascript" src="${jsControl}logout.js"></script>
 
   </body>
 </html>

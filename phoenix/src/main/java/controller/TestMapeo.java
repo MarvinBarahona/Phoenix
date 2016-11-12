@@ -25,6 +25,7 @@ import servicio.UsuarioServicio;
 import usuarios.Cliente;
 import usuarios.Empleado;
 import usuarios.Empresa;
+import util.Encoder;
 
 import com.google.appengine.repackaged.com.google.gson.Gson;
 
@@ -183,6 +184,12 @@ public class TestMapeo {
 				id = Integer.parseInt(idString);
 				p = ProductoServicio.buscarPorId(id);
 				resp = p.getDetalles();
+				break;
+			case "27":
+				resp = Encoder.codificarCorreo(idString);
+				break;
+			case "28":
+				resp = Encoder.decodificarCorreo(idString);
 				break;
 			default:
 				resp = "No implementado!";

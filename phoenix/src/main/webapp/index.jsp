@@ -89,7 +89,7 @@
                     <p class="text-faded">
                       Sitio dedicado a la ayuda constante a las grandes empresas
                       de tecnologias en la comunicación con sus clientes de una manera organizada y segura.
-                      <span> "<<"En proceso...">>"</span>
+                      <span> "En proceso..."</span>
                     </p>
                 </div>
             </div>
@@ -200,6 +200,7 @@
     <script src="${js}creative.min.js"></script>
     
     <script src="${jsControl}jquery.redirect.js"></script>
+    <script src="${jsControl}validate.js"></script>
     <script src="${jsControl}login.js"></script>
 
 </body>

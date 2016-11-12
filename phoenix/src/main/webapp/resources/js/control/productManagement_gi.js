@@ -4,17 +4,5 @@ $('#btnGuardar').click(function(){
 		//Agregar parametros para decidir dónde guardar el atributo img. 
 		guardarImagen();		//Dentro de guardarImagen.js
 	}
-	//guardarDatos();      		
-});
-
-$('#btnLogout').click(function(){
-	$.ajax({
-		url: "logout.html",
-		type: "POST",
-	});
-	
-	$.redirect(
-		"/",
-		"POST"
-	);
+	//guardarDatos();
 });

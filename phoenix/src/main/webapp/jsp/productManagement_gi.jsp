@@ -10,7 +10,7 @@
 	<meta name="description" content="">
     <meta name="author" content="NightHawks">
     
-    <title>Phoenix</title>
+    <title>Phoenix - Gestión</title>
 
     <c:set var="css">../resources/css/</c:set>
 	<c:set var="js" >../resources/js/vistas/</c:set>
@@ -42,11 +42,11 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand"><img src="${img}no-image.jpg" alt="'Empresa'" class="logo"/></a>
+          <a class="navbar-brand"><img src="${imagenEmpresa}" alt="${nombreEmpresa}" class="logo"/></a>
         </div>
         <div class="collapse navbar-collapse" id="myNavbarE">
           <ul class="nav navbar-nav">
-            <li><a>'Nombre de la empresa'</a></li>
+            <li><a>${nombreEmpresa}</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
 
@@ -186,5 +186,6 @@
       <script src="${jsControl}jquery.redirect.js"></script>
       <script type="text/javascript" src="${jsControl}guardarImagen.js"></script>
       <script type="text/javascript" src="${jsControl}productManagement_gi.js"></script>
+      <script type="text/javascript" src="${jsControl}logout.js"></script>
   </body>
 </html>

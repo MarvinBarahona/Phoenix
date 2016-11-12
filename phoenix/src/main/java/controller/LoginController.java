@@ -14,6 +14,7 @@ import servicio.UsuarioServicio;
 import usuarios.Empleado;
 import usuarios.TipoUsuario;
 import usuarios.Usuario;
+import util.EmailAPI;
 
 import com.google.appengine.repackaged.com.google.gson.Gson;
 import com.google.appengine.repackaged.com.google.gson.JsonObject;
@@ -63,9 +64,26 @@ public class LoginController {
 		return new Gson().toJson(resp);
 	}
 	
+	//Logout: quita el atributo de la sesión. 
 	@PostMapping(value="/logout")
 	public void logout(){
 		HttpSession session = request.getSession();
 		session.removeAttribute("correo");
+	}
+	
+	//Para mandar el correo de "contaseña olvidada". 
+	@PostMapping(value="/recuperarContra", headers="Accept=*/*", produces="application/json")
+	public @ResponseBody String recuperarContra(){
+		JsonObject resp = new JsonObject();
+		resp.addProperty("exito", false);
+		
+		String correo = request.getParameter("correo");
+		Usuario user = UsuarioServicio.buscarPorCorreo(correo);
+		if(user != null){
+			EmailAPI.enviarCorreoRecuperacion(user);
+			resp.addProperty("exito", true);
+		}
+		
+		return new Gson().toJson(resp);
 	}
 }

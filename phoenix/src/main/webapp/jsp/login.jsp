@@ -65,6 +65,7 @@
     </header>
     
     <script src="${jsControl}jquery.redirect.js"></script>
+    <script src="${jsControl}validate.js"></script>
     <script src="${jsControl}login.js"></script>
   </body>
 </html>

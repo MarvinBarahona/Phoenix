@@ -56,6 +56,10 @@
 			<option value="25">Detalle(id)</option>
 			<option value="26">Detalles de producto(id)</option>
 		</optgroup>
+		<optgroup label="Decoder">
+			<option value="27">Codificar correo</option>
+			<option value="28">Decodificar correo</option>
+		</optgroup>
 	</select>
 	<br/>
 	<br/>

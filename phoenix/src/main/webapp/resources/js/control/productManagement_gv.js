@@ -1,3 +1,3 @@
 $('#btnGuardar').click(function(){
-	//guardarDatos();      		
+	
 });
