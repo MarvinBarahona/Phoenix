@@ -130,6 +130,11 @@ public class TestMapeo {
 				empr = EmpresaServicio.buscarPorId(id);
 				resp = empr.getUbicacion();
 				break;
+			case "14.5":
+				id = Integer.parseInt(idString);
+				c = ClienteServicio.buscarPorId(id);
+				resp = c.getUbicacion();
+				break;
 			case "15":
 				id = Integer.parseInt(idString);
 				resp = DepartamentoServicio.buscarPorId(id);

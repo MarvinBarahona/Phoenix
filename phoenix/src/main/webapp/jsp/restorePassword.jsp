@@ -46,7 +46,7 @@
                   <span class="text-info" id="correo">${correo}</span>
                   <input type="password" id="contra1" class="form-control" placeholder="Nueva contraseña" required>
                   <input type="password" id="contra2" class="form-control" placeholder="Confirmar contraseña" required>
-                  <span class="error" id="errorMsg"></span>
+                  <span class="error" id="errorMsg">La contraseña es case sensitive!</span>
                 </form>
                 <button type="button" class="btn btn-default" data-dismiss="modal" id="btnAceptar">
                   Reestablecer

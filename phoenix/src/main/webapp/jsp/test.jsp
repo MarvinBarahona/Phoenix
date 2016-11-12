@@ -41,6 +41,7 @@
 			<option value="12">Gerente Ventas de empresa(id)</option>
 			<option value="13">Gerente Inventario de empresa(id)</option>
 			<option value="14">Ubicacion de empresa(id)</option>
+			<option value="14.5">Ubicacion de cliente(id)</option>
 		</optgroup>
 		<optgroup label="Paquete productos">
 			<option value="15">Departamento(id)</option>

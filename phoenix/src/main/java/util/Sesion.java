@@ -31,7 +31,7 @@ public class Sesion {
 			.addAnnotatedClass(usuarios.Usuario.class)
 			.addAnnotatedClass(productos.Categoria.class)
 			.addAnnotatedClass(productos.Departamento.class)
-			.addAnnotatedClass(productos.Detalle.class)
+			.addAnnotatedClass(productos.DetalleCategoria.class)
 			.addAnnotatedClass(productos.DetalleProducto.class)
 			.addAnnotatedClass(productos.Producto.class)
 

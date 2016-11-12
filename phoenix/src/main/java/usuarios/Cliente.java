@@ -22,13 +22,7 @@ public class Cliente implements Serializable{
 	int codigo;
 	
 	@Column (name="codigo_ubicacion")
-    int codigoUbicacion;
-	
-	@Column (name = "tarjeta")
-    String tarjeta;
-
-	@Column (name = "correo_paypal")
-    String correoPayPal;    
+    int codigoUbicacion; 
     
     @Transient
     Usuario usuario;
@@ -44,8 +38,6 @@ public class Cliente implements Serializable{
 
     public Cliente(int codigoUsuario, String tarjeta, String paypal, int ubicacion) {
     	this.codigo = codigoUsuario;
-        this.tarjeta = tarjeta;
-        this.correoPayPal = paypal;
         this.codigoUbicacion = ubicacion;
     }
 
@@ -68,24 +60,6 @@ public class Cliente implements Serializable{
 	public void setCodigoUbicacion(int codigoUbicacion) {
 		this.codigoUbicacion = codigoUbicacion;
 	}
-    
-    //Atributo: tarjeta
-    public String getTarjeta() {
-        return tarjeta;
-    }
-
-    public void setTarjeta(String tarjeta) {
-        this.tarjeta = tarjeta;
-    }
-
-    //Atributo: correoPayPal
-    public String getCorreoPayPal() {
-        return correoPayPal;
-    }
-
-    public void setCorreoPayPal(String correoPayPal) {
-        this.correoPayPal = correoPayPal;
-    }
 	
 	//Otros atributos *********************************************************************
 	

@@ -47,7 +47,7 @@ public class UsuarioServicio {
 			session.update(u);
 			
 			transaction.commit();
-		}catch(HibernateException e){
+		}catch(HibernateException|NullPointerException e ){
 			transaction.rollback();
 			r = 1;
 		}
