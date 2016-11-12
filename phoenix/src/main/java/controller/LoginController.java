@@ -29,9 +29,6 @@ public class LoginController {
 	@PostMapping(value="/login", headers="Accept=*/*", produces="application/json")	
 	public @ResponseBody String login(){
 		
-		JsonObject resp = new JsonObject();
-		HttpSession session = request.getSession();
-		
 		//Recupera los parámetros enviados. 
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
@@ -39,29 +36,7 @@ public class LoginController {
 		//Recupera el usuario
 		Usuario user = UsuarioServicio.validar(email, password);
 		
-		//Arma la respuesta.
-		if(user == null){
-			resp.addProperty("msg", "fracaso");
-		}
-		else{
-			resp.addProperty("msg", "exito");
-			session.setAttribute("correo", user.getCorreo());
-			
-			//Si es exito, devuelve el tipo de usuario.
-			resp.addProperty("tipoUsuario", user.getTipoUsuario().toString());
-			
-			if(user.getTipoUsuario().equals(TipoUsuario.empleado)){
-				//Si es empleado, devuelve el tipo de empleado.
-				Empleado emp = EmpleadoServicio.buscarPorId(user.getCodigo());
-				resp.addProperty("tipoEmpleado", emp.getTipoEmpleado().toString());
-				session.setAttribute("tipo", emp.getTipoEmpleado().toString());
-			}
-			else{
-				session.setAttribute("tipo", "cliente");
-			}
-		}
-		
-		return new Gson().toJson(resp);
+		return new Gson().toJson(obtenerRespuesta(user));
 	}
 	
 	//Logout: quita el atributo de la sesión. 
@@ -85,5 +60,56 @@ public class LoginController {
 		}
 		
 		return new Gson().toJson(resp);
+	}
+	
+	//Para reestablecer la contraseña.
+	@PostMapping(value="/cambiarContra", headers="Accept=*/*", produces="application/json")
+	public @ResponseBody String cambiarContra(){
+		JsonObject resp;
+		
+		String email = request.getParameter("correo");
+		String password = request.getParameter("contra");
+		
+		Usuario u = UsuarioServicio.buscarPorCorreo(email);
+		int r = UsuarioServicio.actualizarContra(u, password);
+		
+		if(r == 1){
+			resp = new JsonObject();
+			resp.addProperty("msg", "error");
+		}
+		else{
+			resp = obtenerRespuesta(u);
+		}
+		
+		return new Gson().toJson(resp);
+	}
+	
+	private JsonObject obtenerRespuesta(Usuario user){
+		JsonObject resp = new JsonObject();
+		HttpSession session = request.getSession();
+		
+		//Arma la respuesta.
+		if(user == null){
+			resp.addProperty("msg", "fracaso");
+		}
+		else{
+			resp.addProperty("msg", "exito");
+			session.setAttribute("correo", user.getCorreo());
+			
+			//Si es exito, devuelve el tipo de usuario.
+			resp.addProperty("tipoUsuario", user.getTipoUsuario().toString());
+			
+			if(user.getTipoUsuario().equals(TipoUsuario.empleado)){
+				//Si es empleado, devuelve el tipo de empleado.
+				Empleado emp = EmpleadoServicio.buscarPorId(user.getCodigo());
+				resp.addProperty("tipoEmpleado", emp.getTipoEmpleado().toString());
+				session.setAttribute("tipo", emp.getTipoEmpleado().toString());
+			}
+			else{
+				session.setAttribute("tipo", "cliente");
+			}
+		}
+		
+		return resp;
 	}
 }

@@ -2,7 +2,7 @@ $('#btnAceptar').click(function(){
 	$('#errorMsg').html("");
 	var correo = $('#correo').val();
 	
-	if(!validateEmail(correo)){
+	if(!validateEmail(correo)){			//En validate.js
 		$('#errorMsg').html("Formato de correo incorrecto!");
 	}
 	else{

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -41,18 +42,22 @@
             </div>
             <div class="container-fluid col-sm-4 col-sm-offset-4">
                 <form class="form-horizontal formularios">
-                  <span class="text-info">Recuperación de contraseña para el usuario: ${correo}</span>
-                  <input type="password" class="form-control" placeholder="Nueva contraseña" required>
-                  <input type="password" class="form-control" placeholder="Confirmar contraseña" required>
-                  <span class="error">Ambas contraseñas deben coincidir</span><!--Si las contraseñas no coinciden-->
+                  <span class="text-info">Recuperación de contraseña para el usuario:</span>
+                  <span class="text-info" id="correo">${correo}</span>
+                  <input type="password" id="contra1" class="form-control" placeholder="Nueva contraseña" required>
+                  <input type="password" id="contra2" class="form-control" placeholder="Confirmar contraseña" required>
+                  <span class="error" id="errorMsg"></span>
                 </form>
-                <button type="button" class="btn btn-default" data-dismiss="modal">
-                  Aceptar
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="btnAceptar">
+                  Reestablecer
                 </button>
             </div>
         </div><!--/.header-content-->
     </header>
 
-
+	<script src="${jsControl}jquery.redirect.js"></script>
+	<script src="${jsControl}validate.js"></script>
+	<script src="${jsControl}login.js"></script>
+    <script src="${jsControl}restorePassword.js"></script>
   </body>
 </html>
