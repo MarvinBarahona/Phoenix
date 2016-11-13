@@ -31,21 +31,35 @@ public class RedirectController {
 		return model;
 	}
 	
-	@RequestMapping(value="/singIn")
-	public ModelAndView singIn(){
-		return new ModelAndView("singIn");
+	@RequestMapping(value="/signIn")
+	public ModelAndView signIn(){
+		return new ModelAndView("signIn");
 	}
 	
-	@RequestMapping(value="recoverPassword")
-	public ModelAndView restorePassword(){
+	@RequestMapping(value="/confirmAccount")
+	public ModelAndView confirmAccount(){
+		String mail = request.getParameter("mail");
+		String name = request.getParameter("name");
+		String lastname = request.getParameter("lastname");
+		
+		ModelAndView model = new ModelAndView("confirmAccount");
+		model.addObject("correo", Encoder.decodificar(mail));
+		model.addObject("nombre", Encoder.decodificar(name));
+		model.addObject("apellido", Encoder.decodificar(lastname));
+		
+		return model;		
+	}
+	
+	@RequestMapping(value="/recoverPassword")
+	public ModelAndView recoverPassword(){
 		return new ModelAndView("recoverPassword");
 	}
 	
 	//Página para recuperar la contra. 
 	@RequestMapping(value="/restorePassword", method=RequestMethod.GET)	
-	public ModelAndView recoverPassword(){
+	public ModelAndView restorePassword(){
 		String user = request.getParameter("user");
-		String correo = Encoder.decodificarCorreo(user);		
+		String correo = Encoder.decodificar(user);		
 		ModelAndView model = new ModelAndView("restorePassword");
 		model.addObject("correo", correo);
 		return model;
@@ -53,20 +67,30 @@ public class RedirectController {
 	
 	@RequestMapping("/product_gi")
 	public ModelAndView viewProduct_gi() {
+		ModelAndView model;
 		HttpSession session = request.getSession();
 		
 		//Recupera el empleado
-		String email = session.getAttribute("correo").toString();
-		Empleado emp = EmpleadoServicio.buscarPorCorreo(email);
+		String email = (String)session.getAttribute("correo");
 		
-		
-		ModelAndView model = new ModelAndView("productManagement_gi");
-		//Asigna el nombre al campo correspondiente en la página.
-		if(emp != null){
-			model.addObject("nombre", emp.getNombre() + " " + emp.getApellido());
-			Empresa e = emp.getEmpresa();
-			model.addObject("imagenEmpresa", e.getImg(request.getServerName()));
-			model.addObject("nombreEmpresa", e.getNombre());
+		if(email == null){
+			model = loginFailed();
+			model.addObject("msg", "Debe iniciar sesión para ingresar a este sitio!");
+		}
+		else{
+			Empleado emp = EmpleadoServicio.buscarPorCorreo(email);			
+			model = new ModelAndView("productManagement_gi");	
+			
+			if(emp != null){
+				//Asigna el nombre al campo correspondiente en la página.
+				model.addObject("nombre", emp.getNombre() + " " + emp.getApellido());
+				Empresa e = emp.getEmpresa();
+				model.addObject("imagenEmpresa", e.getImg(request.getServerName()));
+				model.addObject("nombreEmpresa", e.getNombre());
+			}
+			else{
+				model.addObject("imagenEmpresa", UploadURL.getImageURL("", request.getServerName()));
+			}
 		}		
 		
 		return model;

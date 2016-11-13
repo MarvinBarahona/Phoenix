@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <!DOCTYPE html>
 <html>
   <head>
@@ -10,8 +9,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Phoenix</title>
-    
+    <title>Crear cuenta</title>
+
     <c:set var="css">../resources/css/</c:set>
 	<c:set var="js" >../resources/js/vistas/</c:set>
 	<c:set var="jsControl">../resources/js/control/</c:set>
@@ -27,8 +26,7 @@
 	<script src="${js}jquery.min.js"></script>
     <script src="${js}bootstrap.min.js"></script>
   </head>
-  <body>
-    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+  <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
       <div class="container-fluid">
           <div class="navbar-header">
               <a class="navbar-brand page-scroll" href="/"><span class="glyphicon glyphicon-fire">PHOENIX</span></a>
@@ -37,35 +35,39 @@
     </nav>
     <header class="auxiliar">
         <div class="header-content" >
-            <div class="header-content-inner">
-              <h4 class="tituloE">Iniciar sesión</h4>
-            </div>
             <div class="container-fluid col-sm-6 col-sm-offset-3">
                 <form class="form-horizontal formularios sing">
-                  <span class="error">${msg}</span><!--Si el formato no es correcto-->
+                  <span class="text-info">Confirmación de cuenta: </span>
+                  <span class="text-info" id="correo">${correo}</span>
+                  <span class="text-info" id="nombre">${nombre}</span>
+                  <span class="text-info" id="apellido">${apellido}</span>
 
-                  <div class="form-group">
-                    <label class="control-label col-sm-2" for="e-mail">Correo:</label>
-                    <input type="email" id="loginEmail"class="form-control" placeholder="ejemplo@dominio.com" value="${correo}" required>
-                  </div>
+                  <input type="password" id="contra1" class="form-control" placeholder="Contraseña..." required>
 
-                  <div class="form-group">
-                    <label class="control-label col-sm-2" for="contraseña">Contraseña:</label>
-                    <input type="password" id="password" class="form-control" placeholder="" required>
-                  </div>
-                  <button type="button" class="btn btn-default" id="btnLogin">
-                    Aceptar
+                  <input type="password" id="contra2" class="form-control" placeholder="Confirmar contraseña..." required>
+                  
+                 <input type="text" id="pais" class="form-control" placeholder="Pais..." required>
+         
+                 <input type="text" id="ciudad" class="form-control" placeholder="Ciudad..." required>
+               
+                 <input type="text" id="direccion" class="form-control" placeholder="Dirección..." required>
+               
+                 <input type="text" id="zip" class="form-control" placeholder="Código ZIP..." required>
+                  
+                  <button type="button" class="btn btn-default" id="btnRegistrar">
+                    Registrar
                   </button>
+                  
+                  <span class="error" id="errorMsg"></span>
+                  
                 </form>
-                <br/>
-                <p><a href="recoverPassword.html">¿Olvidó su contraseña?</a></p>
-                <p><a href="signIn.html">¿No tiene una cuenta?</a></p>
             </div>
         </div><!--/.header-content-->
     </header>
     
     <script src="${jsControl}jquery.redirect.js"></script>
+	<script src="${jsControl}login.js"></script>
     <script src="${jsControl}validate.js"></script>
-    <script src="${jsControl}login.js"></script>
+    <script src="${jsControl}confirmAccount.js"></script>
   </body>
 </html>

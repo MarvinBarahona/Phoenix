@@ -36,7 +36,7 @@ public class Cliente implements Serializable{
 
     }
 
-    public Cliente(int codigoUsuario, String tarjeta, String paypal, int ubicacion) {
+    public Cliente(int codigoUsuario, int ubicacion) {
     	this.codigo = codigoUsuario;
         this.codigoUbicacion = ubicacion;
     }

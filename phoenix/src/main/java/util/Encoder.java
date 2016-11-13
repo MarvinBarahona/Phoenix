@@ -1,7 +1,7 @@
 package util;
 
 public class Encoder {
-	public static String codificarCorreo(String correo){
+	public static String codificar(String correo){
 		String r = "";
 		
 		for(char c : correo.toCharArray()){
@@ -13,7 +13,7 @@ public class Encoder {
 		return r;
 	}
 	
-	public static String decodificarCorreo(String r){
+	public static String decodificar(String r){
 		String correo = "";
 		
 		for(char c : r.toCharArray()){

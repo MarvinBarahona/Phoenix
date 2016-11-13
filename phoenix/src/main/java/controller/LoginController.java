@@ -9,12 +9,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import servicio.ClienteServicio;
 import servicio.EmpleadoServicio;
 import servicio.UsuarioServicio;
+import usuarios.Cliente;
 import usuarios.Empleado;
 import usuarios.TipoUsuario;
 import usuarios.Usuario;
-import util.EmailAPI;
+import util.EmailSender;
 
 import com.google.appengine.repackaged.com.google.gson.Gson;
 import com.google.appengine.repackaged.com.google.gson.JsonObject;
@@ -55,7 +57,7 @@ public class LoginController {
 		String correo = request.getParameter("correo");
 		Usuario user = UsuarioServicio.buscarPorCorreo(correo);
 		if(user != null){
-			EmailAPI.enviarCorreoRecuperacion(user);
+			EmailSender.enviarCorreoRecuperacion(user);
 			resp.addProperty("exito", true);
 		}
 		
@@ -79,6 +81,58 @@ public class LoginController {
 		}
 		else{
 			resp = obtenerRespuesta(u);
+		}
+		
+		return new Gson().toJson(resp);
+	}
+	
+	//Para mandar correo de "confirmar cuenta"
+	@PostMapping(value="/enviarConfirmacion", headers="Accept=*/*", produces="application/json")
+	public @ResponseBody String enviarConfirmacion(){
+		JsonObject resp = new JsonObject();
+		resp.addProperty("msg", "fallo");
+		
+		String correo = request.getParameter("correo");
+		
+		if(UsuarioServicio.buscarPorCorreo(correo) != null){
+			resp.addProperty("msg", "duplicado");
+		}
+		else{
+			String nombre = request.getParameter("nombre");
+			String apellido = request.getParameter("apellido");
+			
+			if(correo != null && nombre != null && apellido != null){
+				EmailSender.enviarCorreoConfirmacion(correo, nombre, apellido);
+				resp.addProperty("msg", "enviado");
+			}
+		}		
+		return new Gson().toJson(resp);
+	}
+	
+	//Para confirmar la cuenta.
+	@PostMapping(value="/confirmarCuenta", headers="Accept=*/*", produces="application/json")
+	public @ResponseBody String confirmarCuenta(){
+		JsonObject resp = new JsonObject();
+		HttpSession session = request.getSession();
+		
+		String correo = request.getParameter("correo");
+		String contra = request.getParameter("contra");
+		String nombre = request.getParameter("nombre");
+		String apellido = request.getParameter("apellido");
+		String pais = request.getParameter("pais");
+		String ciudad = request.getParameter("ciudad");
+		String direccion = request.getParameter("direccion");
+		String zip = request.getParameter("zip");
+		
+		
+		try {
+			Cliente c = ClienteServicio.crear(correo, contra, nombre, apellido, pais, ciudad, direccion, zip);
+			resp.addProperty("exito", true);
+			session.setAttribute("correo", c.getCorreo());
+			session.setAttribute("tipo", "cliente");
+			
+		} catch (Exception e) {
+			resp.addProperty("exito", false);
 		}
 		
 		return new Gson().toJson(resp);

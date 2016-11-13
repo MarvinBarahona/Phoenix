@@ -175,7 +175,7 @@
               </form>
               <p><a href="recoverPassword.html">¿Olvidó su contraseña?</a></p>
 
-              <p>¿No tiene una cuenta? <a href="singIn.html"> Cree una</a></p>
+              <p>¿No tiene una cuenta? <a href="signIn.html"> Cree una</a></p>
 
 						</div>
 

@@ -7,7 +7,7 @@ $('#btnAceptar').click(function(){
 	if(contra1 == "" || contra2 == "")
 		$('#errorMsg').html('Ingrese ambos campos!');
 	else if(contra1 != contra2)
-		$('#errorMsg').html('No hay coincidencias! Ingrese nuevamente los datos.');
+		$('#errorMsg').html('No hay coincidencia! Ingrese nuevamente los datos.');
 	else if(!validateLengthPassword(contra1))				//Función de validate.js			
 		$('#errorMsg').html('El password debe tener al menor 8 caracteres!');
 	else if(!validateFormatPassword(contra1))				//Función de validate.js

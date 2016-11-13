@@ -16,8 +16,8 @@ import usuarios.Usuario;
 public class ClienteServicio {
 	
 	//Guarda un cliente con su ubicación
-	public static Cliente crear(String correo, String contra, String nom, String apell, String tarjeta,
-			String paypal, String pais, String ciudad, String direccion, String zip) throws Exception{
+	public static Cliente crear(String correo, String contra, String nom, String apell,
+			String pais, String ciudad, String direccion, String zip) throws Exception{
 		
 		Cliente c = null;
 		Session session = Sesion.getSession();
@@ -33,7 +33,7 @@ public class ClienteServicio {
 			session.save(us);
 			
 			//Crea el objeto cliente, con los códigos del usuario y la ubicación vinculados.
-			c = new Cliente(us.getCodigo(), tarjeta, paypal, ub.getCodigo());
+			c = new Cliente(us.getCodigo(), ub.getCodigo());
 			session.save(c);
 			
 			transaction.commit();

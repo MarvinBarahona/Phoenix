@@ -40,29 +40,29 @@
             </div>
             <div class="container-fluid col-sm-6 col-sm-offset-3">
                 <form class="form-horizontal formularios sing">
-                  <span class="text-info">Gracias por decidir formar parte de nosotros.</span>
+                  <span class="text-info">Gracias por formar parte de nosotros. Te enviaremos un correo para confirmar tu cuenta</span>
 
                   <label class="control-label col-sm-2" for="nombre">Nombre:</label>
                   <input type="text" id="nombre" class="form-control" id="nombre" required>
 
                   <label class="control-label col-sm-2" for="apellido">Apellido:</label>
                   <input type="text" id="apellido" class="form-control" required>
-
-                  <div class="form-group">
-                    <label class="control-label col-sm-2" for="e-mail">Correo:</label>
-                    <input type="email" id="email" class="form-control" placeholder="ejemplo@dominio.com" required>
-                  </div>
-
-                  <div class="form-group">
-                    <label class="control-label col-sm-2" for="contraseña">Contraseña:</label>
-                    <input type="password" id="password" class="form-control" required>
-                  </div>
+                  
+                   <label class="control-label col-sm-2" for="e-mail">Correo:</label>
+                   <input type="email" id="correo" class="form-control" placeholder="ejemplo@dominio.com" required>
+                  
                   <button type="button" class="btn btn-default" id="btnRegistrar">
-                    Aceptar
+                    Enviar correo
                   </button>
+                  <br/>
+                  <span class="error" id="errorMsg"></span>
+                  
                 </form>
             </div>
         </div><!--/.header-content-->
     </header>
+    
+    <script src="${jsControl}validate.js"></script>
+    <script src="${jsControl}signIn.js"></script>
   </body>
 </html>

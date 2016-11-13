@@ -191,10 +191,10 @@ public class TestMapeo {
 				resp = p.getDetalles();
 				break;
 			case "27":
-				resp = Encoder.codificarCorreo(idString);
+				resp = Encoder.codificar(idString);
 				break;
 			case "28":
-				resp = Encoder.decodificarCorreo(idString);
+				resp = Encoder.decodificar(idString);
 				break;
 			default:
 				resp = "No implementado!";
