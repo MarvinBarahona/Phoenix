@@ -15,11 +15,12 @@ public class Encoder {
 	
 	public static String decodificar(String r){
 		String correo = "";
-		
-		for(char c : r.toCharArray()){
-			int num = (int) c;
-			num -= 1;
-			correo += (char)num;
+		if(r != null){
+			for(char c : r.toCharArray()){
+				int num = (int) c;
+				num -= 1;
+				correo += (char)num;
+			}
 		}
 		
 		return correo;

@@ -58,6 +58,6 @@
 	<script src="${jsControl}jquery.redirect.js"></script>
 	<script src="${jsControl}validate.js"></script>
 	<script src="${jsControl}login.js"></script>
-    <script src="${jsControl}restorePassword.js"></script>
+    <script charset="utf-8" src="${jsControl}restorePassword.js"></script>
   </body>
 </html>

@@ -37,28 +37,29 @@
         <div class="header-content" >
             <div class="container-fluid col-sm-6 col-sm-offset-3">
                 <form class="form-horizontal formularios sing">
-                  <span class="text-info">Confirmación de cuenta: </span>
-                  <span class="text-info" id="correo">${correo}</span>
-                  <span class="text-info" id="nombre">${nombre}</span>
-                  <span class="text-info" id="apellido">${apellido}</span>
-
-                  <input type="password" id="contra1" class="form-control" placeholder="Contraseña..." required>
-
-                  <input type="password" id="contra2" class="form-control" placeholder="Confirmar contraseña..." required>
-                  
-                 <input type="text" id="pais" class="form-control" placeholder="Pais..." required>
-         
-                 <input type="text" id="ciudad" class="form-control" placeholder="Ciudad..." required>
-               
-                 <input type="text" id="direccion" class="form-control" placeholder="Dirección..." required>
-               
-                 <input type="text" id="zip" class="form-control" placeholder="Código ZIP..." required>
-                  
-                  <button type="button" class="btn btn-default" id="btnRegistrar">
-                    Registrar
-                  </button>
-                  
-                  <span class="error" id="errorMsg"></span>
+                	<span class="text-info">Confirmación de cuenta: </span>
+	                <span class="text-info" id="correo">${correo}</span>
+	                <span class="text-info" id="nombre">${nombre}</span>
+	                <span class="text-info" id="apellido">${apellido}</span>
+	
+	                <input type="password" id="contra1" class="form-control" placeholder="Contraseña..." required>
+	
+	                <input type="password" id="contra2" class="form-control" placeholder="Confirmar contraseña..." required>
+	                
+	                <div class="container-fluid col-sm-6">
+	                <input type="text" id="pais" class="form-control" placeholder="Pais..." required>
+	       			<input type="text" id="direccion" class="form-control" placeholder="Dirección..." required>
+	             	</div>
+	             	<div class="container-fluid col-sm-6">	                
+	             	<input type="text" id="ciudad" class="form-control" placeholder="Ciudad..." required>
+	                <input type="text" id="zip" class="form-control" placeholder="Código ZIP..." required>
+	                </div>
+	                
+	                <button type="button" class="btn btn-default" id="btnRegistrar">
+	                  Registrar
+	                </button>
+	                <br/>
+	                <span class="error" id="errorMsg"></span>
                   
                 </form>
             </div>
@@ -68,6 +69,6 @@
     <script src="${jsControl}jquery.redirect.js"></script>
 	<script src="${jsControl}login.js"></script>
     <script src="${jsControl}validate.js"></script>
-    <script src="${jsControl}confirmAccount.js"></script>
+    <script charset="utf-8" src="${jsControl}confirmAccount.js"></script>
   </body>
 </html>

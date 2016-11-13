@@ -5,12 +5,12 @@ $('#btnRegistrar').click(function(){
 	var nombre = $('#nombre').html();
 	var apellido = $('#apellido').html();
 	
-	if(correo == null || nombre == null || apellido == null)
+	if(correo == "" || nombre == "" || apellido == "")
 		$('#errorMsg').html('Error! Registro de cuenta incorrecto!');
 	else if(!validateEmail(correo))		//En validate.js
 		$('#errorMsg').html('Error! Formato de correo no permitido');
 	else if(!validateName(nombre) || !validateName(apellido))  		//En validate.js
-		$('#errorMsg').html('Error! El nombre y apellido deben iniciar en mayuscula!');
+		$('#errorMsg').html('Error! El nombre y apellido deben iniciar en mayúscula!');
 	else{
 		var contra1 = $('#contra1').val();
 		var contra2 = $('#contra2').val();
@@ -22,11 +22,11 @@ $('#btnRegistrar').click(function(){
 		if(contra1 == "" || contra2 == "" || pais == "" || ciudad == "" || direccion == "" || zip == "")
 			$('#errorMsg').html('Ingrese todos los campos!');
 		else if(contra1 != contra2)
-			$('#errorMsg').html('No hay coincidencia! Ingrese nuevamente los password.');
+			$('#errorMsg').html('No hay coincidencias en la contraseña! Ingrese nuevamente.');
 		else if(!validateLengthPassword(contra1))				//Función de validate.js			
-			$('#errorMsg').html('El password debe tener al menor 8 caracteres!');
+			$('#errorMsg').html('La contraseña debe tener al menor 8 caracteres!');
 		else if(!validateFormatPassword(contra1))				//Función de validate.js
-			$('#errorMsg').html('El password solo puede contener letras y al menos un digito!');
+			$('#errorMsg').html('La contraseña solo puede tener letras y al menos un digito!');
 		else{
 			$.ajax({
 				url: "confirmarCuenta.html",

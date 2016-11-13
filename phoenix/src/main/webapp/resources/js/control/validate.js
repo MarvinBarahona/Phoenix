@@ -16,6 +16,6 @@ function validateFormatPassword(password){
 
 function validateName(name){
 	//Valida que el nombre inicie el mayúscula.
-	var regex = /^[a-zA-Z]*$/;
+	var regex = /^[A-Z][a-z]{1,}$/;
 	return regex.test(name);
 }

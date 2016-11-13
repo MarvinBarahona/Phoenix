@@ -7,11 +7,11 @@ $('#btnAceptar').click(function(){
 	if(contra1 == "" || contra2 == "")
 		$('#errorMsg').html('Ingrese ambos campos!');
 	else if(contra1 != contra2)
-		$('#errorMsg').html('No hay coincidencia! Ingrese nuevamente los datos.');
+		$('#errorMsg').html('No hay coincidencia! Ingrese nuevamente las contraseñas.');
 	else if(!validateLengthPassword(contra1))				//Función de validate.js			
 		$('#errorMsg').html('El password debe tener al menor 8 caracteres!');
 	else if(!validateFormatPassword(contra1))				//Función de validate.js
-		$('#errorMsg').html('El password solo puede contener letras y al menos un digito!');
+		$('#errorMsg').html('La contraseña solo puede contener letras y al menos un digito!');
 	else{
 		var user = $('#correo').html();
 		$.ajax({
@@ -26,7 +26,7 @@ $('#btnAceptar').click(function(){
 				if(r.msg == "error")
 					$('#errorMsg').html('Error en el reestablecimiento!');
 				else{
-					alert("Password recuperado exitosamente!");
+					alert("Contraseña reestablecida exitosamente!");
 					redirectUser(r.msg, r.tipoUsuario, r.tipoEmpleado);		//Función de login.js
 				}
 			}

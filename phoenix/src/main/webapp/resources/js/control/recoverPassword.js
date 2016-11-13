@@ -16,7 +16,7 @@ $('#btnAceptar').click(function(){
 				r = JSON.parse(resp);
 				
 				if(r.exito==false){
-					$('#errorMsg').html("El correo ingresado no se encuentra registrado!");
+					$('#errorMsg').html("El correo ingresado no está registrado!");
 				}
 				else{
 					$('#errorMsg').html("Correo enviado! Por favor revise su bandeja de entrada para ver las instrucciones.");

@@ -54,7 +54,7 @@
     </header>
     
     <script src="${jsControl}validate.js"></script>
-    <script src="${jsControl}recoverPassword.js"></script>
+    <script charset="utf-8" src="${jsControl}recoverPassword.js"></script>
     
   </body>
 </html>
