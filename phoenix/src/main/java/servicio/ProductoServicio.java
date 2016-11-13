@@ -17,8 +17,8 @@ public class ProductoServicio {
 	//Crea un producto con los datos que ingresa el gerente de inventario cuando crea un producto. 
 	public static Producto crear(String nombre, int existencias, Categoria categoria, int codigoEmpresa) throws Exception{
 		Producto p = null;
-		final Session session = Sesion.getSession();
-		Transaction transaction = session.getTransaction();
+		Session session = Sesion.getSession();
+		Transaction transaction = session.beginTransaction();
 		
 		try{
 			p = new Producto(nombre, existencias, categoria, codigoEmpresa);
@@ -36,8 +36,8 @@ public class ProductoServicio {
 	//Actualiza un producto dado.
 	public static int actualizar(Producto p){
 		int r=0;
-		final Session session = Sesion.getSession();
-		Transaction transaction = session.getTransaction();
+		Session session = Sesion.getSession();
+		Transaction transaction = session.beginTransaction();
 		
 		try{
 			session.update(p);
@@ -87,17 +87,26 @@ public class ProductoServicio {
 	
 	//Busca un producto por id.
 	public static Producto buscarPorId(int codigo){
-		final Session session = Sesion.getSession();
+		Session session = Sesion.getSession();
+		Transaction transaction = session.beginTransaction();
+		
 		Producto p = (Producto)session.get(Producto.class, codigo);
+		
+		transaction.commit();
 		return p;
 	}
 		
 	//Obtiene todos los productos de la tabla. 
 	@SuppressWarnings("unchecked")
 	public static List<Producto> obtenerProductos(){
-		final Session session = Sesion.getSession();
+		Session session = Sesion.getSession();
+		Transaction transaction = session.beginTransaction();
+		
 		Criteria criteria = session.createCriteria(Producto.class);
-		return criteria.list();
+		List<Producto> result = criteria.list();
+		
+		transaction.commit();
+		return result;
 	}
 	
 	//Obtiene los productos de una empresa especifica.
@@ -105,39 +114,50 @@ public class ProductoServicio {
 	//Retorna solo los productos disponibles si gestionar == false;
 	@SuppressWarnings("unchecked")
 	public static List<Producto> obtenerProductos(int codigoEmpresa, boolean gestionar){
-		final Session session = Sesion.getSession();
+		Session session = Sesion.getSession();
+		Transaction transaction = session.beginTransaction();
 		Criteria criteria = session.createCriteria(Producto.class);
 		criteria.add(Restrictions.eq("codigoEmpresa", codigoEmpresa));
 		
 		if(!gestionar){
 			criteria.add(Restrictions.eq("disponible", true));
 		}
+		List<Producto> result = criteria.list();
 		
-		return criteria.list();
+		transaction.commit();
+		return result;
 	}
 	
 	//Retorna los productos disponibles de una empresa dentro de un departamento dado. (Todo a través de sus id)
 	@SuppressWarnings("unchecked")
 	public static List<Producto> obtenerProductos(int codigoEmpresa, int departamento){
-		final Session session = Sesion.getSession();
+		Session session = Sesion.getSession();
+		Transaction transaction = session.beginTransaction();
+		
 		Criteria criteria = session.createCriteria(Producto.class);
 		criteria.add(Restrictions.eq("codigoEmpresa", codigoEmpresa));
 		criteria.add(Restrictions.eq("codigoDepartamento", departamento));
 		criteria.add(Restrictions.eq("disponible", true));
+		List<Producto> result = criteria.list();
 		
-		return criteria.list();
+		transaction.commit();		
+		return result;
 	}
 	
 	//Retorna los productos disponibles de una empresa dentro de un departamento y categoria dado. (Todo a través de sus id)
-		@SuppressWarnings("unchecked")
-		public static List<Producto> obtenerProductos(int codigoEmpresa, int departamento, int categoria){
-			final Session session = Sesion.getSession();
-			Criteria criteria = session.createCriteria(Producto.class);
-			criteria.add(Restrictions.eq("codigoEmpresa", codigoEmpresa));
-			criteria.add(Restrictions.eq("codigoDepartamento", departamento));
-			criteria.add(Restrictions.eq("codigoCategoria", categoria));
-			criteria.add(Restrictions.eq("disponible", true));
-			
-			return criteria.list();
-		}
+	@SuppressWarnings("unchecked")
+	public static List<Producto> obtenerProductos(int codigoEmpresa, int departamento, int categoria){
+		Session session = Sesion.getSession();
+		Transaction transaction = session.beginTransaction();
+		
+		Criteria criteria = session.createCriteria(Producto.class);
+		criteria.add(Restrictions.eq("codigoEmpresa", codigoEmpresa));
+		criteria.add(Restrictions.eq("codigoDepartamento", departamento));
+		criteria.add(Restrictions.eq("codigoCategoria", categoria));
+		criteria.add(Restrictions.eq("disponible", true));
+		List<Producto> result = criteria.list();
+		
+		transaction.commit();		
+		return result;
+	}
 }

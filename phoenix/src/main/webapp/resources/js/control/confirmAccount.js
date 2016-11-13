@@ -5,6 +5,7 @@ $('#btnRegistrar').click(function(){
 	var nombre = $('#nombre').html();
 	var apellido = $('#apellido').html();
 	
+	//Validación, parte 1.
 	if(correo == "" || nombre == "" || apellido == "")
 		$('#errorMsg').html('Error! Registro de cuenta incorrecto!');
 	else if(!validateEmail(correo))		//En validate.js
@@ -19,6 +20,7 @@ $('#btnRegistrar').click(function(){
 		var direccion = $('#direccion').val();
 		var zip = $('#zip').val();
 		
+		//Validación, parte 2.
 		if(contra1 == "" || contra2 == "" || pais == "" || ciudad == "" || direccion == "" || zip == "")
 			$('#errorMsg').html('Ingrese todos los campos!');
 		else if(contra1 != contra2)
@@ -27,14 +29,15 @@ $('#btnRegistrar').click(function(){
 			$('#errorMsg').html('La contraseña debe tener al menor 8 caracteres!');
 		else if(!validateFormatPassword(contra1))				//Función de validate.js
 			$('#errorMsg').html('La contraseña solo puede tener letras y al menos un digito!');
+		
 		else{
 			$.ajax({
 				url: "confirmarCuenta.html",
 				type: "POST",
 				data:{
 					correo: correo,
-					nombre: nombre,		//En validate.js
-					apellido: apellido,	//En validate.js
+					nombre: nombre,		
+					apellido: apellido,	
 					contra: contra1,
 					pais: pais, 
 					ciudad: ciudad,

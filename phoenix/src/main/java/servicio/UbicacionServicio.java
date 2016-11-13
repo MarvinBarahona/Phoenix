@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import util.Sesion;
 import usuarios.Ubicacion;
@@ -12,20 +13,25 @@ public class UbicacionServicio {
 	
 	//Buscar una ubicación por su id
 	public static Ubicacion buscarPorId(int id){
-		final Session session = Sesion.getSession();
+		Session session = Sesion.getSession();
+		Transaction transaction = session.beginTransaction();
+		
 		//Método para retornar un objeto a partir de su identificador.
 		Ubicacion u = (Ubicacion)session.get(Ubicacion.class, id);
+		transaction.commit();
+		
 		//Retorna una ubicación o null.
 		return u;
 	}
 	
 	//Retorna la cantidad de ubicaciones guardadas. 
 	public static long conteoUbicaciones(){
-		final Session session = Sesion.getSession();
+		Session session = Sesion.getSession();
+		Transaction transaction = session.beginTransaction();
 		long result;
 		
 		result = (long) session.createQuery("select count(*) from Ubicacion").uniqueResult();
-		
+		transaction.commit();
 		return result;
 	}
 	
@@ -33,7 +39,12 @@ public class UbicacionServicio {
 	@SuppressWarnings("unchecked")
 	public static List<Ubicacion> obtenerUbicaciones(){
 		Session session = Sesion.getSession();
+		Transaction transaction = session.beginTransaction();
+		
 		Criteria criteria = session.createCriteria(Ubicacion.class);
-		return criteria.list();
+		List<Ubicacion> result = criteria.list();
+		
+		transaction.commit();
+		return result;
 	}
 }

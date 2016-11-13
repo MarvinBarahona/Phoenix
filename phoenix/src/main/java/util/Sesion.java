@@ -11,11 +11,7 @@ public class Sesion {
 
 	public static Session getSession(){
 		getSessions();
-		if(session == null || !session.isOpen()){
-			session = sessions.getCurrentSession();
-			session.beginTransaction();			
-		}
-		
+		session = sessions.getCurrentSession();		
 		return session;
 	}
 	

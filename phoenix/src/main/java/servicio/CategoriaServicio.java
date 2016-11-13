@@ -16,8 +16,8 @@ public class CategoriaServicio {
 	//Crea una nueva categoria dentro del departamento dado.
 	public static Categoria crear(String nombre, String descripcion, int codigoDepartamento) throws Exception{
 		Categoria cat = null;
-		final Session session = Sesion.getSession();
-		Transaction transaction = session.getTransaction();
+		Session session = Sesion.getSession();
+		Transaction transaction = session.beginTransaction();
 		
 		try{
 			cat = new Categoria(nombre, descripcion, codigoDepartamento);
@@ -33,8 +33,12 @@ public class CategoriaServicio {
 	
 	//Buscar una categoria por id.
 	public static Categoria buscarPorId(int codigo){
-		final Session session = Sesion.getSession();
+		Session session = Sesion.getSession();
+		Transaction transaction = session.beginTransaction();
+		
 		Categoria cat = (Categoria) session.get(Categoria.class, codigo);
+		transaction.commit();
+		
 		return cat;
 	}
 	
@@ -42,8 +46,8 @@ public class CategoriaServicio {
 	//Para usar el método, recuperar una categoria y usar los métodos set para registrar los cambios a guardar. 
 	public static int actualizar(Categoria cat){
 		int r = 0;
-		final Session session = Sesion.getSession();
-		Transaction transaction = session.getTransaction();
+		Session session = Sesion.getSession();
+		Transaction transaction = session.beginTransaction();
 		
 		try{
 			session.update(cat);
@@ -60,17 +64,27 @@ public class CategoriaServicio {
 	//Obtiene todos las categorias
 	@SuppressWarnings("unchecked")
 	public static List<Categoria> obtenerCategorias(){
-		final Session session = Sesion.getSession();
+		Session session = Sesion.getSession();
+		Transaction transaction = session.beginTransaction();
+		
 		Criteria criteria = session.createCriteria(Categoria.class);
-		return criteria.list();
+		List<Categoria> result = criteria.list();
+		
+		transaction.commit();
+		return result;
 	}
 	
 	//Obtiene las categorias de un departamento especifico.
 	@SuppressWarnings("unchecked")
 	public static List<Categoria> obtenerCategorias(int codigoDepartamento){
-		final Session session = Sesion.getSession();
+		Session session = Sesion.getSession();		
+		Transaction transaction = session.beginTransaction();
+		
 		Criteria criteria = session.createCriteria(Categoria.class);
 		criteria.add(Restrictions.eq("codigoDepartamento", codigoDepartamento));
-		return criteria.list();
+		List<Categoria> result = criteria.list();
+		
+		transaction.commit();
+		return result;
 	}
 }

@@ -126,8 +126,10 @@ public class LoginController {
 		
 		
 		try {
+			//Crea el objeto cliente y lo guarda en la base. 
 			Cliente c = ClienteServicio.crear(correo, contra, nombre, apellido, pais, ciudad, direccion, zip);
 			resp.addProperty("exito", true);
+			//Guarda los datos en la sesión. 
 			session.setAttribute("correo", c.getCorreo());
 			session.setAttribute("tipo", "cliente");
 			

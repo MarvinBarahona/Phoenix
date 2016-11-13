@@ -15,16 +15,21 @@ public class UsuarioServicio {
 	
 	//Recuperar un usuario a partir de su id.
 	public static Usuario buscarPorId(int id){
-		final Session session = Sesion.getSession();
+		Session session = Sesion.getSession();
+		Transaction transaction = session.beginTransaction();
+		
 		//Método para recuperar un objeto a partir de su identificador.
 		Usuario u = (Usuario)session.get(Usuario.class, id);
+		
+		transaction.commit();
 		return u;
 	}
 	
 	//Recuperar un usuario a partir de su correo. 
 	public static Usuario buscarPorCorreo(String correo)
 	{
-		final Session session = Sesion.getSession();
+		Session session = Sesion.getSession();
+		Transaction transaction = session.beginTransaction();
 		Usuario usuario;
 		
 		//Recuperación utilizando el objeto "Criteria" para escribir la consulta. 
@@ -33,14 +38,15 @@ public class UsuarioServicio {
 		
 		//Resultado de la consulta.
 		usuario = (Usuario)criteria.uniqueResult();
+		transaction.commit();
 		return usuario;
 	}
 	
 	//Actualiza la contraseña de un usuario.
 	public static int actualizarContra(Usuario u, String contra){
 		int r = 0;
-		final Session session = Sesion.getSession();
-		Transaction transaction = session.getTransaction();
+		Session session = Sesion.getSession();
+		Transaction transaction = session.beginTransaction();
 		
 		try{			
 			u.setContra(contra);
@@ -82,7 +88,12 @@ public class UsuarioServicio {
 	@SuppressWarnings("unchecked")
 	public static List<Usuario> obtenerUsuarios(){
 		Session session = Sesion.getSession();
+		Transaction transaction = session.beginTransaction();
+		
 		Criteria criteria = session.createCriteria(Usuario.class);
-		return criteria.list();
+		List<Usuario> result = criteria.list();
+		
+		transaction.commit();
+		return result;
 	}
 }

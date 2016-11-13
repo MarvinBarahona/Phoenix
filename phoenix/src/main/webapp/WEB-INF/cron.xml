@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Utilidad de appengine, permite programar tareas.-->
+<!DOCTYPE xml>
+<cronentries>
+  <cron>
+    <url>/cron.html</url>
+    <description>Consulta a la base cada 4 minutos</description>
+    <schedule>every 4 minutes</schedule>
+  </cron>
+</cronentries>

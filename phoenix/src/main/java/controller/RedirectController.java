@@ -43,6 +43,7 @@ public class RedirectController {
 		String lastname = request.getParameter("lastname");
 		
 		ModelAndView model = new ModelAndView("confirmAccount");
+		//Recupera los datos codificados y los pone en el sitio. 
 		model.addObject("correo", Encoder.decodificar(mail));
 		model.addObject("nombre", Encoder.decodificar(name));
 		model.addObject("apellido", Encoder.decodificar(lastname));
@@ -59,6 +60,7 @@ public class RedirectController {
 	@RequestMapping(value="/restorePassword", method=RequestMethod.GET)	
 	public ModelAndView restorePassword(){
 		String user = request.getParameter("user");
+		//Decodifica el correo y lo pone en el sitio.
 		String correo = Encoder.decodificar(user);		
 		ModelAndView model = new ModelAndView("restorePassword");
 		model.addObject("correo", correo);

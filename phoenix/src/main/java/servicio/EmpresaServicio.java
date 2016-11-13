@@ -22,7 +22,7 @@ public class EmpresaServicio {
 				
 		Empresa e = null;
 		Session session = Sesion.getSession();
-		Transaction transaction = session.getTransaction();
+		Transaction transaction = session.beginTransaction();
 		
 		try{
 			
@@ -64,9 +64,13 @@ public class EmpresaServicio {
 	
 	//Recupera una empresa con el id especifico.
 	public static Empresa buscarPorId(int id){
-		final Session session = Sesion.getSession();
+		Session session = Sesion.getSession();
+		Transaction transaction = session.beginTransaction();
+		
 		//Método para recuperar un objeto con su identificador. 
 		Empresa e = (Empresa)session.get(Empresa.class, id);
+		
+		transaction.commit();
 		return e;
 	}
 	
@@ -74,8 +78,8 @@ public class EmpresaServicio {
 	//Para usar este metodo, recuperar una empresa y usar los métodos set para registrar los cambios a persistir.
 	public static int actualizar(Empresa e){
 		int r = 0;		
-		final Session session = Sesion.getSession();
-		Transaction transaction = session.getTransaction();
+		Session session = Sesion.getSession();
+		Transaction transaction = session.beginTransaction();
 		
 		try{
 			session.update(e.getUbicacion());
@@ -95,7 +99,12 @@ public class EmpresaServicio {
 	@SuppressWarnings("unchecked")
 	public static List<Empresa> obtenerEmpresas(){
 		Session session = Sesion.getSession();
+		Transaction transaction = session.beginTransaction();
+		
 		Criteria criteria = session.createCriteria(Empresa.class);
-		return criteria.list();
+		List<Empresa> result = criteria.list();
+		
+		transaction.commit();
+		return result;
 	}
 }

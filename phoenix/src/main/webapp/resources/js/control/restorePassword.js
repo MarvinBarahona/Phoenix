@@ -4,6 +4,7 @@ $('#btnAceptar').click(function(){
 	
 	$('#errorMsg').html('');
 	
+	//Validación.
 	if(contra1 == "" || contra2 == "")
 		$('#errorMsg').html('Ingrese ambos campos!');
 	else if(contra1 != contra2)
@@ -12,6 +13,8 @@ $('#btnAceptar').click(function(){
 		$('#errorMsg').html('El password debe tener al menor 8 caracteres!');
 	else if(!validateFormatPassword(contra1))				//Función de validate.js
 		$('#errorMsg').html('La contraseña solo puede contener letras y al menos un digito!');
+	
+	
 	else{
 		var user = $('#correo').html();
 		$.ajax({

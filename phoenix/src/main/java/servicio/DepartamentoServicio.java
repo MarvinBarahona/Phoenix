@@ -15,8 +15,8 @@ public class DepartamentoServicio {
 	//Crea un nuevo departamento. 
 	public static Departamento crear(String nombre, String descripcion) throws Exception{
 		Departamento dep = null;
-		final Session session = Sesion.getSession();
-		Transaction transaction = session.getTransaction();
+		Session session = Sesion.getSession();
+		Transaction transaction = session.beginTransaction();
 		
 		try{
 			dep = new Departamento(nombre, descripcion);
@@ -32,8 +32,12 @@ public class DepartamentoServicio {
 	
 	//Buscar un departamento por id.
 	public static Departamento buscarPorId(int codigo){
-		final Session session = Sesion.getSession();
+		Session session = Sesion.getSession();
+		Transaction transaction = session.beginTransaction();
+		
 		Departamento dep = (Departamento) session.get(Departamento.class, codigo);
+		
+		transaction.commit();
 		return dep;
 	}
 	
@@ -41,8 +45,8 @@ public class DepartamentoServicio {
 	//Para usar el método, recuperar un departamento y usar los métodos set para registrar los cambios a guardar. 
 	public static int actualizar(Departamento dep){
 		int r = 0;
-		final Session session = Sesion.getSession();
-		Transaction transaction = session.getTransaction();
+		Session session = Sesion.getSession();
+		Transaction transaction = session.beginTransaction();
 		
 		try{
 			session.update(dep);
@@ -59,8 +63,13 @@ public class DepartamentoServicio {
 	//Obtiene todos los departamentos.
 	@SuppressWarnings("unchecked")
 	public static List<Departamento> obtenerDepartamentos(){
-		final Session session = Sesion.getSession();
+		Session session = Sesion.getSession();
+		
+		Transaction transaction = session.beginTransaction();
 		Criteria criteria = session.createCriteria(Departamento.class);
-		return criteria.list();
+		List<Departamento> result = criteria.list();
+		
+		transaction.commit();
+		return result;
 	}
 }

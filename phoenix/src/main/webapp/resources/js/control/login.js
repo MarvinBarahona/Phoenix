@@ -1,5 +1,10 @@
 $('#btnLogin').click(function(){	
 	var email = $('#loginEmail').val();
+	var password = $('#password').val();
+	
+	//Validación.
+	if(email=="" || password=="")
+		redirectLogin("Complete ambos campos!");
 	if(!validateEmail(email)){			//En validate.js
 		redirectLogin("Ingrese una cuenta de correo válida!");
 	}
@@ -9,7 +14,7 @@ $('#btnLogin').click(function(){
 		    url:"login.html",
 		    data:{
 		    	email: email,
-		    	password: $('#password').val()
+		    	password: password
 		    },
 		    
 		    success: function(resp){

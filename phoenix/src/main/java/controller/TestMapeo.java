@@ -16,7 +16,7 @@ import servicio.CategoriaServicio;
 import servicio.ClienteServicio;
 import servicio.DepartamentoServicio;
 import servicio.DetalleProductoServicio;
-import servicio.DetalleServicio;
+import servicio.DetalleCategoriaServicio;
 import servicio.EmpleadoServicio;
 import servicio.EmpresaServicio;
 import servicio.ProductoServicio;
@@ -145,7 +145,7 @@ public class TestMapeo {
 				break;
 			case "17":
 				id = Integer.parseInt(idString);
-				resp = DetalleServicio.buscarPorId(id);
+				resp = DetalleCategoriaServicio.buscarPorId(id);
 				break;
 			case "18":
 				id = Integer.parseInt(idString);
@@ -244,7 +244,7 @@ public class TestMapeo {
 			resp = CategoriaServicio.obtenerCategorias();
 			break;
 		case "7":
-			resp = DetalleServicio.obtenerDetalles();
+			resp = DetalleCategoriaServicio.obtenerDetalles();
 			break;
 		case "8":
 			resp = ProductoServicio.obtenerProductos();

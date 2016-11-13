@@ -9,7 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import servicio.DetalleServicio;
+import servicio.DetalleCategoriaServicio;
 
 @Entity 
 @Table(name="categoria")
@@ -76,7 +76,7 @@ public class Categoria {
 	
 	//Atributo: detalles
 	public List<DetalleCategoria> getDetalles(){
-		return DetalleServicio.obtenerDetalles(codigo);
+		return DetalleCategoriaServicio.obtenerDetalles(codigo);
 		
 	}
 }

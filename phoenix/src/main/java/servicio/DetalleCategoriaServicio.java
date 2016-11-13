@@ -11,12 +11,12 @@ import org.hibernate.criterion.Restrictions;
 import productos.DetalleCategoria;
 import util.Sesion;
 
-public class DetalleServicio {
+public class DetalleCategoriaServicio {
 	//Crea un nuevo detalle dentro de la categoria dada.
 	public static DetalleCategoria crear(String nombre, String descripcion, int codigoCategoria) throws Exception{
 		DetalleCategoria det = null;
-		final Session session = Sesion.getSession();
-		Transaction transaction = session.getTransaction();
+		Session session = Sesion.getSession();
+		Transaction transaction = session.beginTransaction();
 		
 		try{
 			det = new DetalleCategoria(nombre, descripcion, codigoCategoria);
@@ -32,8 +32,12 @@ public class DetalleServicio {
 	
 	//Buscar un detalle por id.
 	public static DetalleCategoria buscarPorId(int codigo){
-		final Session session = Sesion.getSession();
+		Session session = Sesion.getSession();
+		Transaction transaction = session.beginTransaction();
+		
 		DetalleCategoria det = (DetalleCategoria) session.get(DetalleCategoria.class, codigo);
+		
+		transaction.commit();
 		return det;
 	}
 	
@@ -41,8 +45,8 @@ public class DetalleServicio {
 	//Para usar el método, recuperar un detalle y usar los métodos set para registrar los cambios a guardar. 
 	public static int actualizar(DetalleCategoria det){
 		int r = 0;
-		final Session session = Sesion.getSession();
-		Transaction transaction = session.getTransaction();
+		Session session = Sesion.getSession();
+		Transaction transaction = session.beginTransaction();
 		
 		try{
 			session.update(det);
@@ -59,17 +63,27 @@ public class DetalleServicio {
 	//Obtiene todos los detalles.
 	@SuppressWarnings("unchecked")
 	public static List<DetalleCategoria> obtenerDetalles(){
-		final Session session = Sesion.getSession();
+		Session session = Sesion.getSession();
+		Transaction transaction = session.beginTransaction();
+		
 		Criteria criteria = session.createCriteria(DetalleCategoria.class);
-		return criteria.list();
+		List<DetalleCategoria> result = criteria.list();
+		
+		transaction.commit();
+		return result;
 	}
 	
 	//Obtiene los detalles de una categoria especifica.
 	@SuppressWarnings("unchecked")
 	public static List<DetalleCategoria> obtenerDetalles(int codigoCategoria){
-		final Session session = Sesion.getSession();
+		Session session = Sesion.getSession();
+		Transaction transaction = session.beginTransaction();
+		
 		Criteria criteria = session.createCriteria(DetalleCategoria.class);
 		criteria.add(Restrictions.eq("codigoCategoria", codigoCategoria));
-		return criteria.list();
+		List<DetalleCategoria> result = criteria.list();
+		
+		transaction.commit();
+		return result;
 	}
 }

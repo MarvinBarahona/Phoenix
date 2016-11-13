@@ -2,10 +2,14 @@ $('#btnAceptar').click(function(){
 	$('#errorMsg').html("");
 	var correo = $('#correo').val();
 	
+	//Validación.
 	if(!validateEmail(correo)){			//En validate.js
 		$('#errorMsg').html("Formato de correo incorrecto!");
 	}
+	
+	
 	else{
+		$('#errorMsg').html("Enviando correo...");
 		$.ajax({
 			url: "recuperarContra.html",
 			type: "POST",

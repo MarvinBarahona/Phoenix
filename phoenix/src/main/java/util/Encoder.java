@@ -1,6 +1,7 @@
 package util;
 
 public class Encoder {
+	//Desplaza uno en ASCII cada caracter.
 	public static String codificar(String correo){
 		String r = "";
 		

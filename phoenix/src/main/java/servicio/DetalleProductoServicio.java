@@ -16,8 +16,8 @@ public class DetalleProductoServicio {
 	//Crear un nuevo detalle
 	public static DetalleProducto crear(int codigoProducto, int codigoDetalle, String valor) throws Exception{
 		DetalleProducto d = null;
-		final Session session = Sesion.getSession();
-		Transaction transaction = session.getTransaction();
+		Session session = Sesion.getSession();
+		Transaction transaction = session.beginTransaction();
 		
 		try{
 			d = new DetalleProducto(valor, codigoDetalle, codigoProducto);
@@ -33,8 +33,12 @@ public class DetalleProductoServicio {
 	
 	//Buscar un detalle de producto por id.
 	public static DetalleProducto buscarPorId(int codigo){
-		final Session session = Sesion.getSession();
+		Session session = Sesion.getSession();
+		Transaction transaction = session.beginTransaction();
+		
 		DetalleProducto d = (DetalleProducto)session.get(DetalleProducto.class, codigo);
+		
+		transaction.commit();
 		return d;
 	}
 	
@@ -67,18 +71,28 @@ public class DetalleProductoServicio {
 	//Obtiene todos los detalles de productos
 	@SuppressWarnings("unchecked")
 	public static List<DetalleProducto> obtenerDetallesProducto(){
-		final Session session = Sesion.getSession();
+		Session session = Sesion.getSession();
+		Transaction transaction = session.beginTransaction();
+		
 		Criteria criteria = session.createCriteria(DetalleProducto.class);
-		return criteria.list();
+		List<DetalleProducto> result = criteria.list();
+		
+		transaction.commit();
+		return result;
 	}
 	
 	//Obtiene los detalles de un producto especifico.
 	@SuppressWarnings("unchecked")
 	public static List<DetalleProducto> obtenerDetallesProducto(int codigoProducto){
-		final Session session = Sesion.getSession();
+		Session session = Sesion.getSession();
+		Transaction transaction = session.beginTransaction();
+		
 		Criteria criteria = session.createCriteria(DetalleProducto.class);
 		criteria.add(Restrictions.eq("codigoProducto", codigoProducto));
-		return criteria.list();
+		List<DetalleProducto> result = criteria.list();
+		
+		transaction.commit();
+		return result;
 	}
 	
 }
