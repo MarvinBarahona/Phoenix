@@ -85,6 +85,12 @@ public class ProductoServicio {
 		return actualizar(p);
 	}
 	
+	public static int actualizarImagen(Producto p, String img) {
+		p.setImg(img);
+		
+		return actualizar(p);
+	}
+	
 	//Busca un producto por id.
 	public static Producto buscarPorId(int codigo){
 		Session session = Sesion.getSession();

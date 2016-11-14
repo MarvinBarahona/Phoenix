@@ -244,7 +244,7 @@ public class TestMapeo {
 			resp = CategoriaServicio.obtenerCategorias();
 			break;
 		case "7":
-			resp = DetalleCategoriaServicio.obtenerDetalles();
+			resp = DetalleCategoriaServicio.obtenerDetallesCategoria();
 			break;
 		case "8":
 			resp = ProductoServicio.obtenerProductos();

@@ -62,7 +62,7 @@ public class DetalleCategoriaServicio {
 	
 	//Obtiene todos los detalles.
 	@SuppressWarnings("unchecked")
-	public static List<DetalleCategoria> obtenerDetalles(){
+	public static List<DetalleCategoria> obtenerDetallesCategoria(){
 		Session session = Sesion.getSession();
 		Transaction transaction = session.beginTransaction();
 		
@@ -75,7 +75,7 @@ public class DetalleCategoriaServicio {
 	
 	//Obtiene los detalles de una categoria especifica.
 	@SuppressWarnings("unchecked")
-	public static List<DetalleCategoria> obtenerDetalles(int codigoCategoria){
+	public static List<DetalleCategoria> obtenerDetallesCategoria(int codigoCategoria){
 		Session session = Sesion.getSession();
 		Transaction transaction = session.beginTransaction();
 		

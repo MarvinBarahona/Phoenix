@@ -76,7 +76,7 @@ public class Categoria {
 	
 	//Atributo: detalles
 	public List<DetalleCategoria> getDetalles(){
-		return DetalleCategoriaServicio.obtenerDetalles(codigo);
+		return DetalleCategoriaServicio.obtenerDetallesCategoria(codigo);
 		
 	}
 }

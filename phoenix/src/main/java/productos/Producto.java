@@ -182,6 +182,10 @@ public class Producto {
 		return ProductoServicio.actualizarVentas(this, descripcion, precio, descuento);
 	}
 	
+	public int actualizarImagen(String img){
+		return ProductoServicio.actualizarImagen(this, img);
+	}
+	
 	public int actualizarDetalle(int codigoDetalle, String valor){
 		getDetalles();
 		int r = 1;
