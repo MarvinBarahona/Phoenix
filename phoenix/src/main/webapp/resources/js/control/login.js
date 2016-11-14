@@ -43,7 +43,7 @@ function redirectUser(msg, tipoUsuario, tipoEmpleado){
     		switch(tipoEmpleado){
     		
     		case "gerenteGeneral":
-    			redirectLogin("Es un gerenteGeneral pero no está implementado todavia xD!"); //Cambiar!!
+    			redirectGeneral();
     			break;
     			
     		case "gerenteVentas":
@@ -70,10 +70,18 @@ function redirectLogin(mensaje){
 	);
 }
 
+//Redirige a la gestión de gerente general.
+function redirectGeneral(){
+	$.redirect(
+		"dashboard_gg.html",
+		"POST"
+	);
+}
+
 //Redirige a la gestión del gerente de ventas. 
 function redirectVentas(){
 	$.redirect(
-		"product_gv.html",
+		"productManagement_gv.html",
 		"POST"
 	);
 }
@@ -81,7 +89,7 @@ function redirectVentas(){
 //Redirige a la gestión del gerente de inventario.
 function redirectInventario(){
 	$.redirect(
-		"product_gi.html",
+		"productManagement_gi.html",
 		"POST"
 	);
 }

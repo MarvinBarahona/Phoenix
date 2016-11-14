@@ -20,6 +20,8 @@ public class RedirectController {
 	@Autowired private HttpServletRequest request;
 	@Autowired private HttpServletResponse response;
 	
+	
+	//Login********************************************************************************************
 	@RequestMapping(value="/loginFailed")
 	public ModelAndView loginFailed(){
 		ModelAndView model = new ModelAndView("login");
@@ -31,6 +33,7 @@ public class RedirectController {
 		return model;
 	}
 	
+	//Para agregar un nuevo cliente *********************************************************************
 	@RequestMapping(value="/signIn")
 	public ModelAndView signIn(){
 		return new ModelAndView("signIn");
@@ -51,6 +54,8 @@ public class RedirectController {
 		return model;		
 	}
 	
+	
+	//Restaurar contraseña *******************************************************************************
 	@RequestMapping(value="/recoverPassword")
 	public ModelAndView recoverPassword(){
 		return new ModelAndView("recoverPassword");
@@ -67,7 +72,29 @@ public class RedirectController {
 		return model;
 	}
 	
-	@RequestMapping("/product_gi")
+	
+	//Para el gerente general*****************************************************************************
+	@RequestMapping("/dashboard_gg")
+	public ModelAndView dashboard_gg(){
+		ModelAndView model = new ModelAndView("dashboard_gg");
+		return model;
+	}	
+	
+	@RequestMapping("/company")
+	public ModelAndView company(){
+		ModelAndView model = new ModelAndView("company");
+		return model;
+	}
+	
+	@RequestMapping("/employees")
+	public ModelAndView employees(){
+		ModelAndView model = new ModelAndView("employees");
+		return model;
+	}	
+	
+	
+	//Para el gerente de inventario ***********************************************************************
+	@RequestMapping("/productManagement_gi")
 	public ModelAndView viewProduct_gi() {
 		ModelAndView model;
 		HttpSession session = request.getSession();
@@ -81,11 +108,12 @@ public class RedirectController {
 		}
 		else{
 			Empleado emp = EmpleadoServicio.buscarPorCorreo(email);			
-			model = new ModelAndView("productManagement_gi");	
+			model = new ModelAndView("productManagement_gi");
 			
 			if(emp != null){
 				//Asigna el nombre al campo correspondiente en la página.
-				model.addObject("nombre", emp.getNombre() + " " + emp.getApellido());
+				model.addObject("nombreEmpleado", emp.getNombre() + " " + emp.getApellido());
+				model.addObject("tipoEmpleado", emp.getTipoEmpleado());
 				Empresa e = emp.getEmpresa();
 				model.addObject("imagenEmpresa", e.getImg(request.getServerName()));
 				model.addObject("nombreEmpresa", e.getNombre());
@@ -98,7 +126,15 @@ public class RedirectController {
 		return model;
 	}
 	
-	@RequestMapping("/product_gv")
+	@RequestMapping("/stocks")
+	public ModelAndView stocks(){
+		ModelAndView model = new ModelAndView("stocks");
+		return model;
+	}	
+	
+	
+	//Para el gerente de ventas *****************************************************************************
+	@RequestMapping("/productManagement_gv")
 	public ModelAndView viewProduct_gv(){
 		ModelAndView model;
 		HttpSession session = request.getSession();
@@ -116,7 +152,7 @@ public class RedirectController {
 			
 			if(emp != null){
 				//Asigna el nombre al campo correspondiente en la página.
-				model.addObject("nombre", emp.getNombre() + " " + emp.getApellido());
+				model.addObject("nombreEmpleado", emp.getNombre() + " " + emp.getApellido());
 				Empresa e = emp.getEmpresa();
 				model.addObject("imagenEmpresa", e.getImg(request.getServerName()));
 				model.addObject("nombreEmpresa", e.getNombre());
@@ -128,4 +164,23 @@ public class RedirectController {
 		
 		return model;
 	}	
+	
+	@RequestMapping("/dashboard_gv")
+	public ModelAndView dashboard_gv(){
+		ModelAndView model = new ModelAndView("dashboard_gv");
+		return model;
+	}
+	
+	//Para el web master*********************************************************************
+	@RequestMapping("/wm_create")
+	public ModelAndView wm_create(){
+		ModelAndView model = new ModelAndView("wm_create");
+		return model;
+	}
+	
+	@RequestMapping("/wm_adduser")
+	public ModelAndView wm_adduser(){
+		ModelAndView model = new ModelAndView("wm_adduser");
+		return model;
+	}
 }

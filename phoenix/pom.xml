@@ -180,5 +180,10 @@
                 </configuration>
             </plugin>
     	</plugins>
+    	<resources>
+     		<resource>
+       			<directory>${basedir}/src/main/webapp/resources</directory>
+     		</resource>
+   		</resources>
     </build>
 </project>
