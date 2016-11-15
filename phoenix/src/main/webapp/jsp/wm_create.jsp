@@ -26,7 +26,8 @@
     <!--css-->
     <link href="${css}bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="${css}font-awesome.css" rel="stylesheet">
-    <link href="${css}styleG.css" rel="stylesheet" type="text/css"/>
+    <link href="${css}styleG.css" rel="stylesheet" type="text/css"/>    
+    <link href="${css}jquery.dataTables.min.css" rel="stylesheet">
     
     <!--js-->
     <script src="${js}jquery.min.js"></script>
@@ -164,7 +165,7 @@
                     <div class="row">
                       <!--Formulario-->
                       <form class="form-horizontal formularios">
-                      <div class="col-sm-5">
+                      <div class="col-sm-5 col-sm-offset-1">
                         <div class="from-group">
                           <label class="control-label col-sm-4">Departamento:</label>
                           <div class="col-sm-7">
@@ -189,6 +190,13 @@
                             <input type="text" class="form-control">
                           </div>
                         </div><br>
+                        
+                        <div class="from-group">
+                          <label class="control-label col-sm-4">Descripción:</label>
+                          <div class="col-sm-7">
+                            <input type="text" class="form-control">
+                          </div>
+                        </div><br>
                       </div>
 
                       <div class="col-sm-5">
@@ -199,7 +207,7 @@
                         <div class="from-group">
                           <label class="control-label col-sm-4">Valores:</label>
                           <div class="col-sm-7">
-                            <textarea name="descripcion" rows="3" cols="30"></textarea>
+                            <textarea name="descripcion" rows="5" cols="30"></textarea>
                           </div>
                         </div><br>
                       </div>
@@ -267,7 +275,7 @@
   		  <div class="menu">
   		    <ul id="menu" >
             <li><a href="wm_adduser.html" data-toggle="tooltip" data-placement="right" title="Agregar usuarios"><i class="fa fa-clipboard"></i><span>Agregar usuarios</span></a></li>
-  		      <li><a href="wm_create.html" data-toggle="tooltip" title="Crear departamentos, categorias y detalles"><i class="fa fa-file-text"></i><span>Crear elementos</span></a></li>
+  		      <li><a href="wm_create.html" data-toggle="tooltip" data-placement="right" title="Crear departamentos, categorias y detalles"><i class="fa fa-file-text"></i><span>Crear elementos</span></a></li>
           </ul>
   	    </div>
   	 </div><!--/.sidebar-menu-->

@@ -84,7 +84,7 @@
                       <label class="control-label col-sm-3" for="imagen">Imagen:</label>
                       <div class="col-sm-7">
                         <div class="form-group">
-                          <input type="checkbox" value="" id="checkImg" checked> Modificar imagen<br>
+                          <input type="checkbox" value="" id="checkImg"> Modificar imagen<br>
                           <input type="file" id="file_url" name="imagen" />
                           <img alt="Imagen del producto" id="img_destino" src=""/>
                         </div>
@@ -135,7 +135,7 @@
   		  <div class="menu">
   		    <ul id="menu" >
             <li><a href="dashboard_gv.html" data-toggle="tooltip" data-placement="right" title="Resumen de ventas"><i class="fa fa-clipboard"></i><span>Dashboard</span></a></li>
-  		      <li><a href="productManagement_gv.html" data-toggle="tooltip" title="Gestión de productos"><i class="fa fa-shopping-bag"></i><span>Gestión de productos</span></a></li>
+  		      <li><a href="productManagement_gv.html" data-toggle="tooltip" data-placement="right" title="Gestión de productos"><i class="fa fa-shopping-bag"></i><span>Gestión de productos</span></a></li>
   	      </ul>
   	    </div>
   	 </div><!--/.sidebar-menu-->

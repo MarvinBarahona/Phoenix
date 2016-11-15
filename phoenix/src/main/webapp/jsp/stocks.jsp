@@ -121,7 +121,7 @@
   		  <div class="menu">
   		    <ul id="menu" >
   		      <li><a href="productManagement_gi.html" data-toggle="tooltip" data-placement="right" title="Gestión de productos"><i class="fa fa-shopping-bag"></i><span>Gestión de productos</span></a></li>
-  	        <li><a href="stocks.html" data-toggle="tooltip" title="Control de existencias"><i class="fa fa-archive"></i><span>Control de existencias</span></a></li>
+  	        <li><a href="stocks.html" data-toggle="tooltip" data-placement="right" title="Control de existencias"><i class="fa fa-archive"></i><span>Control de existencias</span></a></li>
   	      </ul>
   	    </div>
   	 </div><!--/.sidebar-menu-->

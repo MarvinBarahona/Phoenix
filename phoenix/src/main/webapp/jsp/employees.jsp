@@ -169,16 +169,12 @@
             <span class="fa fa-bars"></span>
           </a>
         </div>
-  		  <div class="menu">
-  		    <ul id="menu" >
+  		<div class="menu">
+  		  <ul id="menu" >
             <li><a href="dashboard_gg.html" data-toggle="tooltip" data-placement="right" title="Resumen de ventas"><i class="fa fa-clipboard"></i><span>Dashboard</span></a></li>
-  		      <li><a href="" data-toggle="tooltip" title="Formulario de empleados y empresa"><i class="fa fa-file-text"></i><span>Formularios</span><span class="fa fa-angle-right" style="float: right"></span></a>
-		          <ul>
-		          	 <li><a href="employees.html">Empleados</a></li>
-		            <li><a href="company.html">Empresa</a></li>
-		          </ul>
-		        </li>
-          </ul>
+            <li><a href="employees.html" data-toggle="tooltip" data-placement="right" title="Control de empleados"><i class="fa fa-users"></i><span>Empleados</span></a></li>
+            <li><a href="company.html" data-toggle="tooltip" data-placement="right" title="Datos de la empresa"><i class="fa fa-building"></i><span>Empresa</span></a></li>
+  		  </ul>
   	    </div>
   	 </div><!--/.sidebar-menu-->
   	 <div class="clearfix"> </div>

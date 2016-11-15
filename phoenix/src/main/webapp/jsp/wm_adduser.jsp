@@ -43,48 +43,38 @@
           <div class="inner-block">
             <div class="blank">
               <h3>Agregar usuario</h3>
-                <form class="form-horizontal formularios">
-                  <!--Bloque 1-->
-                  <div class="col-sm-5 col-sm-offset-3">
-                    <div class="from-group">
-                      <label class="control-label col-sm-3" for="nombre">Nombre:</label>
-                      <div class="col-sm-7">
-                        <input type="text" class="form-control">
-                      </div>
-                    </div><br>
-
-                    <div class="from-group">
-                      <label class="control-label col-sm-3" for="correo">Correo electrónico:</label>
-                      <div class="col-sm-7">
-                        <input type="email" class="form-control">
-                      </div>
-                    </div><br>
-                  </div><!--/Bloque 1-->
-
-                  <div class="form-group">
-                    <div class="col-sm-8 botones">
-                      <button class="btn btn-default">Guardar</button>
-                      <button class="btn btn-default" disabled>Eliminar</button>
+              <form class="form-horizontal formularios">
+                <!--Bloque 1-->
+                <div class="col-sm-5 col-sm-offset-3">
+                  <div class="from-group">
+                    <label class="control-label col-sm-3" for="nombre">Nombre:</label>
+                    <div class="col-sm-7">
+                      <input type="text" class="form-control">
                     </div>
-                  </div>
-                </form>
-                <div class="row">
-                  <div class="table-responsive col-sm-offset-1 col-sm-10">
-                    <table id="usuarios" class="display" width="100%">
-                    <!-- Fila a clonar!
-                      <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                    -->
-                    </table>
+                  </div><br>
+                  
+				  <div class="from-group">
+                    <label class="control-label col-sm-3" for="empresa">Empresa:</label>
+                    <div class="col-sm-7">
+                      <input type="text" class="form-control">
+                    </div>
+                  </div><br>
+                  
+                  <div class="from-group">
+                    <label class="control-label col-sm-3" for="correo">Correo electrónico:</label>
+                    <div class="col-sm-7">
+                      <input type="email" class="form-control">
+                    </div>
+                  </div><br>
+                </div><!--/Bloque 1-->
+
+                <div class="form-group">
+                  <div class="col-sm-8 botones">
+                    <button class="btn btn-default">Guardar</button>
+                    <button class="btn btn-default" disabled>Eliminar</button>
                   </div>
                 </div>
+              </form>
             </div>
           </div><!--/contenido-->
 
@@ -103,7 +93,7 @@
   		  <div class="menu">
   		    <ul id="menu" >
             <li><a href="wm_adduser.html" data-toggle="tooltip" data-placement="right" title="Agregar usuarios"><i class="fa fa-clipboard"></i><span>Agregar usuarios</span></a></li>
-  		      <li><a href="wm_create.html" data-toggle="tooltip" title="Crear departamentos, categorias y detalles"><i class="fa fa-file-text"></i><span>Crear elementos</span></a></li>
+  		      <li><a href="wm_create.html" data-toggle="tooltip" data-placement="right" title="Crear departamentos, categorias y detalles"><i class="fa fa-file-text"></i><span>Crear elementos</span></a></li>
           </ul>
   	    </div>
   	 </div><!--/.sidebar-menu-->
@@ -115,19 +105,6 @@
   <script src="${js}jquery.nicescroll.js"></script>
   <script src="${js}scripts.js"></script>
   <script src="${js}bootstrap.min.js"></script>
-  <script src="${js}jquery.dataTables.min.js"></script>
-  
-  <!--Función que permite buscar, ordenar y paginar la tabla-->
-  <script type="text/javascript">
-    $(document).ready(function() {
-        $('#usuarios').DataTable( {
-            columns: [
-                { title: "Nombre" },
-                { title: "Correo" }
-            ]
-        } );
-    } );
-  </script>
   </body>
 
 </html>
