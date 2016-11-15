@@ -76,19 +76,40 @@ public class RedirectController {
 	//Para el gerente general*****************************************************************************
 	@RequestMapping("/dashboard_gg")
 	public ModelAndView dashboard_gg(){
-		ModelAndView model = new ModelAndView("dashboard_gg");
+		ModelAndView model;
+		
+		model = validar("general");
+		if(model == null){
+			model = new ModelAndView("dashboard_gg");
+			setHeaderData(model);
+		}
+		
 		return model;
 	}	
 	
 	@RequestMapping("/company")
 	public ModelAndView company(){
-		ModelAndView model = new ModelAndView("company");
+		ModelAndView model;
+		
+		model = validar("general");
+		if(model == null){
+			model = new ModelAndView("company");
+			setHeaderData(model);
+		}
+		
 		return model;
 	}
 	
 	@RequestMapping("/employees")
 	public ModelAndView employees(){
-		ModelAndView model = new ModelAndView("employees");
+		ModelAndView model;
+		
+		model = validar("general");
+		if(model == null){
+			model = new ModelAndView("employees");
+			setHeaderData(model);
+		}
+		
 		return model;
 	}	
 	

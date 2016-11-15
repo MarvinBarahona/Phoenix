@@ -4,6 +4,10 @@ $('#btnLogout').click(function(){
 		url: "logout.html",
 		type: "POST",
 		success: function(){
+			$.redirect(
+				"/",
+				"POST"
+			);
 		}
 	});	
 });

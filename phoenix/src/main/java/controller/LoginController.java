@@ -1,7 +1,6 @@
 package controller;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +27,6 @@ public class LoginController {
 	
 	//Para recuperar parámetros.
 	@Autowired private HttpServletRequest request;
-	@Autowired private HttpServletResponse response;
 	
 	@PostMapping(value="/login", headers="Accept=*/*", produces="application/json")	
 	public @ResponseBody String login(){
@@ -44,12 +42,13 @@ public class LoginController {
 	}
 	
 	//Logout: quita el atributo de la sesión. 
-	@PostMapping(value="/logout")
-	public void logout(){
+	@PostMapping(value="/logout", headers="Accept=*/*", produces="application/json")
+	public @ResponseBody String logout(){
 		HttpSession session = request.getSession();
 		session.removeAttribute("correo");
 		session.removeAttribute("tipo");
 		session.removeAttribute("index");
+		return new Gson().toJson("logout");
 	}
 	
 	//Para mandar el correo de "contaseña olvidada". 
