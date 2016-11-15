@@ -24,7 +24,7 @@
            </div>
           </a>
           <ul class="dropdown-menu drp-mnu">
-           <li> <a href="" id="btnLogout"><i class="fa fa-sign-out"></i>Salir</a> </li>
+           <li> <a href="#" id="btnLogout"><i class="fa fa-sign-out"></i>Salir</a> </li>
           </ul>
         </li>
       </ul>

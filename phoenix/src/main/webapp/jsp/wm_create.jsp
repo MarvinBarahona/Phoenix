@@ -314,6 +314,9 @@
         } );
     } );
   </script>
+  
+  <script src="${jsControl}jquery.redirect.js"></script>
+  <script src="${jsControl}logout.js"></script>
   </body>
 
 </html>
