@@ -36,7 +36,7 @@ function redirectUser(msg, tipoUsuario, tipoEmpleado){
     else if(msg=="exito"){
 
     	if(tipoUsuario=="cliente"){
-    		redirectLogin("Es un cliente pero no está implementado todavia xD!") //Cambiar!!
+    		redirectClient();
     	}
     	
     	if(tipoUsuario=="empleado"){
@@ -61,7 +61,7 @@ function redirectUser(msg, tipoUsuario, tipoEmpleado){
 //Redirige a la página de login.
 function redirectLogin(mensaje){
 	$.redirect(
-		"loginFailed.html",
+		"/loginFailed.html",
 		{
 			email: $('#loginEmail').val(), 
 			msg: mensaje
@@ -70,10 +70,17 @@ function redirectLogin(mensaje){
 	);
 }
 
+function redirectClient(){
+	$.redirect(
+		"/",
+		"POST"
+	);
+}
+
 //Redirige a la gestión de gerente general.
 function redirectGeneral(){
 	$.redirect(
-		"dashboard_gg.html",
+		"/dashboard_gg.html",
 		"POST"
 	);
 }
@@ -81,7 +88,7 @@ function redirectGeneral(){
 //Redirige a la gestión del gerente de ventas. 
 function redirectVentas(){
 	$.redirect(
-		"productManagement_gv.html",
+		"/productManagement_gv.html",
 		"POST"
 	);
 }
@@ -89,7 +96,7 @@ function redirectVentas(){
 //Redirige a la gestión del gerente de inventario.
 function redirectInventario(){
 	$.redirect(
-		"productManagement_gi.html",
+		"/productManagement_gi.html",
 		"POST"
 	);
 }

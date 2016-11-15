@@ -14,7 +14,7 @@ import servicio.EmpleadoServicio;
 import usuarios.Empleado;
 import usuarios.Empresa;
 import util.Encoder;
-import util.UploadURL;
+
 @Controller
 public class RedirectController {
 	@Autowired private HttpServletRequest request;
@@ -97,30 +97,12 @@ public class RedirectController {
 	@RequestMapping("/productManagement_gi")
 	public ModelAndView viewProduct_gi() {
 		ModelAndView model;
-		HttpSession session = request.getSession();
 		
-		//Recupera el empleado
-		String email = (String)session.getAttribute("correo");
+		model = validar("inventario");
 		
-		if(email == null){
-			model = loginFailed();
-			model.addObject("msg", "Debe iniciar sesión para ingresar a este sitio!");
-		}
-		else{
-			Empleado emp = EmpleadoServicio.buscarPorCorreo(email);			
+		if(model == null){			
 			model = new ModelAndView("productManagement_gi");
-			
-			if(emp != null){
-				//Asigna el nombre al campo correspondiente en la página.
-				model.addObject("nombreEmpleado", emp.getNombre() + " " + emp.getApellido());
-				model.addObject("tipoEmpleado", emp.getTipoEmpleado());
-				Empresa e = emp.getEmpresa();
-				model.addObject("imagenEmpresa", e.getImg(request.getServerName()));
-				model.addObject("nombreEmpresa", e.getNombre());
-			}
-			else{
-				model.addObject("imagenEmpresa", UploadURL.getImageURL("", request.getServerName()));
-			}
+			setHeaderData(model);
 		}		
 		
 		return model;
@@ -128,7 +110,15 @@ public class RedirectController {
 	
 	@RequestMapping("/stocks")
 	public ModelAndView stocks(){
-		ModelAndView model = new ModelAndView("stocks");
+		ModelAndView model;
+		
+		model = validar("inventario");
+		
+		if(model == null){
+			model = new ModelAndView("stocks");
+			setHeaderData(model);
+		}		
+		
 		return model;
 	}	
 	
@@ -137,29 +127,12 @@ public class RedirectController {
 	@RequestMapping("/productManagement_gv")
 	public ModelAndView viewProduct_gv(){
 		ModelAndView model;
-		HttpSession session = request.getSession();
+	
+		model = validar("ventas");
 		
-		//Recupera el empleado
-		String email = (String)session.getAttribute("correo");
-		
-		if(email == null){
-			model = loginFailed();
-			model.addObject("msg", "Debe iniciar sesión para ingresar a este sitio!");
-		}
-		else{
-			Empleado emp = EmpleadoServicio.buscarPorCorreo(email);			
-			model = new ModelAndView("productManagement_gv");	
-			
-			if(emp != null){
-				//Asigna el nombre al campo correspondiente en la página.
-				model.addObject("nombreEmpleado", emp.getNombre() + " " + emp.getApellido());
-				Empresa e = emp.getEmpresa();
-				model.addObject("imagenEmpresa", e.getImg(request.getServerName()));
-				model.addObject("nombreEmpresa", e.getNombre());
-			}
-			else{
-				model.addObject("imagenEmpresa", UploadURL.getImageURL("", request.getServerName()));
-			}
+		if(model == null){
+			model = new ModelAndView("productManagement_gv");
+			setHeaderData(model);
 		}		
 		
 		return model;
@@ -167,7 +140,15 @@ public class RedirectController {
 	
 	@RequestMapping("/dashboard_gv")
 	public ModelAndView dashboard_gv(){
-		ModelAndView model = new ModelAndView("dashboard_gv");
+		ModelAndView model;
+		
+		model = validar("ventas");
+		
+		if(model == null){
+			model = new ModelAndView("dashboard_gv");
+			setHeaderData(model);
+		}		
+		
 		return model;
 	}
 	
@@ -183,4 +164,46 @@ public class RedirectController {
 		ModelAndView model = new ModelAndView("wm_adduser");
 		return model;
 	}
+	
+	
+	
+	//Función: validar. Añade seguridad al sitio (control de acceso) 0->fallo; 1->permtido
+	public ModelAndView validar(String tipoEmpleado){
+		ModelAndView model = null;
+		
+		HttpSession session = request.getSession();
+		
+		String email = (String)session.getAttribute("correo");
+		String tipo = (String)session.getAttribute("tipo");
+		
+		if(email == null){
+			model = new ModelAndView("login");
+			model.addObject("msg", "Debe iniciar sesión para ingresar a este sitio!");
+		}
+		else if(tipo != tipoEmpleado){
+			model = new ModelAndView("accessDenied");
+
+			String index = (String)session.getAttribute("index");
+			model.addObject("nextPage", index);
+		}
+		
+		return model;
+	}
+	
+	public void setHeaderData(ModelAndView model){
+		//Recupera el empleado
+		HttpSession session = request.getSession();
+		String email = (String)session.getAttribute("correo");
+		Empleado emp = EmpleadoServicio.buscarPorCorreo(email);
+		
+		if(emp != null){
+			//Asigna el nombre al campo correspondiente en la página.
+			model.addObject("nombreEmpleado", emp.getNombre() + " " + emp.getApellido());
+			model.addObject("tipoEmpleado", emp.getTipoEmpleado().toString());
+			Empresa e = emp.getEmpresa();
+			model.addObject("imagenEmpresa", e.getImg(request.getServerName()));
+			model.addObject("nombreEmpresa", e.getNombre());
+		}
+	}
 }
+

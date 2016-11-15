@@ -1,6 +1,7 @@
 package controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,8 @@ public class LoginController {
 	
 	//Para recuperar parámetros.
 	@Autowired private HttpServletRequest request;
-		
+	@Autowired private HttpServletResponse response;
+	
 	@PostMapping(value="/login", headers="Accept=*/*", produces="application/json")	
 	public @ResponseBody String login(){
 		
@@ -46,6 +48,8 @@ public class LoginController {
 	public void logout(){
 		HttpSession session = request.getSession();
 		session.removeAttribute("correo");
+		session.removeAttribute("tipo");
+		session.removeAttribute("index");
 	}
 	
 	//Para mandar el correo de "contaseña olvidada". 
@@ -113,7 +117,6 @@ public class LoginController {
 	@PostMapping(value="/confirmarCuenta", headers="Accept=*/*", produces="application/json")
 	public @ResponseBody String confirmarCuenta(){
 		JsonObject resp = new JsonObject();
-		HttpSession session = request.getSession();
 		
 		String correo = request.getParameter("correo");
 		String contra = request.getParameter("contra");
@@ -129,9 +132,9 @@ public class LoginController {
 			//Crea el objeto cliente y lo guarda en la base. 
 			Cliente c = ClienteServicio.crear(correo, contra, nombre, apellido, pais, ciudad, direccion, zip);
 			resp.addProperty("exito", true);
-			//Guarda los datos en la sesión. 
-			session.setAttribute("correo", c.getCorreo());
-			session.setAttribute("tipo", "cliente");
+			
+			//Guarda los datos en la sesión.
+			setSessionsAtributes(c.getUsuario());
 			
 		} catch (Exception e) {
 			resp.addProperty("exito", false);
@@ -139,18 +142,18 @@ public class LoginController {
 		
 		return new Gson().toJson(resp);
 	}
-	
+
 	private JsonObject obtenerRespuesta(Usuario user){
 		JsonObject resp = new JsonObject();
-		HttpSession session = request.getSession();
 		
 		//Arma la respuesta.
 		if(user == null){
 			resp.addProperty("msg", "fracaso");
 		}
 		else{
+			setSessionsAtributes(user);
+			
 			resp.addProperty("msg", "exito");
-			session.setAttribute("correo", user.getCorreo());
 			
 			//Si es exito, devuelve el tipo de usuario.
 			resp.addProperty("tipoUsuario", user.getTipoUsuario().toString());
@@ -159,13 +162,46 @@ public class LoginController {
 				//Si es empleado, devuelve el tipo de empleado.
 				Empleado emp = EmpleadoServicio.buscarPorId(user.getCodigo());
 				resp.addProperty("tipoEmpleado", emp.getTipoEmpleado().toString());
-				session.setAttribute("tipo", emp.getTipoEmpleado().toString());
-			}
-			else{
-				session.setAttribute("tipo", "cliente");
 			}
 		}
 		
 		return resp;
+	}
+	
+	private void setSessionsAtributes(Usuario user) {
+		HttpSession session = request.getSession();
+		String tipo = "cliente";
+		String index = "/";
+		
+		
+		//Arma la respuesta.
+		if(user != null){
+			session.setAttribute("correo", user.getCorreo());
+			
+			
+			if(user.getTipoUsuario().equals(TipoUsuario.empleado)){
+				Empleado emp = EmpleadoServicio.buscarPorId(user.getCodigo());
+				
+				switch(emp.getTipoEmpleado()){
+				case gerenteGeneral:
+					tipo = "general";
+					index = "/dashboard_gg.html";
+					break;
+				case gerenteInventario:
+					tipo = "inventario";
+					index = "/productManagement_gi.html";
+					break;
+				case gerenteVentas:
+					tipo = "ventas";
+					index = "/productManagement_gv.html";
+					break;
+				default:
+					break;				
+				}
+			}
+			
+			session.setAttribute("tipo", tipo);
+			session.setAttribute("index", index);
+		}		
 	}
 }
