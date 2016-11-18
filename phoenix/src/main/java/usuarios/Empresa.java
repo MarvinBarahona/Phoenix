@@ -1,7 +1,6 @@
 package usuarios;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,12 +8,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import servicio.EmpleadoServicio;
 import servicio.EmpresaServicio;
-import servicio.ProductoServicio;
 import servicio.UbicacionServicio;
 import util.UploadURL;
-import productos.Producto;
 
 @SuppressWarnings("serial")
 @Entity
@@ -136,29 +132,6 @@ public class Empresa implements Serializable{
 		getUbicacion().setZip(zip);
 	}
 	
-	//NOTA: LOS EMPLEADOS NO SE PUEDEN ACTUALIZAR A PARTIR DE LA EMPRESA. DEBEN ACTUALIZARSE INDIVIDUALMENTE.
-	
-	//Atributo: gerenteGeneral
-	public Empleado getGerenteGeneral(){
-		return EmpleadoServicio.buscarPorEmpresa(getCodigo(), TipoEmpleado.gerenteGeneral);
-	}
-	
-	//Atributo: gerenteVentas
-	public Empleado getGerenteVentas(){
-		return EmpleadoServicio.buscarPorEmpresa(getCodigo(), TipoEmpleado.gerenteVentas);
-	}
-	
-	//Atributo: gerenteInventario
-	public Empleado getGerenteInventario(){
-		return EmpleadoServicio.buscarPorEmpresa(getCodigo(), TipoEmpleado.gerenteInventario);
-	}
-	
-	//Atributo: productos
-	//Solo se usará una de las dos posibilidades de gestionar a la vez, si se usan ambas solo se cumple la primera (porque almacena resultado)
-	public List<Producto> getProductos(boolean gestionar){		
-		return  ProductoServicio.obtenerProductos(getCodigo(), gestionar);
-	}
-	
 	//**Falta la lista de productos**
 	
 	//Otros métodos. ****************************************************************************
@@ -166,14 +139,5 @@ public class Empresa implements Serializable{
 	//Actualiza este empleado; registra los cambios hechos con los metodos set. 
 	public int actualizar(){
 		return EmpresaServicio.actualizar(this);
-	}	
-	
-	public List<Producto> getProductos(int codigoDepartamento, int codigoCategoria){
-		return ProductoServicio.obtenerProductos(getCodigo(), codigoDepartamento, codigoCategoria);
-	}
-	
-	public List<Producto> getProductos(int codigoDepartamento){
-		return ProductoServicio.obtenerProductos(getCodigo(), codigoDepartamento);
-	}
-	
+	}		
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import servicio.EmpleadoServicio;
+import servicio.EmpresaServicio;
 import usuarios.Empleado;
 import usuarios.Empresa;
 import util.Encoder;
@@ -176,17 +177,45 @@ public class RedirectController {
 	//Para el web master*********************************************************************
 	@RequestMapping("/wm_create")
 	public ModelAndView wm_create(){
-		ModelAndView model = new ModelAndView("wm_create");
+		ModelAndView model;
+		
+		model = validar("webmaster");
+		
+		if(model == null){
+			model = new ModelAndView("wm_create");
+			
+			//Asigna los valores en el header. 
+			model.addObject("nombreEmpleado", "WebMaster");
+			model.addObject("tipoEmpleado", "webmaster");
+			model.addObject("imagenEmpresa", "#");
+			model.addObject("nombreEmpresa", "");
+		}
+		
 		return model;
 	}
 	
 	@RequestMapping("/wm_adduser")
 	public ModelAndView wm_adduser(){
-		ModelAndView model = new ModelAndView("wm_adduser");
+		ModelAndView model;
+		
+		model = validar("webmaster");
+		
+		if(model == null){
+			model = new ModelAndView("wm_adduser");
+			
+			//Asigna los valores en el header. 
+			model.addObject("nombreEmpleado", "WebMaster");
+			model.addObject("tipoEmpleado", "webmaster");
+			model.addObject("imagenEmpresa", "#");
+			model.addObject("nombreEmpresa", "");
+		}
+		
 		return model;
 	}
 	
 	
+	
+	//Funciones del controlador.****************************************************************
 	
 	//Función: validar. Añade seguridad al sitio (control de acceso) 0->fallo; 1->permtido
 	public ModelAndView validar(String tipoEmpleado){
@@ -201,7 +230,7 @@ public class RedirectController {
 			model = new ModelAndView("login");
 			model.addObject("msg", "Debe iniciar sesión para ingresar a este sitio!");
 		}
-		else if(tipo != tipoEmpleado){
+		else if(!tipo.matches(tipoEmpleado)){
 			model = new ModelAndView("accessDenied");
 
 			String index = (String)session.getAttribute("index");
@@ -218,10 +247,10 @@ public class RedirectController {
 		Empleado emp = EmpleadoServicio.buscarPorCorreo(email);
 		
 		if(emp != null){
-			//Asigna el nombre al campo correspondiente en la página.
+			//Asigna el lo campos correspondiente al header. 
 			model.addObject("nombreEmpleado", emp.getNombre() + " " + emp.getApellido());
 			model.addObject("tipoEmpleado", emp.getTipoEmpleado().toString());
-			Empresa e = emp.getEmpresa();
+			Empresa e = EmpresaServicio.buscarPorId(emp.getCodigoEmpresa());
 			model.addObject("imagenEmpresa", e.getImg(request.getServerName()));
 			model.addObject("nombreEmpresa", e.getNombre());
 		}

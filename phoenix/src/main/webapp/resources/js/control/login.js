@@ -39,7 +39,11 @@ function redirectUser(msg, tipoUsuario, tipoEmpleado){
     		redirectClient();
     	}
     	
-    	if(tipoUsuario=="empleado"){
+    	else if(tipoUsuario=="webmaster"){
+    		redirectWebMaster();
+    	}
+    	
+    	else if(tipoUsuario=="empleado"){
     		switch(tipoEmpleado){
     		
     		case "gerenteGeneral":
@@ -75,6 +79,13 @@ function redirectClient(){
 		"/",
 		"POST"
 	);
+}
+
+function redirectWebMaster(){
+	$.redirect(
+			"/wm_create.html",
+			"POST"
+		);
 }
 
 //Redirige a la gestión de gerente general.

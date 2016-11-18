@@ -109,8 +109,8 @@
 
                     <div class="form-group">
                       <div class="col-sm-offset-2 col-sm-5 botones">
-                        <button class="btn btn-default">Nuevo</button>
-                        <button class="btn btn-default" disabled>Guardar</button>
+                        <button type="button" class="btn btn-default">Nuevo</button>
+                        <button type="button" class="btn btn-default" id="btnGuardar">Guardar</button>
                       </div>
                     </div>
               </form>
@@ -118,17 +118,6 @@
               <div class="row">
   				<div class="table-responsive col-sm-offset-1 col-sm-10">
 				    <table id="productos" class="display">
-				    <!-- Fila a clonar!
-				      <tr>
-				        <td></td>
-				        <td></td>
-				        <td></td>
-				        <td></td>
-				        <td></td>
-				        <td></td>
-				        <td><input type="check" name="disponible" value=""></td>
-				      </tr>
-				      -->
 				    </table>
   				</div>
 			</div>
@@ -165,10 +154,12 @@
   <script src="${js}imagen.js"></script>
   <script src="${js}bootstrap.min.js"></script>
   <script src="${js}jquery.dataTables.min.js"></script>
-  <script src="${js}productTable.js"></script>
+  <script charset="utf-8" src="${js}productTable.js"></script>
   
   <script src="${jsControl}jquery.redirect.js"></script>
   <script src="${jsControl}logout.js"></script>
+  <script src="${jsControl}productManagement_gi.js"></script>
+  <script src="${jsControl}guardarImagen.js"></script>
   </body>
 
 </html>

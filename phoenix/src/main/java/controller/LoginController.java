@@ -28,17 +28,41 @@ public class LoginController {
 	//Para recuperar parámetros.
 	@Autowired private HttpServletRequest request;
 	
+	//Inicio y cierre de sesión de usuario.********************************************************************
+	
 	@PostMapping(value="/login", headers="Accept=*/*", produces="application/json")	
 	public @ResponseBody String login(){
+		JsonObject resp;
 		
-		//Recupera los parámetros enviados. 
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		
-		//Recupera el usuario
-		Usuario user = UsuarioServicio.validar(email, password);
 		
-		return new Gson().toJson(obtenerRespuesta(user));
+		//Para el webmaster se crea una cuenta y contraseñas definidas.
+		if(!email.equals("webmaster@phoenix.com")){
+			
+			//Código cuando el correo ingresado no es el del webmaster.
+			Usuario user = UsuarioServicio.validar(email, password);
+			resp = obtenerRespuesta(user);
+		}
+		else{
+			
+			//Si el correo ingresado corresponde al web master. 
+			if(password.equals("wm_phoenix3214")){
+				resp = new JsonObject();
+				resp.addProperty("msg", "exito");
+				resp.addProperty("tipoUsuario", "webmaster");
+				
+				HttpSession session = request.getSession();
+				session.setAttribute("correo", "webmaster@phoenix.com");
+				session.setAttribute("tipo", "webmaster");
+				session.setAttribute("index", "/wm_create.html");
+			}
+			else{
+				resp = obtenerRespuesta(null);
+			}
+		}		
+		return new Gson().toJson(resp);
 	}
 	
 	//Logout: quita el atributo de la sesión. 
@@ -50,6 +74,8 @@ public class LoginController {
 		session.removeAttribute("index");
 		return new Gson().toJson("logout");
 	}
+	
+	//Contraseña olvidada ************************************************************************************
 	
 	//Para mandar el correo de "contaseña olvidada". 
 	@PostMapping(value="/recuperarContra", headers="Accept=*/*", produces="application/json")
@@ -88,6 +114,8 @@ public class LoginController {
 		
 		return new Gson().toJson(resp);
 	}
+	
+	//Creación de cliente *****************************************************************************************
 	
 	//Para mandar correo de "confirmar cuenta"
 	@PostMapping(value="/enviarConfirmacion", headers="Accept=*/*", produces="application/json")
@@ -142,6 +170,10 @@ public class LoginController {
 		return new Gson().toJson(resp);
 	}
 
+	
+	//Otros métodos *****************************************************************************************
+	
+	//Obtiene una respuesta JSON para el usuario validado. 
 	private JsonObject obtenerRespuesta(Usuario user){
 		JsonObject resp = new JsonObject();
 		
@@ -167,6 +199,7 @@ public class LoginController {
 		return resp;
 	}
 	
+	//Coloca los datos de sesión, dependiendo del usuario validado. 
 	private void setSessionsAtributes(Usuario user) {
 		HttpSession session = request.getSession();
 		String tipo = "cliente";

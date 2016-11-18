@@ -19,8 +19,10 @@ public class Cron {
 	
 	@RequestMapping
 	public ModelAndView cron(){
+		//Obtiene un model, pero bien podria no devolver nada útil. La respuesta no se usa para nada. 
 		ModelAndView model = new ModelAndView("login");
 
+		//Consulta programada para que no se cierre la conexión a la base de datos. La respuesta debe tener un status entre 200 y 290. 
 		UsuarioServicio.buscarPorId(1);
 		response.setStatus(200);
 		

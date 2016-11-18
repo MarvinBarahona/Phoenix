@@ -11,7 +11,6 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import servicio.EmpleadoServicio;
-import servicio.EmpresaServicio;
 import servicio.UsuarioServicio;
 
 @SuppressWarnings("serial")
@@ -103,11 +102,6 @@ public class Empleado implements Serializable{
 	
 	public void setApellido(String apellido){
 		getUsuario().setApellido(apellido);
-	}
-	
-	//Atributo: empresa. No se puede modificar a la empresa a partir de sus empleados, solo recuperarse.
-	public Empresa getEmpresa(){
-		return EmpresaServicio.buscarPorId(codigoEmpresa);
 	}
 	
 	//Otro métodos. *****************************************************************

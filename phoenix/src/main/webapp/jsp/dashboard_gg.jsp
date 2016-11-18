@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE HTML>
@@ -44,6 +43,7 @@
           <!--Contenido-->
           <div class="inner-block">
             <div class="blank">
+            
               <!--Market update-->
               <div class="market-updates">
            	  	<div class="col-md-4 market-update-gd">
@@ -66,6 +66,7 @@
            		</div>
            	  <div class="clearfix"> </div>
            	</div><!--/.market-update-->
+           	
             <!--Gráficas: main-page-charts-->
               <div class="main-page-charts">
                  <div class="main-page-chart-layer1">

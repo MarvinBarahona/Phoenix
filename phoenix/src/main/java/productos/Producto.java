@@ -10,8 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import servicio.DetalleProductoServicio;
-import servicio.ProductoServicio;
+import util.UploadURL;
 
 @Entity
 @Table(name="producto")
@@ -144,8 +143,8 @@ public class Producto {
 	}
 
 	//Atributo: img
-	public String getImg() {
-		return img;
+	public String getImg(String servername) {
+		return UploadURL.getImageURL(img, servername);
 	}
 
 	public void setImg(String img) {
@@ -159,42 +158,5 @@ public class Producto {
 
 	public void setDisponible(boolean disponible) {
 		this.disponible = disponible;
-	}
-
-	//Atributo: detalles
-	public List<DetalleProducto> getDetalles(){
-		if(detalles == null){
-			detalles = DetalleProductoServicio.obtenerDetallesProducto(codigo);
-		}
-		return detalles;
-	}
-
-	//Otros métodos
-	public int actualizarInventario(String nombre, Categoria categoria, boolean disponible){
-		return ProductoServicio.actualizarInventario(this, nombre, categoria, disponible);
-	}
-	
-	public int actualizarExistencias(boolean aumentar, int cantidad){
-		return ProductoServicio.actualizarExistencias(this, aumentar, cantidad);
-	}
-	
-	public int actualizarVentas(String descripcion, double precio, int descuento){
-		return ProductoServicio.actualizarVentas(this, descripcion, precio, descuento);
-	}
-	
-	public int actualizarImagen(String img){
-		return ProductoServicio.actualizarImagen(this, img);
-	}
-	
-	public int actualizarDetalle(int codigoDetalle, String valor){
-		getDetalles();
-		int r = 1;
-		for(DetalleProducto d : detalles){
-			if(d.getCodigoDetalle() == codigoDetalle){
-				r = DetalleProductoServicio.actualizar(d.getCodigo(), valor);
-				break;
-			}
-		}
-		return r;
 	}
 }

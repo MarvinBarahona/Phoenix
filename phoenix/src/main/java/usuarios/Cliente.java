@@ -6,7 +6,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import servicio.ClienteServicio;
 import servicio.UbicacionServicio;
 import servicio.UsuarioServicio;
 
@@ -148,12 +147,7 @@ public class Cliente implements Serializable{
 		getUbicacion().setZip(zip);
 	}
 	
-	//Métodos *******************************************************
-	
-	public int actualizar(){
-		return ClienteServicio.actualizar(this);
-	}
-	
+	//Métodos *******************************************************	
 	public int actualizarContra(String contra){
 		return UsuarioServicio.actualizarContra(getUsuario(), contra);
 	}

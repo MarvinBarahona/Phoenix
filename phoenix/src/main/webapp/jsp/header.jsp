@@ -6,6 +6,7 @@
       <img id="logo" src="${imagenEmpresa}" alt="Logo ${nombreEmpresa}"/>
      </a>
     </div>
+    	<p>${nombreEmpresa}</p>
     <div class="clearfix"> </div>
   </div>
   <div class="header-right">

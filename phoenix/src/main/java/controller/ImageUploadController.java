@@ -15,6 +15,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import productos.Producto;
+import servicio.EmpresaServicio;
+import servicio.ProductoServicio;
+import usuarios.Empresa;
 import util.UploadURL;
 
 import com.google.appengine.api.blobstore.BlobKey;
@@ -23,7 +27,7 @@ import com.google.appengine.api.blobstore.BlobstoreService;
 import com.google.appengine.repackaged.com.google.gson.Gson;
 import com.google.appengine.repackaged.com.google.gson.JsonObject;
 
-//Luego de subir la imagen como blob, app engine redirige a la dirección especificada cuando se crea el UploadURL.
+
 
 @Controller
 public class ImageUploadController {
@@ -32,29 +36,51 @@ public class ImageUploadController {
 	
 	private BlobstoreService blobStoreService = BlobstoreServiceFactory.getBlobstoreService();
 	
-	//Como prueba, luego de guardar la imagen se recupera su blobkey y se manda como respuesta. 
-	@ResponseStatus(HttpStatus.OK)
-	@RequestMapping(value="/subirImagen",headers="Accept=*/*",method=RequestMethod.POST,produces="application/json")
-	public @ResponseBody String pruebaImagen() throws IOException{
-		//Recupera los blobs agregados en el último upload.
-		Map<String,List<BlobKey>> blobs = blobStoreService.getUploads(request);
-		
-		//Recupera el blobkey de la última imagen agregada. Nota: "imagen_url" debe coincidir con el nombre del 
-		//valor a guardar (en nuestro caso, con el nombre del parameter de ajax mandado para guardar. 
-		List<BlobKey> blobKeys = blobs.get("imagen_url");
-		String resp = blobKeys.get(0).getKeyString();
-		
-		return new Gson().toJson(resp);
-	}
-	
 	
 	//Obtiene un nuevo url para subir una imagen. 
+	//Este url solo sirve una vez, y se debe acceder al url por medio de un post especificando 
+	//el dato a guardar. El método subirImagen soporta el upload de la imagen.
 	@RequestMapping(value="/obtenerUploadURL",headers="Accept=*/*",method=RequestMethod.POST,produces="application/json")
 	public @ResponseBody String obtenerUploadURL(){
 		String url = UploadURL.getUploadURL();
 		
 		JsonObject resp = new JsonObject();
 		resp.addProperty("url", url);
+		
+		return new Gson().toJson(resp);
+	}
+	
+	
+	//Luego de guardar la imagen se recupera su blobkey y se almacena según el tipo de imagen que se almacena. 
+	@ResponseStatus(HttpStatus.OK)
+	@RequestMapping(value="/subirImagen",headers="Accept=*/*",method=RequestMethod.POST,produces="application/json")
+	public @ResponseBody String subirImagen() throws IOException{		
+		String resp = "exito";
+		
+		//Recupera el blobkey de la última imagen agregada. Nota: "imagen_url" debe coincidir con el nombre del 
+		//valor a guardar (en nuestro caso, con el nombre del parameter de ajax mandado para guardar)
+		Map<String,List<BlobKey>> blobs = blobStoreService.getUploads(request);
+		List<BlobKey> blobKeys = blobs.get("imagen_url");
+		String blob = blobKeys.get(0).getKeyString();
+		
+		try{
+			String tipo = request.getParameter("tipo");
+			int id = Integer.valueOf(request.getParameter("id"));
+			
+			if(tipo.matches("producto")){
+				Producto p = ProductoServicio.buscarPorId(id);
+				ProductoServicio.actualizarImagen(p, blob);
+			}
+			else if(tipo.matches("empresa")){
+				Empresa e = EmpresaServicio.buscarPorId(id);
+				EmpresaServicio.actualizarImagen(e, blob);
+			}
+			
+		}catch(NullPointerException e1){
+			resp = "fallo1";
+		}catch(NumberFormatException e2){
+			resp = "fallo2";
+		}
 		
 		return new Gson().toJson(resp);
 	}

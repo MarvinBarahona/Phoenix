@@ -27,7 +27,6 @@
     <link href="${css}bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="${css}font-awesome.css" rel="stylesheet">
     <link href="${css}styleG.css" rel="stylesheet" type="text/css"/>
-    <link href="${css}jquery.dataTables.min.css"  rel="stylesheet">
     
     <!--js-->
     <script src="${js}jquery.min.js"></script>
@@ -47,15 +46,6 @@
             <div class="blank">
               <!--Market update-->
               <div class="market-updates">
-           			<div class="col-md-4 market-update-gd">
-           				<div class="market-update-block clr-block-1">
-           					<div class="col-md-8 market-update-left">
-           						<h3>##</h3>
-           						<h4>Usuarios registrados</h4>
-           					</div>
-           				  <div class="clearfix"> </div>
-           				</div>
-           			</div>
            			<div class="col-md-4 market-update-gd">
            				<div class="market-update-block clr-block-2">
            				 <div class="col-md-8 market-update-left">
@@ -157,24 +147,6 @@
   <script src="${js}scripts.js"></script>
   <script src="${js}imagen.js"></script>
   <script src="${js}bootstrap.min.js"></script>
-  <script src="${js}jquery.dataTables.min.js"></script>
-  
-  <!--Función que permite buscar, ordenar y paginar la tabla-->
-  <script type="text/javascript">
-    $(document).ready(function() {
-        $('#productos').DataTable( {
-            columns: [
-                { title: "Producto" },
-                { title: "Departamento" },
-                { title: "Categoria" },
-                { title: "Cantidad" },
-                { title: "Precio" },
-                { title: "Descuento"},
-                { title: "Disponible"}
-            ]
-        } );
-    } );
-  </script>
   
   <script src="${jsControl}jquery.redirect.js"></script>
   <script src="${jsControl}logout.js"></script>

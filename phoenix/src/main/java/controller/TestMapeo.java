@@ -9,9 +9,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
-import productos.Categoria;
-import productos.Departamento;
-import productos.Producto;
 import servicio.CategoriaServicio;
 import servicio.ClienteServicio;
 import servicio.DepartamentoServicio;
@@ -59,9 +56,6 @@ public class TestMapeo {
 		Cliente c;
 		Empleado empl;
 		Empresa empr;
-		Departamento dep;
-		Categoria cat;
-		Producto p;
 		
 		try{
 					
@@ -105,26 +99,6 @@ public class TestMapeo {
 				id = Integer.parseInt(idString);
 				resp = EmpresaServicio.buscarPorId(id);
 				break;
-			case "10":
-				id = Integer.parseInt(idString);
-				empl = EmpleadoServicio.buscarPorId(id);
-				resp = empl.getEmpresa();
-				break;
-			case "11":
-				id = Integer.parseInt(idString);
-				empr = EmpresaServicio.buscarPorId(id);
-				resp = empr.getGerenteGeneral();
-				break;
-			case "12":
-				id = Integer.parseInt(idString);
-				empr = EmpresaServicio.buscarPorId(id);
-				resp = empr.getGerenteVentas();
-				break;
-			case "13":
-				id = Integer.parseInt(idString);
-				empr = EmpresaServicio.buscarPorId(id);
-				resp = empr.getGerenteInventario();
-				break;
 			case "14":
 				id = Integer.parseInt(idString);
 				empr = EmpresaServicio.buscarPorId(id);
@@ -147,48 +121,13 @@ public class TestMapeo {
 				id = Integer.parseInt(idString);
 				resp = DetalleCategoriaServicio.buscarPorId(id);
 				break;
-			case "18":
-				id = Integer.parseInt(idString);
-				dep = DepartamentoServicio.buscarPorId(id);
-				resp = dep.getCategorias();
-				break;
-			case "19":
-				id = Integer.parseInt(idString);
-				cat = CategoriaServicio.buscarPorId(id);
-				resp = cat.getDetalles();
-				break;
 			case "20":
 				id = Integer.parseInt(idString);
 				resp = ProductoServicio.buscarPorId(id);
 				break;
-			case "21":
-				id = Integer.parseInt(idString);
-				empr = EmpresaServicio.buscarPorId(id);
-				resp = empr.getProductos(true);
-				break;
-			case "22":
-				id = Integer.parseInt(idString);
-				empr = EmpresaServicio.buscarPorId(id);
-				resp = empr.getProductos(false);
-				break;
-			case "23":
-				id = Integer.parseInt(idString);
-				empr = EmpresaServicio.buscarPorId(id);
-				resp = empr.getProductos(1, 1);
-				break;
-			case "24":
-				id = Integer.parseInt(idString);
-				empr = EmpresaServicio.buscarPorId(id);
-				resp = empr.getProductos(1);
-				break;
 			case "25":
 				id = Integer.parseInt(idString);
 				resp = DetalleProductoServicio.buscarPorId(id);
-				break;
-			case "26":
-				id = Integer.parseInt(idString);
-				p = ProductoServicio.buscarPorId(id);
-				resp = p.getDetalles();
 				break;
 			case "27":
 				resp = Encoder.codificar(idString);
@@ -263,32 +202,4 @@ public class TestMapeo {
 		
 		return new Gson().toJson(resp);
 	}
-	
-	
-	//@RequestMapping( value="/testAjax3", headers="Accept=*/*", produces="application/json")	
-	/*public @ResponseBody String testAjax3(){
-		Object resp = null;
-		
-		String selec = request.getParameter("selection");
-
-		try{
-			switch(selec){
-			case "0":
-				break;
-			case "1":
-				break;
-			default:
-				resp = "No implementado!";
-				break;				
-			}
-		}catch(Exception exc){
-			resp = exc.getMessage();
-		}
-		
-		if(resp == null){
-			resp = "Nada encontrado";
-		}
-		
-		return new Gson().toJson(resp);
-	}*/
 }

@@ -95,6 +95,12 @@ public class EmpresaServicio {
 		return r;
 	}
 	
+	//Actualiza la imagen de una empresa dada. 
+	public static int actualizarImagen(Empresa e, String img){
+		e.setImg(img);
+		return actualizar(e);
+	}
+	
 	//Recuperar todas las empresas de la tabla. 
 	@SuppressWarnings("unchecked")
 	public static List<Empresa> obtenerEmpresas(){
