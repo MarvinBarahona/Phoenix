@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Reestablecer contraseña</title>
+    <title>Establecer contraseña</title>
 
     <c:set var="css">../resources/css/</c:set>
 	<c:set var="js" >../resources/js/vistas/</c:set>
@@ -38,11 +38,11 @@
     <header class="auxiliar">
         <div class="header-content" >
             <div class="header-content-inner">
-              <h4 class="tituloE">Restaurar contraseña</h4>
+              <h4 class="tituloE">Establecer contraseña</h4>
             </div>
             <div class="container-fluid col-sm-4 col-sm-offset-4">
                 <form class="form-horizontal formularios">
-                  <span class="text-info">Recuperación de contraseña para el usuario:</span>
+                  <span class="text-info">Estableciendo contraseña para el usuario:</span>
                   <span class="text-info" id="correo">${correo}</span>
                   <input type="password" id="contra1" class="form-control" placeholder="Nueva contraseña" required>
                   <input type="password" id="contra2" class="form-control" placeholder="Confirmar contraseña" required>

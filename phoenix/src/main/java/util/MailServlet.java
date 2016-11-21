@@ -55,6 +55,20 @@ public class MailServlet extends HttpServlet {
     	asunto = "Confirme su email para finalizar registro.";
     }
     
+    private void accountConfirmEmp(String url, String nombreUsuario){
+    	cuerpoHTML = "<h2 style=\"text-align: center; padding-left: 30px;\"><span style=\"color: #3366ff;\"><strong>Gracias por preferir los servicios de Phoenix</strong></span></h2>"
+        		  +"<h3 style=\"padding-left: 30px;\">Buen dia "+nombreUsuario+". Su correo se ha ingresado en una de nuestras empresas afiliadas, acceda al siguiente enlace para confirmar su registro:</h3>"
+        		  +"<h3 style=\"text-align: left; padding-left: 30px;\"><a href=\""+url+"\">"+url+"</a></h3>"
+        		  +"<h3 style=\"text-align: left; padding-left: 30px;\">&nbsp;</h3>"
+        		  +"<h3 style=\"padding-left: 30px;\">Si no puede acceder al enlace, copielo en la barra de direcciones de su navegador.</h3>"
+        		  +"<h3 style=\"padding-left: 30px;\">Esta direccion de correo sera autenticada y se usara para la creacion de su cuenta.</h3>"        		  
+        		  +"<h3 style=\"padding-left: 30px;\">Si usted desconoce esta informacion, ignore este mensaje.&nbsp;</h3>"
+        		  +"<h3 style=\"padding-left: 30px;\">Att. Phoenix Dev Team</h3>"
+        		  +"<h3 style=\"padding-left: 30px;\">NightHakws</h3>";   
+ 	  
+    	asunto = "Ha sido agregado a un grupo de trabajo.";
+    }
+    
     private void signInAlert(String nombreUsuario){
   	   	cuerpoHTML = "<h2 style=\"text-align: center; padding-left: 30px;\"><span style=\"color: #3366ff;\"><strong>Nuevo Inicio de Sesion</strong></span></h2>"
          		  +"<h3 style=\"padding-left: 30px;\"> "+nombreUsuario+". Se ha iniciado sesion correctamente con su usuario hace unos momentos.:</h3>"
@@ -104,6 +118,12 @@ public class MailServlet extends HttpServlet {
 	  
     }
   
+    //Agregado como gerente
+    public void enviarMsjConfirmacionEmpresa(String url, String correoDestinatario, String nombreDestinatario){
+    	accountConfirmEmp(url, nombreDestinatario);
+    	setMessageData(correoDestinatario);	  
+    }
+    
     //Alerta de inicio de sesion.
     public void enviarMsjAlertInicioSesion(String correoDestinatario, String nombreDestinatario){
     	signInAlert(nombreDestinatario);

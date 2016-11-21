@@ -22,7 +22,7 @@ public class RedirectController {
 	@Autowired private HttpServletResponse response;
 	
 	
-	//Login********************************************************************************************
+//########## Login ********************************************************************************************
 	@RequestMapping(value="/loginFailed")
 	public ModelAndView loginFailed(){
 		ModelAndView model = new ModelAndView("login");
@@ -34,7 +34,7 @@ public class RedirectController {
 		return model;
 	}
 	
-	//Para agregar un nuevo cliente *********************************************************************
+//########### Para agregar un nuevo cliente *********************************************************************
 	@RequestMapping(value="/signIn")
 	public ModelAndView signIn(){
 		return new ModelAndView("signIn");
@@ -56,7 +56,7 @@ public class RedirectController {
 	}
 	
 	
-	//Restaurar contraseña *******************************************************************************
+//########## Restaurar contraseña *******************************************************************************
 	@RequestMapping(value="/recoverPassword")
 	public ModelAndView recoverPassword(){
 		return new ModelAndView("recoverPassword");
@@ -74,7 +74,7 @@ public class RedirectController {
 	}
 	
 	
-	//Para el gerente general*****************************************************************************
+//########## Para el gerente general *****************************************************************************
 	@RequestMapping("/dashboard_gg")
 	public ModelAndView dashboard_gg(){
 		ModelAndView model;
@@ -114,8 +114,19 @@ public class RedirectController {
 		return model;
 	}	
 	
+	//Para confirmar una empresa.
+	@RequestMapping("/confirmAccountEmp")
+	public ModelAndView confirmAccountEmp(){
+		String emp = request.getParameter("emp");
+		
+		ModelAndView model = new ModelAndView("confirmAccountEmp");
+		//Recupera los datos codificados y los pone en el sitio. 
+		model.addObject("nombreEmpresa", Encoder.decodificar(emp));
+		
+		return model;	
+	}
 	
-	//Para el gerente de inventario ***********************************************************************
+//################ Para el gerente de inventario ***********************************************************************
 	@RequestMapping("/productManagement_gi")
 	public ModelAndView viewProduct_gi() {
 		ModelAndView model;
@@ -145,7 +156,7 @@ public class RedirectController {
 	}	
 	
 	
-	//Para el gerente de ventas *****************************************************************************
+//################# Para el gerente de ventas *****************************************************************************
 	@RequestMapping("/productManagement_gv")
 	public ModelAndView viewProduct_gv(){
 		ModelAndView model;
@@ -174,7 +185,7 @@ public class RedirectController {
 		return model;
 	}
 	
-	//Para el web master*********************************************************************
+//#################### Para el web master *********************************************************************
 	@RequestMapping("/wm_create")
 	public ModelAndView wm_create(){
 		ModelAndView model;
@@ -215,7 +226,7 @@ public class RedirectController {
 	
 	
 	
-	//Funciones del controlador.****************************************************************
+//############## Funciones del controlador ****************************************************************
 	
 	//Función: validar. Añade seguridad al sitio (control de acceso) 0->fallo; 1->permtido
 	public ModelAndView validar(String tipoEmpleado){

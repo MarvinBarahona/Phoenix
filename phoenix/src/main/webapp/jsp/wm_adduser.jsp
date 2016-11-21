@@ -45,35 +45,53 @@
               <h3>Agregar usuario</h3>
               <form class="form-horizontal formularios">
                 <!--Bloque 1-->
-                <div class="col-sm-5 col-sm-offset-3">
+                <div class="col-sm-5 col-sm-offset-2">
                   <div class="from-group">
-                    <label class="control-label col-sm-3" for="nombre">Nombre:</label>
+                    <label class="control-label col-sm-5" for="nombre">Nombre del gerente:</label>
                     <div class="col-sm-7">
-                      <input type="text" class="form-control">
+                      <input type="text" class="form-control" id="txtNombre">
+                    </div>
+                  </div><br>
+                  
+                  <div class="from-group">
+                    <label class="control-label col-sm-5" for="nombre">Apellido del gerente:</label>
+                    <div class="col-sm-7">
+                      <input type="text" class="form-control" id="txtApellido">
                     </div>
                   </div><br>
                   
 				  <div class="from-group">
-                    <label class="control-label col-sm-3" for="empresa">Empresa:</label>
+                    <label class="control-label col-sm-5" for="empresa">Nombre de la empresa:</label>
                     <div class="col-sm-7">
-                      <input type="text" class="form-control">
+                      <input type="text" class="form-control" id="txtNombreEmpresa">
                     </div>
                   </div><br>
                   
                   <div class="from-group">
-                    <label class="control-label col-sm-3" for="correo">Correo electrónico:</label>
+                    <label class="control-label col-sm-5" for="correo">Correo electrónico:</label>
                     <div class="col-sm-7">
-                      <input type="email" class="form-control">
+                      <input type="email" class="form-control" id="txtCorreo">
                     </div>
                   </div><br>
+                
+                <div class="from-group">
+                <div class="col-sm-9 col-sm-offset-3">
+                      <span class="error" id="errorMsg"></span>
+                    </div>                    
+                  </div>
+                  
+                  <br>    
+                             
                 </div><!--/Bloque 1-->
-
+					 
+				
+                
                 <div class="form-group">
                   <div class="col-sm-8 botones">
-                    <button class="btn btn-default">Guardar</button>
-                    <button class="btn btn-default" disabled>Eliminar</button>
+                    <button type="button" class="btn btn-default" id="btnGuardar">Guardar</button>
                   </div>
                 </div>
+                
               </form>
             </div>
           </div><!--/contenido-->
@@ -106,8 +124,10 @@
   <script src="${js}scripts.js"></script>
   <script src="${js}bootstrap.min.js"></script>
   
+  <script src="${jsControl}validate.js"></script>
   <script src="${jsControl}jquery.redirect.js"></script>
   <script src="${jsControl}logout.js"></script>
+  <script src="${jsControl}wm_adduser.js" charset="utf-8"></script>
   </body>
 
 </html>

@@ -6,6 +6,7 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
 import util.Sesion;
 import usuarios.Empleado;
@@ -27,7 +28,7 @@ public class EmpresaServicio {
 		try{
 			
 			//Crea un ubicación por defecto. 
-			Ubicacion ub = new Ubicacion("pendiente", "pendiente", "pendiente", "000");
+			Ubicacion ub = new Ubicacion("n/a", "n/a", "n/a", "n/a");
 			session.save(ub);
 			
 			//Crear una nueva empresa con la ubicación creada. (El id de la empresa dependerá del id de la ubicación)
@@ -36,19 +37,19 @@ public class EmpresaServicio {
 			
 			
 			//Crear un empleado gerenteGeneral para que ingrese al sistema y configure la empresa.
-			Usuario user1 = new Usuario(correoG, "12345", nombreG, apellidoG, TipoUsuario.empleado);
+			Usuario user1 = new Usuario(correoG, "defaultUsrPass", nombreG, apellidoG, TipoUsuario.empleado);
 			session.save(user1);
 			
 			Empleado empl1 = new Empleado(user1.getCodigo(), e.getCodigo(), TipoEmpleado.gerenteGeneral);			
 			session.save(empl1);		
 			
 			//Crear otros dos empleados con datos por defecto, para modificarlos después. 
-			Usuario user2 = new Usuario("pendiente1" + e.getCodigo(), "12345", "pendiente", "pendiente", TipoUsuario.empleado);
+			Usuario user2 = new Usuario("n/a1" + e.getCodigo(), "defaultUsrPass", "n/a", "n/a", TipoUsuario.empleado);
 			session.save(user2);			
 			Empleado empl2 = new Empleado(user2.getCodigo(), e.getCodigo(), TipoEmpleado.gerenteVentas);			
 			session.save(empl2);
 			
-			Usuario user3 = new Usuario("pendiente2" + e.getCodigo(), "12345", "pendiente", "pendiente", TipoUsuario.empleado);
+			Usuario user3 = new Usuario("n/a2" + e.getCodigo(), "defaultUsrPass", "n/a", "n/a", TipoUsuario.empleado);
 			session.save(user3);			
 			Empleado empl3 = new Empleado(user3.getCodigo(), e.getCodigo(), TipoEmpleado.gerenteInventario);			
 			session.save(empl3);
@@ -70,6 +71,21 @@ public class EmpresaServicio {
 		//Método para recuperar un objeto con su identificador. 
 		Empresa e = (Empresa)session.get(Empresa.class, id);
 		
+		transaction.commit();
+		return e;
+	}
+	
+	public static Empresa buscarPorNombre(String nombreEmpresa) {
+		Session session = Sesion.getSession();
+		Transaction transaction = session.beginTransaction();
+		Empresa e;
+		
+		//Recuperación utilizando el objeto "Criteria" para escribir la consulta. 
+		Criteria criteria = session.createCriteria(Empresa.class);
+		criteria.add(Restrictions.like("nombre", nombreEmpresa));
+		
+		//Resultado de la consulta.
+		e= (Empresa)criteria.uniqueResult();
 		transaction.commit();
 		return e;
 	}
@@ -113,4 +129,6 @@ public class EmpresaServicio {
 		transaction.commit();
 		return result;
 	}
+
+	
 }

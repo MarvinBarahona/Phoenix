@@ -96,7 +96,10 @@ public class CategorizacionController {
 		if(d != null){
 			int result = DepartamentoServicio.eliminar(d);
 			if(result==1) r.addProperty("exito", false);
-		}		
+		}
+		else{
+			r.addProperty("exito", false);
+		}
 		
 		return new Gson().toJson(r);
 	}
@@ -161,7 +164,10 @@ public class CategorizacionController {
 		if(c != null){
 			int result = CategoriaServicio.eliminar(c);
 			if(result==1) r.addProperty("exito", false);
-		}		
+		}
+		else{
+			r.addProperty("exito", false);
+		}
 		
 		return new Gson().toJson(r);
 	}
@@ -241,6 +247,9 @@ public class CategorizacionController {
 		if(det != null){
 			int result = DetalleCategoriaServicio.eliminar(det);
 			if(result==1) r.addProperty("exito", false);
+		}
+		else{
+			r.addProperty("exito", false);
 		}		
 		
 		return new Gson().toJson(r);

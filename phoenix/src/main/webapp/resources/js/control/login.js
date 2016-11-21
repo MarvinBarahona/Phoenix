@@ -91,7 +91,7 @@ function redirectWebMaster(){
 //Redirige a la gestión de gerente general.
 function redirectGeneral(){
 	$.redirect(
-		"/dashboard_gg.html",
+		"/employees.html",
 		"POST"
 	);
 }

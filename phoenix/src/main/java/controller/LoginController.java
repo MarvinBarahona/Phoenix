@@ -11,9 +11,12 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import servicio.ClienteServicio;
 import servicio.EmpleadoServicio;
+import servicio.EmpresaServicio;
 import servicio.UsuarioServicio;
 import usuarios.Cliente;
 import usuarios.Empleado;
+import usuarios.Empresa;
+import usuarios.TipoEmpleado;
 import usuarios.TipoUsuario;
 import usuarios.Usuario;
 import util.EmailSender;
@@ -170,6 +173,46 @@ public class LoginController {
 		return new Gson().toJson(resp);
 	}
 
+	//Creación de empresa.**********************************************************************************
+	
+	//Para confirmar la empresa. 
+		@PostMapping(value="/confirmarEmpresa", headers="Accept=*/*", produces="application/json")
+		public @ResponseBody String confirmarEmpresa(){
+			JsonObject resp = new JsonObject();
+			resp.addProperty("exito", true);
+			
+			String nombreEmpresa = request.getParameter("nombreEmpresa");		
+			Empresa e = EmpresaServicio.buscarPorNombre(nombreEmpresa);
+			
+			if(e!=null){
+				String contra = request.getParameter("contra");
+				String pais = request.getParameter("pais");
+				String ciudad = request.getParameter("ciudad");
+				String direccion = request.getParameter("direccion");
+				String zip = request.getParameter("zip");
+				
+				Empleado gerenteG = EmpleadoServicio.buscarPorEmpresa(e.getCodigo(), TipoEmpleado.gerenteGeneral);
+				int r1 = gerenteG.actualizarContra(contra);
+				
+				e.setPais(pais);
+				e.setCiudad(ciudad);
+				e.setDireccion(direccion);
+				e.setZip(zip);
+				
+				int r2 = EmpresaServicio.actualizar(e);
+				
+				if(r1==1 || r2==1) resp.addProperty("exito", false);
+				
+				//Guarda los datos en la sesión.
+				setSessionsAtributes(gerenteG.getUsuario());
+			}
+			else{
+				resp.addProperty("exito", false);
+			}
+			
+			return new Gson().toJson(resp);
+		}
+	
 	
 	//Otros métodos *****************************************************************************************
 	
@@ -217,7 +260,7 @@ public class LoginController {
 				switch(emp.getTipoEmpleado()){
 				case gerenteGeneral:
 					tipo = "general";
-					index = "/dashboard_gg.html";
+					index = "/employees.html";
 					break;
 				case gerenteInventario:
 					tipo = "inventario";

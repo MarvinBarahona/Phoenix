@@ -24,4 +24,14 @@ public class EmailSender{
 		MailServlet mensaje = new MailServlet();
 		mensaje.enviarMsjConfirmCuenta(url, correo, name);
 	}
+	
+	public static void enviarCorreoConfirmacionEmpresa(String nombreEmpresa, String nombreG, String apellidoG, String correo){
+		String url = "https://phoenix-148904.appspot.com/confirmAccountEmp.html?emp=";
+		url += Encoder.codificar(nombreEmpresa);
+		
+		String name = nombreG + " " + apellidoG;
+		
+		MailServlet mensaje = new MailServlet();
+		mensaje.enviarMsjConfirmacionEmpresa(url, correo, name);
+	}
 }
