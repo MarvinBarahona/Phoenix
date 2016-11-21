@@ -30,6 +30,7 @@ public class Sesion {
 			.addAnnotatedClass(productos.DetalleCategoria.class)
 			.addAnnotatedClass(productos.DetalleProducto.class)
 			.addAnnotatedClass(productos.Producto.class)
+			.addAnnotatedClass(productos.ValorDetalleCategoria.class)
 
 			//Configuración
 			.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect")

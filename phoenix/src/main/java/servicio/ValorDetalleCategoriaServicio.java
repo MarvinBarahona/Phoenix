@@ -3,7 +3,6 @@ package servicio;
 import java.util.List;
 
 import org.hibernate.Criteria;
-import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
@@ -12,24 +11,6 @@ import productos.ValorDetalleCategoria;
 import util.Sesion;
 
 public class ValorDetalleCategoriaServicio {
-	//Crea un nuevo detalle dentro de la categoria dada.
-	public static ValorDetalleCategoria crear(int codigoDetalleCategoria, String valor) throws Exception{
-		ValorDetalleCategoria valorDetalle = null;
-		Session session = Sesion.getSession();
-		Transaction transaction = session.beginTransaction();
-		
-		try{
-			valorDetalle = new ValorDetalleCategoria(codigoDetalleCategoria, valor);
-			session.save(valorDetalle);
-			transaction.commit();
-		}catch(HibernateException e){
-			transaction.rollback();
-			throw new Exception(e.getMessage());
-		}
-		
-		return valorDetalle;
-	}
-	
 	//Buscar un valor por id.
 	public static ValorDetalleCategoria buscarPorId(int codigo){
 		Session session = Sesion.getSession();

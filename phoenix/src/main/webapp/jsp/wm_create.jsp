@@ -62,21 +62,29 @@
                           <div class="from-group">
                             <label class="control-label col-sm-4">Departamento:</label>
                             <div class="col-sm-7">
-                              <input type="text" class="form-control">
+                              <input id="txtDeptoNombre" type="text" class="form-control">
                             </div>
                           </div><br>
 
                           <div class="from-group">
                             <label class="control-label col-sm-4">Descripción:</label>
                             <div class="col-sm-7">
-                              <input type="text" class="form-control">
+                              <input id="txtDeptoDesc" type="text" class="form-control">
                             </div>
                           </div><br>
+                          
+                          <div class="form-group">
+                        <div class="col-sm-7">
+                            <span class="error" id="deptoErrorMsg"></span>
+                          </div>
+                        </div><br>  
+                         	
 
                           <div class="form-group">
-                            <div class="col-sm-8 botones">
-                              <button class="btn btn-default">Guardar</button>
-                              <button class="btn btn-default" disabled>Eliminar</button>
+                            <div class="col-sm-10 botones">
+                              <input type="button" id="btnDeptoGuardar" value="Crear" class="btn btn-default" />
+                              <input type="button" id="btnDeptoEliminar" value="Eliminar" class="btn btn-default" disabled />
+                              <input type="button" id="btnDeptoCancelar" value="Cancelar" class="btn btn-default" />
                             </div>
                           </div>
                         </form>
@@ -86,13 +94,7 @@
                       <div class="col-sm-7">
                         <div class="row">
                           <div class="table-responsive col-sm-offset-1 col-sm-11">
-                            <table id="depto" class="display" width="100%">
-                            <!-- Fila a clonar!
-                              <tr>
-                                <td></td>
-                                <td></td>
-                              </tr>
-                            -->
+                            <table id="tblDepto" class="display" width="100%">
                             </table>
                           </div>
                         </div>
@@ -111,8 +113,7 @@
                           <div class="from-group">
                             <label class="control-label col-sm-4">Departamento:</label>
                             <div class="col-sm-7">
-                              <select name="departamento"  class="cmbBox">
-                                <option value="">...</option>
+                              <select id="cmbCategDepto" name="departamento"  class="cmbBox">
                               </select>
                             </div>
                           </div><br>
@@ -120,21 +121,28 @@
                           <div class="from-group">
                             <label class="control-label col-sm-4">Categoría:</label>
                             <div class="col-sm-7">
-                              <input type="text" class="form-control">
+                              <input id="txtCategNombre" type="text" class="form-control">
                             </div>
                           </div><br>
 
                           <div class="from-group">
                             <label class="control-label col-sm-4">Descripción:</label>
                             <div class="col-sm-7">
-                              <input type="text" class="form-control">
+                              <input id="txtCategDesc" type="text" class="form-control">
                             </div>
                           </div><br>
+                          
+                          <div class="form-group">
+                        <div class="col-sm-7">
+                            <span class="error" id="categErrorMsg"></span>
+                          </div>
+                        </div><br>  
 
                           <div class="form-group">
-                            <div class="col-sm-8 botones">
-                              <button class="btn btn-default">Guardar</button>
-                              <button class="btn btn-default" disabled>Eliminar</button>
+                            <div class="col-sm-10 botones">
+                              <input type="button" id="btnCategGuardar" value="Crear" class="btn btn-default" />
+                              <input type="button" id="btnCategEliminar" value="Eliminar" class="btn btn-default" disabled />
+                              <input type="button" id="btnCategCancelar" value="Cancelar" class="btn btn-default" />
                             </div>
                           </div>
                         </form>
@@ -144,14 +152,7 @@
                       <div class="col-sm-7">
                         <div class="row">
                           <div class="table-responsive col-sm-offset-1 col-sm-11">
-                            <table id="categoria" class="display" width="100%">
-                            <!-- Fila a clonar!
-                              <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                              </tr>
-                            -->
+                            <table id="tblCateg" class="display" width="100%">
                             </table>
                           </div>
                         </div>
@@ -164,13 +165,13 @@
                     <h4>Detalles</h4><br>
                     <div class="row">
                       <!--Formulario-->
+                      <div class="col-sm-5">
                       <form class="form-horizontal formularios">
-                      <div class="col-sm-5 col-sm-offset-1">
+                      
                         <div class="from-group">
                           <label class="control-label col-sm-4">Departamento:</label>
                           <div class="col-sm-7">
-                            <select name="departamento"  class="cmbBox">
-                              <option value="">...</option>
+                            <select id="cmbDetalleDepto" name="departamento"  class="cmbBox">
                             </select>
                           </div>
                         </div><br>
@@ -178,8 +179,7 @@
                         <div class="from-group">
                           <label class="control-label col-sm-4">Categoría:</label>
                           <div class="col-sm-7">
-                            <select name="categoria"  class="cmbBox">
-                              <option value="">...</option>
+                            <select id="cmbDetalleCateg" name="categoria"  class="cmbBox">
                             </select>
                           </div>
                         </div><br>
@@ -187,80 +187,62 @@
                         <div class="from-group">
                           <label class="control-label col-sm-4">Detalle:</label>
                           <div class="col-sm-7">
-                            <input type="text" class="form-control">
+                            <input id="txtDetalleNombre" type="text" class="form-control">
                           </div>
                         </div><br>
                         
                         <div class="from-group">
                           <label class="control-label col-sm-4">Descripción:</label>
                           <div class="col-sm-7">
-                            <input type="text" class="form-control">
+                            <input id="txtDetalleDesc" type="text" class="form-control">
                           </div>
                         </div><br>
-                      </div>
-
-                      <div class="col-sm-5">
-
+                        
+                        <div class="from-group">
                         <p class="text-warning col-sm-12 text-center">
                           Digite una especificación por línea.
                         </p><br>
                         <div class="from-group">
                           <label class="control-label col-sm-4">Valores:</label>
                           <div class="col-sm-7">
-                            <textarea name="descripcion" rows="5" cols="30"></textarea>
+                            <textarea id="valoresDetalle" name="descripcion" rows="5" cols="30"></textarea>
                           </div>
                         </div><br>
-                      </div>
+                        </div>
+                        
+                        <div class="form-group">
+                        <div class="col-sm-7">
+                            <span class="error" id="detalleErrorMsg"></span>
+                          </div>
+                        </div><br>                      
 
                       <div class="form-group">
-                        <div class="col-sm-12 botones">
-                          <button class="btn btn-default">Guardar</button>
-                          <button class="btn btn-default" disabled>Eliminar</button>
+                        <div class="col-sm-10 botones">
+                          <input type="button" id="btnDetalleGuardar" value="Crear" class="btn btn-default" />
+                          <input type="button" id="btnDetalleEliminar" value="Eliminar" class="btn btn-default" disabled />
+                          <input type="button" id="btnDetalleCancelar" value="Cancelar" class="btn btn-default" />
                         </div>
+                        
                       </div>
                       </form><!--/Formulario-->
-
                       </div>
+
                       <!--Tabla-->
+                      <div class="col-sm-7">
                         <div class="row">
-                          <div class="table-responsive col-sm-12">
-                            <table id="detalle" class="display" width="100%">
-                            <!-- Fila a clonar!
-                              <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                              </tr>
-                            -->
+                          <div class="table-responsive col-sm-offset-1 col-sm-11">
+                            <table id="tblDetalle" class="display" width="100%">
                             </table>
                           </div>
-                        </div><!--/Tabla-->
+                        </div>
+                      </div><!--/Tabla-->
+                    </div>
 
                   </div><!--/Detalles-->
                 </div>
               </div>
-
-              <div class="row">
-                <div class="table-responsive col-sm-offset-1 col-sm-10">
-                  <table id="usuarios" class="display" width="100%">
-                  <!-- Fila a clonar!
-                    <tr>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                    </tr>
-                  -->
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div><!--/contenido-->
-
+			</div>
+-          </div><!--/contenido-->
           <jsp:include page="footer.jsp"></jsp:include>
         </div>
       </div>
@@ -272,10 +254,10 @@
             <span class="fa fa-bars"></span>
           </a>
         </div>
-  		  <div class="menu">
-  		    <ul id="menu" >
-            <li><a href="wm_adduser.html" data-toggle="tooltip" data-placement="right" title="Agregar usuarios"><i class="fa fa-clipboard"></i><span>Agregar usuarios</span></a></li>
-  		      <li><a href="wm_create.html" data-toggle="tooltip" data-placement="right" title="Crear departamentos, categorias y detalles"><i class="fa fa-file-text"></i><span>Crear elementos</span></a></li>
+  		<div class="menu">
+  		  <ul id="menu" >
+  		    <li><a href="wm_create.html" data-toggle="tooltip" data-placement="right" title="Crear departamentos, categorias y detalles"><i class="fa fa-file-text"></i><span>Gestionar categorización</span></a></li>
+            <li><a href="wm_adduser.html" data-toggle="tooltip" data-placement="right" title="Agregar usuarios"><i class="fa fa-clipboard"></i><span>Agregar empresa</span></a></li> 
           </ul>
   	    </div>
   	 </div><!--/.sidebar-menu-->
@@ -284,39 +266,13 @@
    </div><!--/.page-container-->
   <!--scrolling js-->
   <script src="${js}jquery.nicescroll.js"></script>
-	<script src="${js}scripts.js"></script>
+  <script src="${js}scripts.js"></script>
   <script src="${js}bootstrap.min.js"></script>
   <script src="${js}jquery.dataTables.min.js"></script>
   
-  	<!--Función que permite buscar, ordenar y paginar la tabla-->
- 	<script type="text/javascript">
-    $(document).ready(function() {
-        $('#depto').DataTable( {
-            columns: [
-                { title: "Departamento" },
-                { title: "Descripción" }
-            ]
-        } );
-        $('#categoria').DataTable( {
-            columns: [
-                { title: "Departamento" },
-                { title: "Categoria" },
-                { title: "Descripción" }
-            ]
-        } );
-        $('#detalle').DataTable( {
-            columns: [
-                { title: "Departamento" },
-                { title: "Categoria" },
-                { title: "Detalle" },
-                { title: "Valores" }
-            ]
-        } );
-    } );
-  </script>
-  
   <script src="${jsControl}jquery.redirect.js"></script>
   <script src="${jsControl}logout.js"></script>
+  <script src="${jsControl}wm_create.js" charset="utf-8"></script>
   </body>
 
 </html>

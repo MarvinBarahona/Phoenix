@@ -90,10 +90,10 @@
             <span class="fa fa-bars"></span>
           </a>
         </div>
-  		  <div class="menu">
-  		    <ul id="menu" >
-            <li><a href="wm_adduser.html" data-toggle="tooltip" data-placement="right" title="Agregar usuarios"><i class="fa fa-clipboard"></i><span>Agregar usuarios</span></a></li>
-  		      <li><a href="wm_create.html" data-toggle="tooltip" data-placement="right" title="Crear departamentos, categorias y detalles"><i class="fa fa-file-text"></i><span>Crear elementos</span></a></li>
+  		<div class="menu">
+  		  <ul id="menu" >
+  		    <li><a href="wm_create.html" data-toggle="tooltip" data-placement="right" title="Crear departamentos, categorias y detalles"><i class="fa fa-file-text"></i><span>Gestionar categorización</span></a></li>
+            <li><a href="wm_adduser.html" data-toggle="tooltip" data-placement="right" title="Agregar usuarios"><i class="fa fa-clipboard"></i><span>Agregar empresa</span></a></li> 
           </ul>
   	    </div>
   	 </div><!--/.sidebar-menu-->

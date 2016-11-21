@@ -123,8 +123,8 @@
         </div>
   		  <div class="menu">
   		    <ul id="menu" >
-            <li><a href="dashboard_gv.html" data-toggle="tooltip" data-placement="right" title="Resumen de ventas"><i class="fa fa-clipboard"></i><span>Dashboard</span></a></li>
-  		      <li><a href="productManagement_gv.html" data-toggle="tooltip" data-placement="right" title="Gestión de productos"><i class="fa fa-shopping-bag"></i><span>Gestión de productos</span></a></li>
+            <li><a href="productManagement_gv.html" data-toggle="tooltip" data-placement="right" title="Gestión de productos"><i class="fa fa-shopping-bag"></i><span>Gestión de productos</span></a></li>
+            <li><a href="dashboard_gv.html" data-toggle="tooltip" data-placement="right" title="Resumen de ventas"><i class="fa fa-clipboard"></i><span>Dashboard</span></a></li>      
   	      </ul>
   	    </div>
   	 </div><!--/.sidebar-menu-->
@@ -138,8 +138,8 @@
   <script src="${js}imagen.js"></script>
   <script src="${js}bootstrap.min.js"></script>
   <script src="${js}jquery.dataTables.min.js"></script>
-  <script charset="utf-8" src="${js}productTable.js"></script>
   
+  <script src="${jsControl}productTable.js" charset="utf-8"></script>
   <script src="${jsControl}jquery.redirect.js"></script>
   <script src="${jsControl}logout.js"></script>
   </body>

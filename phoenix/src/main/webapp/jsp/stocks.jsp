@@ -52,14 +52,14 @@
                     <div class="from-group">
                       <label class="control-label col-sm-3" for="producto">Producto:</label>
                       <div class="col-sm-7">
-                        <input type="text" class="form-control" id="producto" disabled>
+                        <input type="text" class="form-control" id="txtProducto" disabled>
                       </div>
                     </div><br>
 
                     <div class="from-group">
                       <label class="control-label col-sm-3" for="producto">Existencias registradas:</label>
                       <div class="col-sm-7">
-                        <input type="text" class="form-control" id="producto" disabled>
+                        <input type="text" class="form-control" id="txtExistencias" disabled>
                       </div>
 
                     </div><br>
@@ -67,21 +67,23 @@
                     <div class="from-group">
                       <label class="control-label col-sm-3" for="Stock">Actualizar stock:</label>
                       <div class="col-sm-4">
-                        <input type="number" min="0">
+                        <input type="number" id="numStock" min="0">
                       </div>
                     </div><br>
                   </div><!--/Bloque 1-->
 
-                  <!--NOTA: Creo haber entendido esto :o-->
                   <div class="form-group">
                     <div class="col-sm-5  col-sm-offset-5">
-                      <button type="button" class="btn btn-default"><span class="fa fa-plus"></span></button>
-                      <button type="button" class="btn btn-default"><span class="fa fa-minus"></span></button>
+                    	<div class="btn-group">
+                    		<button type="button" id="btnSumar" class="btn btn-default"><span class="fa fa-plus"></span></button>
+                      		<button type="button" id="btnRestar" class="btn btn-default"><span class="fa fa-minus"></span></button>
+                    	</div>                      
                     </div>
                   </div>
                   <div class="form-group">
                     <div class="col-sm-5  col-sm-offset-5">
-                      <button class="btn btn-default">Guardar</button>
+                      <button type="button" id="btnGuardar" class="btn btn-default" disabled>Guardar</button>
+                      <button type="button" id="btnCancelar" class="btn btn-default" disabled>Cancelar</button>
                     </div>
                   </div>
                 </form>
@@ -109,8 +111,8 @@
         </div>
   		  <div class="menu">
   		    <ul id="menu" >
-  		      <li><a href="productManagement_gi.html" data-toggle="tooltip" data-placement="right" title="Gestión de productos"><i class="fa fa-shopping-bag"></i><span>Gestión de productos</span></a></li>
-  	        <li><a href="stocks.html" data-toggle="tooltip" data-placement="right" title="Control de existencias"><i class="fa fa-archive"></i><span>Control de existencias</span></a></li>
+  		      	<li><a href="productManagement_gi.html" data-toggle="tooltip" data-placement="right" title="Gestión de productos"><i class="fa fa-shopping-bag"></i><span>Gestión de productos</span></a></li>
+  	        	<li><a href="stocks.html" data-toggle="tooltip" data-placement="right" title="Control de existencias"><i class="fa fa-archive"></i><span>Control de existencias</span></a></li>
   	      </ul>
   	    </div>
   	 </div><!--/.sidebar-menu-->
@@ -124,8 +126,9 @@
   <script src="${js}imagen.js"></script>
   <script src="${js}bootstrap.min.js"></script>
   <script src="${js}jquery.dataTables.min.js"></script>
-  <script charset="utf-8" src="${js}productTable.js"></script>
   
+  <script src="${jsControl}stocks.js" charset="utf-8"></script>
+  <script src="${jsControl}productTable.js" charset="utf-8"></script>
   <script src="${jsControl}jquery.redirect.js"></script>
   <script src="${jsControl}logout.js"></script>
   </body>

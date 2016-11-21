@@ -1,8 +1,4 @@
 $(document).ready(function() {      
-	fillTable();
-});
-
-function fillTable(){
 	$('#productos').append("Cargando información de los productos...");
 	
 	$.ajax({
@@ -19,7 +15,7 @@ function fillTable(){
 				columns: [
 				          {
 				        	  title: "Producto",
-				        	  data: "producto"
+				        	  data: "nombre"
 				          },
 				          {
 				        	  title: "Departamento",
@@ -47,6 +43,11 @@ function fillTable(){
 				          }				          
 				         ]
 			});
+			
+			$('#productos tbody').on( 'dblclick', 'tr', function () {
+				producto = $('#productos').DataTable().row(this).data();
+			    productDblClick(producto);
+			});
 		}
 	});
-}
+});

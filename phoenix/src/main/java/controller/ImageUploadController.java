@@ -10,8 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
@@ -40,7 +39,7 @@ public class ImageUploadController {
 	//Obtiene un nuevo url para subir una imagen. 
 	//Este url solo sirve una vez, y se debe acceder al url por medio de un post especificando 
 	//el dato a guardar. El método subirImagen soporta el upload de la imagen.
-	@RequestMapping(value="/obtenerUploadURL",headers="Accept=*/*",method=RequestMethod.POST,produces="application/json")
+	@PostMapping(value="/obtenerUploadURL",headers="Accept=*/*",produces="application/json")
 	public @ResponseBody String obtenerUploadURL(){
 		String url = UploadURL.getUploadURL();
 		
@@ -53,7 +52,7 @@ public class ImageUploadController {
 	
 	//Luego de guardar la imagen se recupera su blobkey y se almacena según el tipo de imagen que se almacena. 
 	@ResponseStatus(HttpStatus.OK)
-	@RequestMapping(value="/subirImagen",headers="Accept=*/*",method=RequestMethod.POST,produces="application/json")
+	@PostMapping(value="/subirImagen",headers="Accept=*/*",produces="application/json")
 	public @ResponseBody String subirImagen() throws IOException{		
 		String resp = "exito";
 		

@@ -39,7 +39,7 @@ public class ProductoCRUDController {
     //Obtencion de los productos de una empresa específica. 
 	@PostMapping(value="/obtenerProductos", headers="Accept=*/*", produces="application/json")	
 	public @ResponseBody String obtenerProductos(){
-		JsonArray resp = new JsonArray();
+		JsonArray productosJ = new JsonArray();
 		HttpSession session = request.getSession();
 		
 		//Recupera la empresa para la que trabaja el empleado. 		
@@ -49,28 +49,28 @@ public class ProductoCRUDController {
 		List<Producto> productos = ProductoServicio.obtenerProductos(idEmpresa, true);	
 		
 		//Crea la respuesta (en formato para mostrar los datos y alamcenar otros como referencia. 
-		for(Producto p : productos){
-			Categoria c = CategoriaServicio.buscarPorId(p.getCodigoCategoria());
-			Departamento d = DepartamentoServicio.buscarPorId(p.getCodigoDepartamento());
+		for(Producto producto : productos){
+			Categoria categoria = CategoriaServicio.buscarPorId(producto.getCodigoCategoria());
+			Departamento departamento = DepartamentoServicio.buscarPorId(producto.getCodigoDepartamento());
 			
-			JsonObject object = new JsonObject();
+			JsonObject productoJ = new JsonObject();
 			
 			//Datos a mostrar. 
-			object.addProperty("producto", p.getNombre());
-			object.addProperty("departamento", d.getNombre());
-			object.addProperty("categoria", c.getNombre());
-			object.addProperty("cantidad", p.getExistencias());
-			object.addProperty("precio", "$"+p.getPrecio());
-			object.addProperty("descuento", p.getDescuento() + "%");
-			object.addProperty("disponible", p.isDisponible());
+			productoJ.addProperty("nombre", producto.getNombre());
+			productoJ.addProperty("departamento", departamento.getNombre());
+			productoJ.addProperty("categoria", categoria.getNombre());
+			productoJ.addProperty("cantidad", producto.getExistencias());
+			productoJ.addProperty("precio", "$"+producto.getPrecio());
+			productoJ.addProperty("descuento", producto.getDescuento() + "%");
+			productoJ.addProperty("disponible", producto.isDisponible());
 			
 			//Datos a almacenar como referencia. 
-			object.addProperty("id", p.getCodigo());
-			object.addProperty("urlImg", p.getImg(request.getServerName()));
+			productoJ.addProperty("id", producto.getCodigo());
+			productoJ.addProperty("urlImg", producto.getImg(request.getServerName()));
 			
-			resp.add(object);
+			productosJ.add(productoJ);
 		}
 		
-		return new Gson().toJson(resp);		
+		return new Gson().toJson(productosJ);		
 	}
 }

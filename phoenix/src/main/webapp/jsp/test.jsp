@@ -36,9 +36,6 @@
 			<option value="8">Usuario del empleado(id)</option>
 			<option value="9">Empresa(id)</option>
 			<option value="10">Empresa del empleado(id)</option>
-			<option value="11">Gerente General de empresa(id)</option>
-			<option value="12">Gerente Ventas de empresa(id)</option>
-			<option value="13">Gerente Inventario de empresa(id)</option>
 			<option value="14">Ubicacion de empresa(id)</option>
 			<option value="14.5">Ubicacion de cliente(id)</option>
 		</optgroup>
@@ -55,10 +52,8 @@
 			<option value="24">Productos de dep 1 en empresa(id)</option>
 			<option value="25">Detalle(id)</option>
 			<option value="26">Detalles de producto(id)</option>
-		</optgroup>
-		<optgroup label="Decoder">
-			<option value="27">Codificar correo</option>
-			<option value="28">Decodificar correo</option>
+			<option value="27">Valor de detalle(id)</option>
+			<option value="28">Valor detalle categoria(id)</option>
 		</optgroup>
 	</select>
 	<br/>
@@ -90,9 +85,10 @@
 		<optgroup label="Paquete productos">
 			<option value="5">Departamento</option>
 			<option value="6">Categoria</option>
-			<option value="7">Detalle</option>
+			<option value="7">DetalleCategoria</option>
 			<option value="8">Producto</option>
 			<option value="9">DetalleProducto</option>
+			<option value="10">ValorDetalleCategoria</option>
 		</optgroup>
 		
 	</select>

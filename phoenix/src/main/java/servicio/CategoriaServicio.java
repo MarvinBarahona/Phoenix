@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
@@ -86,5 +87,39 @@ public class CategoriaServicio {
 		
 		transaction.commit();
 		return result;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static int eliminar(Categoria categoria){
+		int r = 0; 
+		Session session = Sesion.getSession();
+		Transaction transaction = session.beginTransaction();
+		
+		try{
+			//Recupera la categoria "n/a" del departamento al que pertenece la categoria a eliminar. 
+			Criteria criteria = session.createCriteria(Categoria.class);
+			criteria.add(Restrictions.eq("codigoDepartamento", categoria.getCodigoDepartamento()));
+			criteria.add(Restrictions.eq("nombre", "n/a"));
+			List<Categoria> categorias = criteria.list();
+			Categoria categoriaNA = categorias.get(0);
+			
+			//Cambia los productos de la categoria a eliminar a la categoria "n/a" de ese departamento. 
+			Query queryUpdate = session.createQuery("update from Producto set codigoCategoria = :codigoCategoriaNA"
+					+ " where codigoCategoria = :codigoCategoria");
+			queryUpdate.setParameter("codigoCategoriaNA", categoriaNA.getCodigo());
+			queryUpdate.setParameter("codigoCategoria", categoria.getCodigo());
+			queryUpdate.executeUpdate();
+			
+			//Por el diseño de la base de datos, cuando se elimina una Categoria, se eliminan 
+			//los detalles asociados (con sus respectivos ValorDetalleCategoria y DetalleProducto) 
+			session.delete(categoria);
+			
+			transaction.commit();
+		}catch(HibernateException | IndexOutOfBoundsException e){
+			transaction.rollback();
+			r = 1;
+		}
+		
+		return r;
 	}
 }

@@ -57,8 +57,8 @@
                       <div class="from-group">
                         <label class="control-label col-sm-3">Departamento:</label>
                         <div class="col-sm-7">
-                          <select name="departamento" class="cmbBox">
-                            <option value="">Seleccione..</option>
+                          <select name="departamento" class="cmbBox" id="cmbDepartamento">
+                            <option value="">Seleccione...</option>
                           </select>
                         </div>
                       </div><br>
@@ -66,8 +66,8 @@
                       <div class="from-group">
                         <label class="control-label col-sm-3" for="categoria">Categoría:</label>
                         <div class="col-sm-7">
-                          <select name="categoria" class="cmbBox">
-                            <option value="">Seleccionar..</option>
+                          <select name="categoria" class="cmbBox" id="cmbCategoria">
+                            <option value="">Seleccionar...</option>
                           </select>
                         </div>
                       </div><br>
@@ -75,7 +75,7 @@
                       <div class="from-group">
                         <label class="control-label col-sm-3" for="Stock">Stock:</label>
                         <div class="col-sm-4">
-                          <input type="number" min="0">
+                          <input type="number" min="0" id="stock">
                         </div>
                       </div><br>
                     </div><!--/Bloque 1-->
@@ -98,7 +98,7 @@
                     <div class="col-sm-4">
                       <div class="from-group">
                         <label class="control-label col-sm-3" for="imagen">Detalles:</label><br>
-                        <div class="col-sm-7">
+                        <div class="col-sm-7" id="divDetalles">
                           <label>Marca:</label>
                           <select>
                             <option value="">Samsung</option>
@@ -109,8 +109,9 @@
 
                     <div class="form-group">
                       <div class="col-sm-offset-2 col-sm-5 botones">
-                        <button type="button" class="btn btn-default">Nuevo</button>
-                        <button type="button" class="btn btn-default" id="btnGuardar">Guardar</button>
+                        <button type="button" class="btn btn-default" id="btnGuardar">Crear</button>
+                        <button type="button" class="btn btn-default" id="btnModificar">Modificarr</button>
+                        <button type="button" class="btn btn-default" id="btnCancelar">Cancelar</button>
                       </div>
                     </div>
               </form>
@@ -154,12 +155,12 @@
   <script src="${js}imagen.js"></script>
   <script src="${js}bootstrap.min.js"></script>
   <script src="${js}jquery.dataTables.min.js"></script>
-  <script charset="utf-8" src="${js}productTable.js"></script>
   
   <script src="${jsControl}jquery.redirect.js"></script>
-  <script src="${jsControl}logout.js"></script>
-  <script src="${jsControl}productManagement_gi.js"></script>
-  <script src="${jsControl}guardarImagen.js"></script>
+  <script src="${jsControl}logout.js" charset="utf-8"></script>
+  <script src="${jsControl}productManagement_gi.js" charset="utf-8"></script>
+  <script src="${jsControl}productTable.js" charset="utf-8"></script>
+  <script src="${jsControl}guardarImagen.js" charset="utf-8"></script>
   </body>
 
 </html>

@@ -19,10 +19,10 @@ import servicio.EmpresaServicio;
 import servicio.ProductoServicio;
 import servicio.UbicacionServicio;
 import servicio.UsuarioServicio;
+import servicio.ValorDetalleCategoriaServicio;
 import usuarios.Cliente;
 import usuarios.Empleado;
 import usuarios.Empresa;
-import util.Encoder;
 
 import com.google.appengine.repackaged.com.google.gson.Gson;
 
@@ -130,10 +130,11 @@ public class TestMapeo {
 				resp = DetalleProductoServicio.buscarPorId(id);
 				break;
 			case "27":
-				resp = Encoder.codificar(idString);
+				resp = ValorDetalleCategoriaServicio.obtenerDetalles(1);
 				break;
 			case "28":
-				resp = Encoder.decodificar(idString);
+				id = Integer.parseInt(idString);
+				resp = ValorDetalleCategoriaServicio.buscarPorId(id);
 				break;
 			default:
 				resp = "No implementado!";
@@ -190,6 +191,9 @@ public class TestMapeo {
 			break;
 		case "9":
 			resp = DetalleProductoServicio.obtenerDetallesProducto();
+			break;
+		case "10":
+			resp = ValorDetalleCategoriaServicio.obtenerDetalles();
 			break;
 		default:
 			resp = "No implementado!";
