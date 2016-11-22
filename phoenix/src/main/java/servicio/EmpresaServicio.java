@@ -102,7 +102,7 @@ public class EmpresaServicio {
 			session.update(e);
 			transaction.commit();
 		}
-		catch(Exception exc){
+		catch(HibernateException exc){
 			transaction.rollback();
 			r = 1;
 		}
@@ -113,8 +113,22 @@ public class EmpresaServicio {
 	
 	//Actualiza la imagen de una empresa dada. 
 	public static int actualizarImagen(Empresa e, String img){
-		e.setImg(img);
-		return actualizar(e);
+		int r = 0;		
+		Session session = Sesion.getSession();
+		Transaction transaction = session.beginTransaction();
+		
+		try{
+			e.setImg(img);
+			session.update(e);
+			transaction.commit();
+		}
+		catch(HibernateException exc){
+			transaction.rollback();
+			r = 1;
+		}
+		
+		//Retorna 0->exito, 1->error
+		return r;
 	}
 	
 	//Recuperar todas las empresas de la tabla. 

@@ -143,10 +143,16 @@ public class Producto {
 	}
 
 	//Atributo: img
+	//Recupera la imagen el forma de path.
 	public String getImg(String servername) {
 		return UploadURL.getImageURL(img, servername);
 	}
 
+	//Recupera la imagen en forma de blobkey.
+	public String getBlob(){
+		return this.img;
+	}
+	
 	public void setImg(String img) {
 		this.img = img;
 	}

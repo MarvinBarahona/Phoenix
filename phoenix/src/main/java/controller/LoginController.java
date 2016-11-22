@@ -256,11 +256,12 @@ public class LoginController {
 			
 			if(user.getTipoUsuario().equals(TipoUsuario.empleado)){
 				Empleado emp = EmpleadoServicio.buscarPorId(user.getCodigo());
-				
+				session.setAttribute("idEmpresa", emp.getCodigoEmpresa());
 				switch(emp.getTipoEmpleado()){
 				case gerenteGeneral:
 					tipo = "general";
 					index = "/employees.html";
+					
 					break;
 				case gerenteInventario:
 					tipo = "inventario";

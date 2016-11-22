@@ -3,10 +3,10 @@
   <div class="header-left">
     <div class="logo-name">
      <a href="">
-      <img id="logo" src="${imagenEmpresa}" alt="Logo ${nombreEmpresa}"/>
+      <img id="logo" src="${imagenEmpresa}" alt="Logo ${nombreEmpresa}" style="height:50px;"/>
      </a>
     </div>
-    	<p>${nombreEmpresa}</p>
+    	<p id="headerNombreEmpresa">${nombreEmpresa}</p>
     <div class="clearfix"> </div>
   </div>
   <div class="header-right">

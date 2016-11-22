@@ -5,9 +5,7 @@
 //Para los parámetros, se debe enviar "producto" o "empresa", dependiendo de a qué objeto se haga referencia. 
 //En ambos casos es necesario un id para guardar la imagen. 
 
-function guardarImagen(tipo, id){
-	var blobkey;
-	
+function guardarImagen(tipo, id){	
 	if($('#checkImg').is(':checked')){		
 		$.ajax({
 			type: "POST",
@@ -40,5 +38,4 @@ function guardarImagen(tipo, id){
 			}
 		});
 	}	
-	
 }

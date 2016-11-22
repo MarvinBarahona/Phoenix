@@ -36,6 +36,7 @@
     <div class="page-container">
      <div class="left-content">
   	   <div class="mother-grid-inner">
+  	   
          <jsp:include page="header.jsp"></jsp:include>
 
           <!--Contenido-->
@@ -47,23 +48,24 @@
                   <div class="from-group">
                     <label class="control-label col-sm-3" for="nombre">Nombre:</label>
                     <div class="col-sm-7">
-                      <input type="text" class="form-control">
+                      <input type="text" class="form-control" value="${nombreEmpresa}" id="txtNombre">
                     </div>
                   </div><br>
 
                   <div class="from-group">
                     <label class="control-label col-sm-3" for="telefono">Teléfono:</label>
                     <div class="col-sm-7">
-                      <input type="tel" class="form-control">
+                      <input type="tel" class="form-control" value="${telefono}" id="txtTelefono">
                     </div>
                   </div><br>
 
                   <div class="from-group">
-                    <label class="control-label col-sm-3" for="dirección">Dirección:</label>
+                    <label class="control-label col-sm-3" for="dirección">Ubicación:</label>
                       <div class="col-sm-7">
-                        <input type="text" class="form-control" placeholder="Ciudad"><br>
-                        <input type="text" class="form-control" placeholder="País"><br>
-                        <input type="text" class="form-control" placeholder="ZIP"><br>
+                      	<input type="text" class="form-control" placeholder="País" value="${pais}" id="txtPais"><br>
+                        <input type="text" class="form-control" placeholder="Ciudad" value="${ciudad}" id="txtCiudad"><br>
+                        <input type="text" class="form-control" placeholder="Dirección" value="${direccion}" id="txtDir"><br>
+                        <input type="text" class="form-control" placeholder="ZIP" value="${zip}" id="txtZip"><br>
                       </div>
                   </div><br>
                 </div><!--/Bloque 1-->
@@ -74,19 +76,21 @@
                     <label class="control-label col-sm-3" for="imagen">Logo:</label>
                     <div class="col-sm-7">
                       <div class="form-group">
-                        <input type="checkbox" value="" id="checkImg" checked>Modificar logo<br>
+                        <input type="checkbox" value="" id="checkImg">Modificar logo<br>
                         <input type="file" id="file_url" name="imagen" />
-                        <img alt="Imagen del producto" id="img_destino" src=""/>
+                        <img alt="Logo de la empresa" id="img_destino" src="${imagenEmpresa}"/>
                       </div>
                     </div>
                   </div><br>
                 </div><!--/Bloque 2-->
-
+                
                 <div class="form-group">
                   <div class="col-sm-offset-4 col-sm-5 botones">
-                    <button class="btn btn-default">Guardar</button>
+                  <span class="error" id="errorMsg"></span><br>
+                    <button type="button" class="btn btn-default" id="btnGuardar">Guardar</button>
                   </div>
                 </div>
+                
               </form>
             </div>
           </div><!--/contenido-->
@@ -124,6 +128,8 @@
   
   <script src="${jsControl}jquery.redirect.js"></script>
   <script src="${jsControl}logout.js"></script>
+  <script src="${jsControl}company.js" charset="utf-8"></script>
+  <script src="${jsControl}guardarImagen.js" charset="utf-8"></script>
   </body>
 
 </html>

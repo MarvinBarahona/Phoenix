@@ -80,7 +80,13 @@ public class Empresa implements Serializable{
 
 	//Atributo: img
 	public String getImg(String servername) {
+		//Devuelve la imagen en forma de path. 
 		return UploadURL.getImageURL(img, servername);
+	}
+	
+	public String getBlob(){
+		//Devuelve la imagen en forma de blobkey
+		return this.img;
 	}
 
 	public void setImg(String img) {

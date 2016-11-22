@@ -96,6 +96,16 @@ public class RedirectController {
 		if(model == null){
 			model = new ModelAndView("company");
 			setHeaderData(model);
+			
+			HttpSession session = request.getSession();			
+			int codigoEmpresa = (int)session.getAttribute("idEmpresa");
+			Empresa e = EmpresaServicio.buscarPorId(codigoEmpresa);
+			
+			model.addObject("telefono", e.getTelefono());
+			model.addObject("pais", e.getPais());
+			model.addObject("ciudad", e.getCiudad());
+			model.addObject("direccion", e.getDireccion());
+			model.addObject("zip", e.getZip());
 		}
 		
 		return model;

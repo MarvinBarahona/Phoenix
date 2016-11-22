@@ -67,12 +67,32 @@ public class ImageUploadController {
 			int id = Integer.valueOf(request.getParameter("id"));
 			
 			if(tipo.matches("producto")){
+				//Recupera el producto.
 				Producto p = ProductoServicio.buscarPorId(id);
-				ProductoServicio.actualizarImagen(p, blob);
+				
+				//Elimina el blob previo.
+				String blobPrevio = p.getBlob();
+				if(blobPrevio != null){
+					BlobKey blobkey = new BlobKey(blobPrevio);
+					blobStoreService.delete(blobkey);
+				}
+				
+				resp = String.valueOf(ProductoServicio.actualizarImagen(p, blob));
 			}
 			else if(tipo.matches("empresa")){
+				//Recuperar la empresa (el id se almacena en la sesión)
+				id = (int)request.getSession().getAttribute("idEmpresa");
 				Empresa e = EmpresaServicio.buscarPorId(id);
-				EmpresaServicio.actualizarImagen(e, blob);
+				
+				//Elimina el blob previo.
+				String blobPrevio = e.getBlob();
+				if(blobPrevio != null){
+					BlobKey blobkey = new BlobKey(blobPrevio);
+					blobStoreService.delete(blobkey);
+				}				
+				
+				//Actualizar la imagen.
+				resp = String.valueOf(EmpresaServicio.actualizarImagen(e, blob));
 			}
 			
 		}catch(NullPointerException e1){
