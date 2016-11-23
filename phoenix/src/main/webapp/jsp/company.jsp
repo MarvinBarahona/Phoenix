@@ -84,9 +84,9 @@
                   </div><br>
                 </div><!--/Bloque 2-->
                 
-                <div class="form-group">
+                <div class="from-group">
                   <div class="col-sm-offset-4 col-sm-5 botones">
-                  <span class="error" id="errorMsg"></span><br>
+                  <span class="error" id="errorMsg"></span>
                     <button type="button" class="btn btn-default" id="btnGuardar">Guardar</button>
                   </div>
                 </div>

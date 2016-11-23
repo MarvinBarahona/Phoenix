@@ -16,7 +16,7 @@
           <a href="" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
             <div class="profile_img">
               <div class="user-name">
-                <p>${nombreEmpleado}</p>
+                <p id="headerName">${nombreEmpleado}</p>
                 <span>${tipoEmpleado}</span>
               </div>
               <i class="fa fa-angle-down lnr"></i>

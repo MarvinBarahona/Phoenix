@@ -69,6 +69,19 @@ public class MailServlet extends HttpServlet {
     	asunto = "Ha sido agregado a un grupo de trabajo.";
     }
     
+    private void companyUnion(String url, String nombreUsuario){
+    	cuerpoHTML = "<h2 style=\"text-align: center; padding-left: 30px;\"><span style=\"color: #3366ff;\"><strong>Ha sido agregado como gerente en nuestro sitio:</strong></span></h2>"
+        		  +"<h3 style=\"padding-left: 30px;\">Buen dia "+nombreUsuario+". Para poder establecer su&nbsp;contrase&ntilde;a de usuario en Phoenix, por favor acceda al siguiente enlace y siga las instrucciones:</h3>"
+        		  +"<h3 style=\"text-align: left; padding-left: 30px;\"><a href=\""+url+"\">"+url+"</a></h3>"
+        		  +"<h3 style=\"text-align: left; padding-left: 30px;\">&nbsp;</h3>"
+        		  +"<h3 style=\"padding-left: 30px;\">Si no puede acceder al enlace, copielo en la barra de direcciones de su navegador.</h3>"
+        		  +"<h3 style=\"padding-left: 30px;\">Si usted no realizo la solicitud de cambio de&nbsp;contrase&ntilde;a, puede ignorar este mensaje.&nbsp;</h3>"
+        		  +"<h3 style=\"padding-left: 30px;\">Att. Phoenix Dev Team</h3>"
+        		  +"<h3 style=\"padding-left: 30px;\">NightHakws</h3>";   
+    	  
+    	asunto = "Ha sido agregado a un grupo de trabajo.";
+    }
+    
     private void signInAlert(String nombreUsuario){
   	   	cuerpoHTML = "<h2 style=\"text-align: center; padding-left: 30px;\"><span style=\"color: #3366ff;\"><strong>Nuevo Inicio de Sesion</strong></span></h2>"
          		  +"<h3 style=\"padding-left: 30px;\"> "+nombreUsuario+". Se ha iniciado sesion correctamente con su usuario hace unos momentos.:</h3>"
@@ -122,6 +135,11 @@ public class MailServlet extends HttpServlet {
     public void enviarMsjConfirmacionEmpresa(String url, String correoDestinatario, String nombreDestinatario){
     	accountConfirmEmp(url, nombreDestinatario);
     	setMessageData(correoDestinatario);	  
+    }
+    
+    public void enviarMsjAgregacionEmpresa(String url, String correoDestinatario, String nombreDestinatario){
+    	companyUnion(url, nombreDestinatario);
+    	setMessageData(correoDestinatario);
     }
     
     //Alerta de inicio de sesion.

@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -20,7 +22,6 @@ import util.Encoder;
 public class RedirectController {
 	@Autowired private HttpServletRequest request;
 	@Autowired private HttpServletResponse response;
-	
 	
 //########## Login ********************************************************************************************
 	@RequestMapping(value="/loginFailed")
@@ -119,6 +120,39 @@ public class RedirectController {
 		if(model == null){
 			model = new ModelAndView("employees");
 			setHeaderData(model);
+			
+			//Recupera la empresa. 
+			HttpSession session = request.getSession();			
+			int codigoEmpresa = (int)session.getAttribute("idEmpresa");
+			Empresa e = EmpresaServicio.buscarPorId(codigoEmpresa);
+			
+			//Recupera cada empleado y coloca sus datos. 
+			List<Empleado> empleados = EmpresaServicio.obtenerEmpleados(e);
+			for(Empleado empleado : empleados){
+				switch(empleado.getTipoEmpleado()){
+				case gerenteGeneral:
+					model.addObject("nombreGG", empleado.getNombre());
+					model.addObject("apellidoGG", empleado.getApellido());
+					model.addObject("correoGG", empleado.getCorreo());
+					break;
+				case gerenteInventario:
+					if(!empleado.getNombre().matches("n/a")){
+						model.addObject("nombreGI", empleado.getNombre());
+						model.addObject("apellidoGI", empleado.getApellido());
+						model.addObject("correoGI", empleado.getCorreo());
+					}					
+					break;
+				case gerenteVentas:
+					if(!empleado.getNombre().matches("n/a")){
+						model.addObject("nombreGV", empleado.getNombre());
+						model.addObject("apellidoGV", empleado.getApellido());
+						model.addObject("correoGV", empleado.getCorreo());
+					}					
+					break;
+				default:
+					break;				
+				}
+			}
 		}
 		
 		return model;

@@ -144,5 +144,16 @@ public class EmpresaServicio {
 		return result;
 	}
 
-	
+	@SuppressWarnings("unchecked")
+	public static List<Empleado> obtenerEmpleados(Empresa e){
+		Session session = Sesion.getSession();
+		Transaction transaction = session.beginTransaction();
+		
+		Criteria criteria = session.createCriteria(Empleado.class);
+		criteria.add(Restrictions.eq("codigoEmpresa", e.getCodigo()));
+		List<Empleado> result = criteria.list();
+		
+		transaction.commit();
+		return result;
+	}
 }

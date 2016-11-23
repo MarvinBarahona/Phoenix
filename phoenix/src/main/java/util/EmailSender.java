@@ -13,6 +13,16 @@ public class EmailSender{
 		mensaje.enviarMsjRecupPass(url, correo, nombre);
 	}
 	
+	public static void enviarCorreoEstablecerContra(Usuario usuario){
+		String url = "https://phoenix-148904.appspot.com/restorePassword.html?user=";
+		String correo = usuario.getCorreo();
+		url += Encoder.codificar(correo);
+		String nombre = usuario.getNombre() + usuario.getApellido();
+		
+		MailServlet mensaje = new MailServlet();
+		mensaje.enviarMsjAgregacionEmpresa(url, correo, nombre);
+	}
+	
 	public static void enviarCorreoConfirmacion(String correo, String nombre, String apellido){
 		String url = "https://phoenix-148904.appspot.com/confirmAccount.html?mail=";
 		url += Encoder.codificar(correo);

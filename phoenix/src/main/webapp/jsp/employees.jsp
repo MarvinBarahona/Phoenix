@@ -58,26 +58,27 @@
                         <div class="from-group">
                           <label class="control-label col-sm-3" for="nombre">Nombre:</label>
                           <div class="col-sm-7">
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" value="${nombreGG}" id="txtNombreGG">
                           </div>
                         </div><br>
                         <div class="from-group">
                           <label class="control-label col-sm-3" for="apellido">Apellido:</label>
                           <div class="col-sm-7">
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" value="${apellidoGG}" id="txtApellidoGG">
                           </div>
                         </div><br>
 
                         <div class="from-group">
                           <label class="control-label col-sm-3" for="correo" >Correo electrónico:</label>
                           <div class="col-sm-7">
-                            <input type="email" class="form-control" disabled>
+                            <input type="email" class="form-control" value="${correoGG}" id="txtCorreoGG" disabled>
                           </div>
                         </div><br>
 
                         <div class="form-group">
                           <div class="col-sm-10 botones">
-                            <button class="btn btn-default">Guardar</button>
+                          <span class="error" id="errorMsgGG"></span><br>
+                            <button type="button" class="btn btn-default" id="btnGuardarGG">Guardar</button>
                           </div>
                         </div>
                       </div>
@@ -92,26 +93,27 @@
                         <div class="from-group">
                           <label class="control-label col-sm-3" for="nombre">Nombre:</label>
                           <div class="col-sm-7">
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" value="${nombreGV}" id="txtNombreGV">
                           </div>
                         </div><br>
                         <div class="from-group">
                           <label class="control-label col-sm-3" for="apellido">Apellido:</label>
                           <div class="col-sm-7">
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" value="${apellidoGV}" id="txtApellidoGV">
                           </div>
                         </div><br>
 
                         <div class="from-group">
                           <label class="control-label col-sm-3" for="correo">Correo electrónico:</label>
                           <div class="col-sm-7">
-                            <input type="email" class="form-control">
+                            <input type="email" class="form-control" value="${correoGV}" id="txtCorreoGV">
                           </div>
                         </div><br>
 
                         <div class="form-group">
                           <div class="col-sm-10 botones">
-                            <button class="btn btn-default">Guardar</button>
+                          <span class="error" id="errorMsgGV"></span><br>
+                            <button type="button" class="btn btn-default" id="btnGuardarGV">Guardar</button>
                           </div>
                         </div>
                       </div>
@@ -126,26 +128,27 @@
                         <div class="from-group">
                           <label class="control-label col-sm-3" for="nombre">Nombre:</label>
                           <div class="col-sm-7">
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" value="${nombreGI}" id="txtNombreGI">
                           </div>
                         </div><br>
                         <div class="from-group">
                           <label class="control-label col-sm-3" for="apellido">Apellido:</label>
                           <div class="col-sm-7">
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" value="${apellidoGI}" id="txtApellidoGI">
                           </div>
                         </div><br>
 
                         <div class="from-group">
                           <label class="control-label col-sm-3" for="correo">Correo electrónico:</label>
                           <div class="col-sm-7">
-                            <input type="email" class="form-control">
+                            <input type="email" class="form-control" value="${correoGI}" id="txtCorreoGI">
                           </div>
                         </div><br>
 
                         <div class="form-group">
                           <div class="col-sm-10 botones">
-                            <button class="btn btn-default">Guardar</button>
+                          	<span class="error" id="errorMsgGI"></span><br>
+                            <button type="button" class="btn btn-default" id="btnGuardarGI">Guardar</button>
                           </div>
                         </div>
                       </div>
@@ -187,5 +190,7 @@
   
   <script src="${jsControl}jquery.redirect.js"></script>
   <script src="${jsControl}logout.js"></script>
+  <script src="${jsControl}validate.js"></script>
+  <script src="${jsControl}employees.js" charset="utf-8"></script>
   </body>
 </html>
