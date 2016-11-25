@@ -1,14 +1,11 @@
 package productos;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import util.UploadURL;
 
@@ -51,20 +48,17 @@ public class Producto {
 	@Column(name = "disponible")
 	boolean disponible;
 	
-	@Transient
-	List<DetalleProducto> detalles;
-	
 	//Constructores ************************************
 	public Producto() {
 		
 	}
 	
-	public Producto(String nombre, int existencias, Categoria categoria, int codigoEmpresa) {
+	public Producto(String nombre, int existencias, int codigoCategoria, int codigoDepartamento, int codigoEmpresa) {
 		this.nombre = nombre;
 		this.existencias = existencias; 
 		this.codigoEmpresa = codigoEmpresa;
-		this.codigoCategoria = categoria.getCodigo();
-		this.codigoDepartamento = categoria.getCodigoDepartamento();
+		this.codigoCategoria = codigoCategoria;
+		this.codigoDepartamento = codigoDepartamento;
 	}
 
 	//Getters y Setters ***********************************

@@ -9,44 +9,62 @@ $(document).ready(function() {
 		},
 		success: function(resp){
 			var productos = JSON.parse(resp);
+			
 			$('#productos').html('');
-			$('#productos').DataTable( {
-				data: productos, 
+			
+			$('#productos').DataTable({
+				data: productos,
+				
+				//Asignar una función al crear un nuevo row. 
+				"createdRow": function(row, data, index){
+					productoAgregado(index);		//Se crea la función (si se usa) en los js de cada vista.
+ 				},
+				
 				columns: [
 				          {
 				        	  title: "Producto",
-				        	  data: "nombre"
+				        	  data: "nombre",
+				        	  name: "nombre"
 				          },
 				          {
 				        	  title: "Departamento",
-				        	  data: "departamento"
+				        	  data: "departamento",
+				        	  name: "departamento"
 				          },
 				          {
 				        	 title: "Categoria",
-				        	 data: "categoria"
+				        	 data: "categoria",
+				        	 name: "categoria"
 				          },
 				          {
 				        	  title: "Cantidad",
-				        	  data: "cantidad"
+				        	  data: "cantidad",
+				        	  name: "cantidad"
 				          },
 				          {
-				        	  title: "Precio",
-				        	  data: "precio"  
+				        	  title: "Precio ($)",
+				        	  data: "precio",
+				        	  name: "precio"
 				          },
 				          {
-				        	  title: "Descuento",
-				        	  data: "descuento"
+				        	  title: "Descuento (%)",
+				        	  data: "descuento",
+				        	  name: "descuento"
 				          },
 				          {
 				        	  title: "Disponible",
-				        	  data: "disponible"
-				          }				          
+				        	  data: "disponible",
+				        	  name: "disponible"
+				          },				          
 				         ]
 			});
 			
 			$('#productos tbody').on( 'dblclick', 'tr', function () {
-				producto = $('#productos').DataTable().row(this).data();
-			    productDblClick(producto);
+				var prod = $('#productos').DataTable().row(this).data();
+				var index = $('#productos').DataTable().row(this).index();
+				
+				//Función al dar doble click a un row, manda la data y el index de row. 
+			    productDblClick(prod, index);	//Se crea la función (si se usa) en los js de cada vista.
 			});
 		}
 	});

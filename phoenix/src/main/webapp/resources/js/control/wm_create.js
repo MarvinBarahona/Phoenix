@@ -4,6 +4,7 @@ var indexDeptoMod;
 var indexCategMod;
 var indexDetalleMod;
 
+//								Llenar la tablas. 
 $(document).ready(function(){	
 	
 	//Pone un mensaje de "cargando" en cada tabla. 
@@ -11,7 +12,6 @@ $(document).ready(function(){
 	$('#tblCateg').html('Cargando datos de categorías...');
 	$('#tblDetalle').html('Cargando datos de detalles...');
 	
-	//Para la llenar todas las tablas, agregar un evento para dblclick en cada una. 
 	$.ajax({
 		//Recuperar un json con la información necesaria para llenar todo. (Todo es todo) 
 		url: "obtenerCategorizacion.html",
@@ -22,7 +22,7 @@ $(document).ready(function(){
 			//Convierte la respuesta en un objeto. 
 			var categorizacion = JSON.parse(resp);
 			
-			//Tabla de departamentos.***************************************************************
+			//					## Tabla de departamentos ##
 			$('#tblDepto').html('');
 			$('#tblDepto').DataTable({
 				data: categorizacion.departamentos, 
@@ -202,7 +202,7 @@ $(document).ready(function(){
 
 //Cancelar las operaciones. ************************************************************************************
 
-//###### Departamento ########
+//		###### Departamento ########
 $('#btnDeptoCancelar').click(function(){
 	//Quita el modo de edición.
 	$('#btnDeptoGuardar').prop('value', 'Crear');
@@ -216,7 +216,7 @@ $('#btnDeptoCancelar').click(function(){
 	$('#deptoErrorMsg').html('');
 });
 
-//####### Categoria ########
+//		####### Categoria ########
 $('#btnCategCancelar').click(function(){
 	//Quita el modo edición.
 	$('#btnCategGuardar').prop('value', 'Crear');
@@ -232,7 +232,7 @@ $('#btnCategCancelar').click(function(){
 	$('#categErrorMsg').html('');
 });
 
-//######## Detalle ##########
+//		######## Detalle ##########
 $('#btnDetalleCancelar').click(function(){
 	//Quita el modo edición. 
 	$('#btnDetalleGuardar').prop('value', 'Crear');
@@ -268,7 +268,9 @@ $('#btnDeptoGuardar').click(function(){
 	}	
 	
 	else{
-		//#######  Crear  #######
+		
+		//						#######  Crear departamento #######
+		
 		if($('#btnDeptoGuardar').val() == 'Crear'){
 			$.ajax({
 				url: "crearDepartamento.html",
@@ -304,7 +306,8 @@ $('#btnDeptoGuardar').click(function(){
 			});
 		}
 		
-		//####### Modificar #######
+		//						####### Modificar departamento #######
+		
 		else if($('#btnDeptoGuardar').val() == 'Modificar'){
 			var id = $('#tblDepto').DataTable().row(indexDeptoMod).data().id;
 			
@@ -341,7 +344,8 @@ $('#btnDeptoGuardar').click(function(){
 	}
 });
 
-//######## Eliminar #########
+//						######## Eliminar departamento #########
+
 $('#btnDeptoEliminar').click(function(){
 	$('#deptoErrorMsg').html("");
 	
@@ -416,7 +420,9 @@ $('#btnCategGuardar').click(function(){
 	}	
 	
 	else{
-		//#######  Crear  #######
+		
+		//						#######  Crear categoría #######
+		
 		if($('#btnCategGuardar').val() == 'Crear'){
 			$.ajax({
 				url: "crearCategoria.html",
@@ -453,7 +459,8 @@ $('#btnCategGuardar').click(function(){
 			});
 		}
 		
-		//####### Modificar #######
+		//					####### Modificar categoría #######
+		
 		else if($('#btnCategGuardar').val() == 'Modificar'){
 			var id = $('#tblCateg').DataTable().row(indexCategMod).data().id;
 			
@@ -492,7 +499,8 @@ $('#btnCategGuardar').click(function(){
 	}
 });
 
-//######## Eliminar #########
+//							######## Eliminar categoría #########
+
 $('#btnCategEliminar').click(function(){
 	$('#categErrorMsg').html("");
 	
@@ -554,8 +562,8 @@ $('#btnDetalleGuardar').click(function(){
 	
 	var categ = $('#cmbDetalleCateg').val();
 	
-	var valoresStr = $('#valoresDetalle').val();
-	valoresStr = $.trim(valoresStr);
+	//Crea un arreglo de valores ingresados, separados por "\n"
+	var valoresStr = $.trim($('#valoresDetalle').val());		
 	var valores = $.map(valoresStr.split("\n"), $.trim);
 	
 	if(nombre == "" || desc == "" || categ == '0' || valoresStr == ""){
@@ -569,7 +577,9 @@ $('#btnDetalleGuardar').click(function(){
 	}
 	
 	else{
-//#######  Crear  #######
+		
+		//					#######  Crear detalle #######
+		
 		if($('#btnDetalleGuardar').val() == 'Crear'){
 			$.ajax({
 				url: "crearDetalle.html",
@@ -605,7 +615,8 @@ $('#btnDetalleGuardar').click(function(){
 			});
 		}
 		
-//####### Modificar #######
+		//				####### Modificar detalle #######
+		
 		else if($('#btnDetalleGuardar').val() == 'Modificar'){
 			var detalle =  $('#tblDetalle').DataTable().row(indexDetalleMod).data();
 			var id = detalle.id;
@@ -675,7 +686,7 @@ $('#btnDetalleGuardar').click(function(){
 	}
 });
 
-//######## Eliminar #########
+//					######## Eliminar detalle #########
 $('#btnDetalleEliminar').click(function(){
 	$('#detalleErrorMsg').html("");
 	

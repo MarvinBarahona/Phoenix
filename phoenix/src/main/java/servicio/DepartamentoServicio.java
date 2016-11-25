@@ -25,6 +25,7 @@ public class DepartamentoServicio {
 			dep = new Departamento(nombre, descripcion);
 			session.save(dep);
 			
+			//Crea una categoria indefinida para cada departamento. 
 			Categoria cat = new Categoria("n/a", "Categoria indefinida", dep.getCodigo());
 			session.save(cat);
 			
@@ -103,7 +104,7 @@ public class DepartamentoServicio {
 			//Cambia los productos del departamento a eliminar al departamento "n/a". 
 			Query queryUpdate = session.createQuery("update from Producto "
 					+ "set codigoDepartamento = :codigoDepartamentoNA, "
-					+ "codigoCategoria = :codigoCategoriaNA "
+					+ "codigoCategoria = :codigoCategoriaNA, disponible = false"
 					+ "where codigoDepartamento = :codigoDepartamento");
 			queryUpdate.setParameter("codigoDepartamentoNA", departamentoNA.getCodigo());
 			queryUpdate.setParameter("codigoCategoriaNA", categoriaNA.getCodigo());

@@ -48,9 +48,9 @@
                     <!--Bloque 1-->
                     <div class="col-sm-4">
                       <div class="from-group">
-                        <label class="control-label col-sm-3" for="producto">Producto:</label>
+                        <label class="control-label col-sm-3" for="txtProducto">Producto:</label>
                         <div class="col-sm-7">
-                          <input type="text" class="form-control" id="producto" placeholder="">
+                          <input type="text" class="form-control" id="txtProducto" placeholder="">
                         </div>
                       </div><br>
 
@@ -58,24 +58,23 @@
                         <label class="control-label col-sm-3">Departamento:</label>
                         <div class="col-sm-7">
                           <select name="departamento" class="cmbBox" id="cmbDepartamento">
-                            <option value="">Seleccione...</option>
+                          <option>Cargando...</option>
                           </select>
                         </div>
                       </div><br>
 
                       <div class="from-group">
-                        <label class="control-label col-sm-3" for="categoria">Categoría:</label>
+                        <label class="control-label col-sm-3" for="cmbCategoria">Categoría:</label>
                         <div class="col-sm-7">
                           <select name="categoria" class="cmbBox" id="cmbCategoria">
-                            <option value="">Seleccionar...</option>
                           </select>
                         </div>
                       </div><br>
 
                       <div class="from-group">
-                        <label class="control-label col-sm-3" for="Stock">Stock:</label>
+                        <label class="control-label col-sm-3" for="txtStock">Stock:</label>
                         <div class="col-sm-4">
-                          <input type="number" min="0" id="stock">
+                          <input type="number" min="0" value="0" step="1" id="numStock">
                         </div>
                       </div><br>
                     </div><!--/Bloque 1-->
@@ -86,8 +85,8 @@
                         <label class="control-label col-sm-3" for="imagen">Imagen:</label>
                         <div class="col-sm-7">
                           <div class="form-group">
-                            <input type="checkbox" value="" id="checkImg">Modificar imagen<br>
-                            <input type="file" id="file_url" name="imagen" />
+                            <input type="checkbox" value="" id="checkImg" checked>Modificar imagen<br>
+                            <input type="file" id="file_url" name="imagen" accept="image/*" />
                             <img alt="Imagen del producto" id="img_destino" src=""/>
                           </div>
                         </div>
@@ -97,21 +96,23 @@
                     <!--Bloque 3-->
                     <div class="col-sm-4">
                       <div class="from-group">
-                        <label class="control-label col-sm-3" for="imagen">Detalles:</label><br>
-                        <div class="col-sm-7" id="divDetalles">
-                          <label>Marca:</label>
-                          <select>
-                            <option value="">Samsung</option>
-                          </select>
+                        <label class="control-label">Detalles:</label><br>
+                        <div class="col-sm-10" id="divDetalles">
                         </div>
                       </div><br>
                     </div><!--/Bloque 3-->
 
+					<div class="form-group">
+                        <div class="col-sm-7">
+                            <span class="error" id="errorMsg"></span>
+                          </div>
+                    </div><br>  
+					
                     <div class="form-group">
                       <div class="col-sm-offset-2 col-sm-5 botones">
-                        <button type="button" class="btn btn-default" id="btnGuardar">Crear</button>
-                        <button type="button" class="btn btn-default" id="btnModificar">Modificarr</button>
-                        <button type="button" class="btn btn-default" id="btnCancelar">Cancelar</button>
+                        <button type="button" class="btn btn-default" id="btnGuardar" disabled>Crear</button>
+                        <button type="button" class="btn btn-default" id="btnHabilitar" disabled>Habilitar</button>
+                        <button type="button" class="btn btn-default" id="btnCancelar" disabled>Cancelar</button>
                       </div>
                     </div>
               </form>

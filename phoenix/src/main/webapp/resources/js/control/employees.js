@@ -1,3 +1,5 @@
+// 									####### Gerente general ##########
+
 $('#btnGuardarGG').click(function(){
 	$('#errorMsgGG').html('');
 	
@@ -7,6 +9,7 @@ $('#btnGuardarGG').click(function(){
 	//Validación
 	if(!validateName(nombre) || !validateName(apellido))  		//En validate.js
 		$('#errorMsgGG').html('El nombre y apellido deben iniciar en mayúscula!');
+	
 	else{
 		$.ajax({
 			url: "modificarEmpleado.html", 
@@ -21,7 +24,7 @@ $('#btnGuardarGG').click(function(){
 				var r = JSON.parse(resp);
 				if(r.exito){
 					$('#errorMsgGG').html('Datos modificados');
-					$('#headerName').html(nombre + ' ' + apellido);
+					$('#headerName').html(nombre + ' ' + apellido);		//Modificar el header. 
 				}
 				else{
 					$('#errorMsgGG').html('Error al guardar los datos!');
@@ -31,6 +34,7 @@ $('#btnGuardarGG').click(function(){
 	}
 });
 
+//									####### Gerente de ventas ##########
 $('#btnGuardarGV').click(function(){
 	$('#errorMsgGV').html('');
 	
@@ -67,6 +71,7 @@ $('#btnGuardarGV').click(function(){
 	}
 });
 
+//									####### Gerente de inventario ##########
 $('#btnGuardarGI').click(function(){
 	$('#errorMsgGI').html('');
 	

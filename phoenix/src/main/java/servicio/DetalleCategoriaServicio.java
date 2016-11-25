@@ -10,6 +10,8 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 import productos.DetalleCategoria;
+import productos.DetalleProducto;
+import productos.Producto;
 import productos.ValorDetalleCategoria;
 import util.Sesion;
 
@@ -28,6 +30,15 @@ public class DetalleCategoriaServicio {
 			
 			for(String valor : valores){
 				session.save(new ValorDetalleCategoria(det.getCodigo(), valor));
+			}
+			
+			Criteria criteria = session.createCriteria(Producto.class);
+			criteria.add(Restrictions.eq("codigoCategoria", codigoCategoria));
+			@SuppressWarnings("unchecked")
+			List<Producto> productos = criteria.list();
+			
+			for(Producto p : productos){
+				session.save(new DetalleProducto("n/a", det.getCodigo(), p.getCodigo()));
 			}
 			
 			transaction.commit();
@@ -68,15 +79,16 @@ public class DetalleCategoriaServicio {
 		return r;
 	}
 	
-	//Agrega nuevos valores al detalle dado. 
+	//Agrega nuevos valores al detalle dado.
 	public static int agregarValores(DetalleCategoria det, String[] valores){
 		int r = 0;
 		Session session = Sesion.getSession();
 		Transaction transaction = session.beginTransaction();
 		
 		try{
+			//Por cada nuevo valor, crear.
 			for(String valor : valores){
-				session.save(new ValorDetalleCategoria(det.getCodigo(), valor));
+				session.save(new ValorDetalleCategoria(det.getCodigo(), valor));				
 			}
 			transaction.commit();
 		}catch(HibernateException e){
@@ -94,6 +106,7 @@ public class DetalleCategoriaServicio {
 		Transaction transaction = session.beginTransaction();
 		
 		try{
+			//Por cada valor a eliminar, coloca como valor actual a "n/a" en ese detalle y luego elimina el valor. 
 			for(String valor : valores){
 				Query queryUpdate = session.createQuery("update DetalleProducto set valor = :valor where codigoDetalle = :codigoDetalle and valor = :valorElim");
 				queryUpdate.setParameter("valor", "n/a");
@@ -102,7 +115,8 @@ public class DetalleCategoriaServicio {
 				
 				queryUpdate.executeUpdate();
 				
-				Query queryDelete = session.createQuery("delete from ValorDetalleCategoria where codigoDetalleCategoria = :codigoDetalle and valor = :valor");
+				Query queryDelete = session.createQuery("delete from ValorDetalleCategoria where codigoDetalleCategoria = :codigoDetalle "
+						+ "and valor = :valor");
 				queryDelete.setParameter("codigoDetalle", det.getCodigo());
 				queryDelete.setParameter("valor", valor);
 				

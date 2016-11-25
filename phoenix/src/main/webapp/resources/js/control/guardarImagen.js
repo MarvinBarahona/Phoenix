@@ -5,8 +5,8 @@
 //Para los parámetros, se debe enviar "producto" o "empresa", dependiendo de a qué objeto se haga referencia. 
 //En ambos casos es necesario un id para guardar la imagen. 
 
-function guardarImagen(tipo, id){	
-	if($('#checkImg').is(':checked')){		
+function guardarImagen(tipo, id, indexTable){	
+	if($('#checkImg').is(':checked') && $('#file_url')[0].files.length != 0){		
 		$.ajax({
 			type: "POST",
 			url: "obtenerUploadURL.html",
@@ -32,7 +32,17 @@ function guardarImagen(tipo, id){
 				    dataType: "json",
 					url: r.url,
 				    success: function(resp){
-				    	console.log(resp);
+				    	console.log(resp.exito);
+				    	
+				    	//Limpie el formulario. 
+				    	$('#file_url').val('');
+				    	
+				    	//Si se acaba de guardar un producto, asigna el nuevo url de imagen en la tabla de productos. 
+				    	if(tipo == 'producto'){			    		
+				    		var prod =  $('#productos').DataTable().row(indexTable).data();
+				    		prod.urlImg = resp.urlImg;
+				    		$('#productos').DataTable().row(indexTable).data(prod);
+				    	}
 				    },
 				});
 			}

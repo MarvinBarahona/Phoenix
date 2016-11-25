@@ -54,7 +54,8 @@ public class ImageUploadController {
 	@ResponseStatus(HttpStatus.OK)
 	@PostMapping(value="/subirImagen",headers="Accept=*/*",produces="application/json")
 	public @ResponseBody String subirImagen() throws IOException{		
-		String resp = "exito";
+		JsonObject resp = new JsonObject();
+		resp.addProperty("exito", "true");
 		
 		//Recupera el blobkey de la última imagen agregada. Nota: "imagen_url" debe coincidir con el nombre del 
 		//valor a guardar (en nuestro caso, con el nombre del parameter de ajax mandado para guardar)
@@ -67,6 +68,7 @@ public class ImageUploadController {
 			int id = Integer.valueOf(request.getParameter("id"));
 			
 			if(tipo.matches("producto")){
+				
 				//Recupera el producto.
 				Producto p = ProductoServicio.buscarPorId(id);
 				
@@ -77,9 +79,11 @@ public class ImageUploadController {
 					blobStoreService.delete(blobkey);
 				}
 				
-				resp = String.valueOf(ProductoServicio.actualizarImagen(p, blob));
+				resp.addProperty("exito",  String.valueOf(ProductoServicio.actualizarImagen(p, blob)));
+				resp.addProperty("urlImg", p.getImg(request.getServerName()));
 			}
 			else if(tipo.matches("empresa")){
+				
 				//Recuperar la empresa (el id se almacena en la sesión)
 				id = (int)request.getSession().getAttribute("idEmpresa");
 				Empresa e = EmpresaServicio.buscarPorId(id);
@@ -92,13 +96,13 @@ public class ImageUploadController {
 				}				
 				
 				//Actualizar la imagen.
-				resp = String.valueOf(EmpresaServicio.actualizarImagen(e, blob));
+				resp.addProperty("exito", String.valueOf(EmpresaServicio.actualizarImagen(e, blob)));
 			}
 			
 		}catch(NullPointerException e1){
-			resp = "fallo1";
+			resp.addProperty("exito", "fallo1");
 		}catch(NumberFormatException e2){
-			resp = "fallo2";
+			resp.addProperty("exito", "fallo2");
 		}
 		
 		return new Gson().toJson(resp);

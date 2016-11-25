@@ -129,9 +129,6 @@ public class TestMapeo {
 				id = Integer.parseInt(idString);
 				resp = DetalleProductoServicio.buscarPorId(id);
 				break;
-			case "27":
-				resp = ValorDetalleCategoriaServicio.obtenerDetalles(1);
-				break;
 			case "28":
 				id = Integer.parseInt(idString);
 				resp = ValorDetalleCategoriaServicio.buscarPorId(id);

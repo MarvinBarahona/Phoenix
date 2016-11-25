@@ -86,7 +86,7 @@
                         <div class="form-group">
                           <input type="checkbox" value="" id="checkImg"> Modificar imagen<br>
                           <input type="file" id="file_url" name="imagen" />
-                          <img alt="Imagen del producto" id="img_destino" src=""/>
+                          <img alt="Imagen del producto" id="img_destino" src="" />
                         </div>
                       </div>
                     </div><br>

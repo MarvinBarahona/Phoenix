@@ -28,8 +28,8 @@ $('#btnGuardar').click(function(){
 				r = JSON.parse(resp);
 				
 				if(r.exito){
-					//Guardar la imagen (Se hace hasta este momento para evitar choque de llamados asincronos.
-					guardarImagen("empresa", 0);		//En guardarImagen.js
+					//Guardar la imagen (Se hace hasta este momento para evitar choque de llamados asincronos).
+					guardarImagen("empresa", 0, 0);		//En guardarImagen.js
 					
 					$('#errorMsg').html('Modificaciones realizadas!');
 					

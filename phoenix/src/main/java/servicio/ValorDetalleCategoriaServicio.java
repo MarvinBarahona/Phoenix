@@ -37,7 +37,7 @@ public class ValorDetalleCategoriaServicio {
 	
 	//Obtiene los valores de un detalle especifica.
 	@SuppressWarnings("unchecked")
-	public static List<ValorDetalleCategoria> obtenerDetalles(int codigoDetalleCategoria){
+	public static List<ValorDetalleCategoria> obtenerValores(int codigoDetalleCategoria){
 		Session session = Sesion.getSession();
 		Transaction transaction = session.beginTransaction();
 		

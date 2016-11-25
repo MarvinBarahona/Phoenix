@@ -21,7 +21,7 @@ import com.google.appengine.repackaged.com.google.gson.JsonObject;
 public class EmpresaController {
 	@Autowired private HttpServletRequest request;
 	
-	//Para crear la empresa.
+	//					###### Crear empresa ########
 	@PostMapping(value="/crearEmpresa",headers="Accept=*/*",produces="application/json")
 	public @ResponseBody String crearEmpresa(){
 		JsonObject resp = new JsonObject();
@@ -43,7 +43,8 @@ public class EmpresaController {
 		return new Gson().toJson(resp);
 	}
 	
-	//Para modificar una empresa.
+	
+	//						###### Modificar empresa ########
 	@PostMapping(value="/modificarEmpresa",headers="Accept=*/*",produces="application/json")
 	public @ResponseBody String modificarEmpresa(){
 		JsonObject resp = new JsonObject();
@@ -73,28 +74,28 @@ public class EmpresaController {
 		return new Gson().toJson(resp);
 	}
 	
-	//Para modificar un empleado. 
+	
+	//						###### Modificar empleado ######## 
 	@PostMapping(value="/modificarEmpleado", headers="Accept=*/*", produces="application/json")
 	public @ResponseBody String modificarEmpleado(){
 		JsonObject resp = new JsonObject();
 		resp.addProperty("exito", true);
 		resp.addProperty("nuevo", false);
 		
+		//Recuperar los datos. 
 		String tipo = request.getParameter("tipo");
 		String nombre = request.getParameter("nombre");
 		String apellido = request.getParameter("apellido");
-		String correo = request.getParameter("correo");
+		String correo = request.getParameter("correo");		
+		TipoEmpleado tipoEmpleado = TipoEmpleado.valueOf(tipo);		//Convierte el String de tipoEmpleado en TipoEmpleado. 
+		int idEmpresa = (int)request.getSession().getAttribute("idEmpresa");	//Recupera el atributo de la sesión.
 		
-		TipoEmpleado tipoEmpleado = TipoEmpleado.valueOf(tipo);
-		
-		int idEmpresa = (int)request.getSession().getAttribute("idEmpresa");
-		
-		Empleado gerente = EmpleadoServicio.buscarPorEmpresa(idEmpresa, tipoEmpleado);
-		
-		
+		//Recupera al gerente que se está modificando y se modifican sus datos. 
+		Empleado gerente = EmpleadoServicio.buscarPorEmpresa(idEmpresa, tipoEmpleado);				
 		gerente.setNombre(nombre);
 		gerente.setApellido(apellido);
 		
+		//Si es el gerente de o el de inventario y se ha modificado el correo, se les envia un correo de confirmación.
 		switch(tipoEmpleado){
 		case gerenteGeneral:			
 			break;
@@ -111,6 +112,7 @@ public class EmpresaController {
 			break;
 		}
 		
+		//Actualizar. 
 		int r = EmpleadoServicio.actualizar(gerente);
 		if(r==1) resp.addProperty("exito", false);
 		

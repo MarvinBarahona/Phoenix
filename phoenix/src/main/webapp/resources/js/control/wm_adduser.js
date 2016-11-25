@@ -6,6 +6,7 @@ $('#btnGuardar').click(function(){
 	var nombreEmpresa = $('#txtNombreEmpresa').val();
 	var correo = $('#txtCorreo').val();
 	
+	//Validación. 
 	if(correo == "" || nombre == "" || apellido == "" || nombreEmpresa == "")
 		$('#errorMsg').html('Ingrese todos los campos!');
 	else if(!validateEmail(correo))		//En validate.js
@@ -25,6 +26,7 @@ $('#btnGuardar').click(function(){
 			success: function(resp){
 				r = JSON.parse(resp);
 				if(r.exito){
+					//Vacia el formulario.
 					$('#txtNombre').val('');
 					$('#txtApellido').val('');
 					$('#txtNombreEmpresa').val('');

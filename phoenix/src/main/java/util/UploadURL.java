@@ -23,7 +23,7 @@ public class UploadURL {
 			//Cargar la imagen por defecto.
 			if(blobkey == null || blobkey == "") blobkey = "AMIfv97MLwXi0PFenxKgZI6xALTH_fxgNbCdVHY0g1-sPZbP4z9MyvNQ8-fJ4zkx-7OzOsZZgiKLXlXf44FGpcTSELHZ5a8qMchidYR36Zc8dk5oW4_Ysko2CzBbM_GS9ZF4-e7oDkqIc7S1W35xH6t-uGEuUuESW2w8AlvH3RTa1O_AfyHCfoioPR4pw3hu8pGnMyc7teldxAnkLzlAoc3Q3QxEexyQDmE1EmYCfe3IGm2_IeOYVeaNB8TYzKws2q_zriqf-A3bbY-UyxBEEEqQQMO0jPvF6pWZ_9fiXuQQMdu4OlIEbdU9oVY5mDqAWajq-9LSC4ZRN8XnredPbxSQTZOxYIW8Zj9Jq9JQRngsaitIL30MZqPQETps3lC84W-HHsnjXP5WCE_8QkecjjiP6vmnOjncT_-_Kb-8g-SShswdoLkQFS4";
 			//Recuperar la imagen en forma de path.
-			url = "https://" + servername + "/imagenServicio?blob-key=" + blobkey + '"';
+			url = "https://" + servername + "/imagenServicio?blob-key=" + blobkey;
 		}
 		return url;	
 	}

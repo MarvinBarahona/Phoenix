@@ -31,16 +31,107 @@ public class CategorizacionController {
 	public @ResponseBody String obtenerCategorizacion(){
 		JsonObject resp = new JsonObject();
 		
-		resp.add("departamentos", obtenerDepartamentos());
-		resp.add("categorias", obtenerCategorias());
-		resp.add("detalles", obtenerDetalles());
+		JsonArray departamentosJ = new JsonArray();		
+		List<Departamento> departamentos =  DepartamentoServicio.obtenerDepartamentos();
+		for(Departamento departamento : departamentos){
+			if(!departamento.getNombre().matches("n/a")){
+				departamentosJ.add(obtenerDepartamento(departamento));
+			}			
+		}		
+		resp.add("departamentos", departamentosJ);
+		
+		
+		JsonArray categoriasJ = new JsonArray();		
+		List<Categoria> categorias =  CategoriaServicio.obtenerCategorias();
+		for(Categoria categoria : categorias){			
+			if(!categoria.getNombre().matches("n/a")){
+				categoriasJ.add(obtenerCategoria(categoria));
+			}			
+		}
+		resp.add("categorias", categoriasJ);
+		
+		JsonArray detallesJ = new JsonArray();		
+		List<DetalleCategoria> detalles =  DetalleCategoriaServicio.obtenerDetallesCategoria();
+		for(DetalleCategoria detalle : detalles){			
+			detallesJ.add(obtenerDetalle(detalle));
+		}
+		resp.add("detalles", detallesJ);
 		
 		return new Gson().toJson(resp);
 	}
 	
+	//Obtiene la categorización jerarquizada. 
+	@PostMapping(value="/obtenerCategorizacionJerarquizada",headers="Accept=*/*",produces="application/json")
+	public @ResponseBody String obtenerCategorizacionJerarquizada(){		
+		
+		// --Departamentos--
+		JsonArray departamentosJ = new JsonArray();
+		for(Departamento departamento : DepartamentoServicio.obtenerDepartamentos()) if(!departamento.getNombre().matches("n/a")){
+			
+			//--Departamento--
+			JsonObject departamentoJ = new JsonObject();
+			
+			departamentoJ.addProperty("id", departamento.getCodigo());
+			departamentoJ.addProperty("nombre", departamento.getNombre());
+			departamentoJ.addProperty("desc", departamento.getDescripcion());
+			
+			// --Categorías--
+			JsonArray categoriasJ = new JsonArray();
+			for(Categoria categoria : CategoriaServicio.obtenerCategorias(departamento.getCodigo())) if(!categoria.getNombre().matches("n/a")){
+				
+				//--Categoría--
+				JsonObject categoriaJ = new JsonObject();
+				
+				categoriaJ.addProperty("id", categoria.getCodigo());
+				categoriaJ.addProperty("nombre", categoria.getNombre());
+				categoriaJ.addProperty("desc", categoria.getDescripcion());
+				
+				//--Detalles--
+				JsonArray detallesJ = new JsonArray();
+				for(DetalleCategoria detalle : DetalleCategoriaServicio.obtenerDetallesCategoria(categoria.getCodigo())){
+					
+					//--Detalle--
+					JsonObject detalleJ = new JsonObject();
+					
+					detalleJ.addProperty("id", detalle.getCodigo());
+					detalleJ.addProperty("nombre", detalle.getNombre());
+					detalleJ.addProperty("desc", detalle.getDescripcion());
+					
+					//--Valores--
+					JsonArray valoresJ = new JsonArray();
+					for(ValorDetalleCategoria valor : ValorDetalleCategoriaServicio.obtenerValores(detalle.getCodigo())){
+						
+						//--Agregar valor a valores--
+						valoresJ.add(valor.getValor());
+					}
+					
+					//--Agregar valores a detalle--
+					detalleJ.add("valores", valoresJ);
+					
+					//--Agregar detalle a detalles--
+					detallesJ.add(detalleJ);
+				}
+				
+				//--Agregar detalles a categoría--
+				categoriaJ.add("detalles", detallesJ);
+				
+				//--Agregar categoría a categorías--
+				categoriasJ.add(categoriaJ);
+			}
+			
+			//--Agregar categorías a departamento--
+			departamentoJ.add("categorias", categoriasJ);
+			
+			//--Agregar departamento a departamentos--
+			departamentosJ.add(departamentoJ);
+		}
+		
+		return new Gson().toJson(departamentosJ);
+	}
+	
 //CRUD de Departamento *****************************************************************************************
 	
-	//##Crear##
+	//							######## Crear Departamento #########
 	@PostMapping(value="/crearDepartamento",headers="Accept=*/*",produces="application/json")
 	public @ResponseBody String crearDepartamento(){
 		JsonObject r = new JsonObject();
@@ -51,7 +142,7 @@ public class CategorizacionController {
 		
 		try{
 			Departamento d = DepartamentoServicio.crear(nombre, desc);
-			r.add("departamento", obtenerDepartamento(d));
+			r.add("departamento", obtenerDepartamento(d));		//Retorna el departamento creado. 
 		}
 		catch(Exception e){
 			r.addProperty("exito", false);
@@ -60,7 +151,7 @@ public class CategorizacionController {
 		return new Gson().toJson(r);		
 	}
 	
-	//##Modificar##
+	//							######### Modificar producto #########
 	@PostMapping(value="/modificarDepartamento",headers="Accept=*/*",produces="application/json")
 	public @ResponseBody String modificarDepartamento(){
 		JsonObject r = new JsonObject();
@@ -82,7 +173,7 @@ public class CategorizacionController {
 		return new Gson().toJson(r);
 	} 
 	
-	//##Eliminar##
+	//							######### Eliminar producto #########
 	@PostMapping(value="/eliminarDepartamento",headers="Accept=*/*",produces="application/json")
 	public @ResponseBody String eliminarDepartamento(){
 		JsonObject r = new JsonObject();
@@ -104,8 +195,10 @@ public class CategorizacionController {
 		return new Gson().toJson(r);
 	}
 	
+	
 //CRUD de categoria. *********************************************************************************************
-	//##Crear##
+	
+	//							######### Crear categoría #########
 	@PostMapping(value="/crearCategoria",headers="Accept=*/*",produces="application/json")
 	public @ResponseBody String crearCategoria(){
 		JsonObject resp = new JsonObject();
@@ -118,7 +211,7 @@ public class CategorizacionController {
 		
 		try{
 			Categoria c = CategoriaServicio.crear(nombre, desc, codigoDepartamento);
-			resp.add("categoria", obtenerCategoria(c));
+			resp.add("categoria", obtenerCategoria(c));		//Retorna la categoría creada. 
 		}
 		catch(Exception e){
 			resp.addProperty("exito", false);
@@ -127,7 +220,7 @@ public class CategorizacionController {
 		return new Gson().toJson(resp);
 	}
 	
-	//##Modificar##
+	//							######### Modificar categoría ########
 	@PostMapping(value="/modificarCategoria",headers="Accept=*/*",produces="application/json")
 	public @ResponseBody String modificarCategoria(){
 		JsonObject r = new JsonObject();
@@ -150,7 +243,7 @@ public class CategorizacionController {
 	} 
 	
 	
-	//##Eliminar##
+	//							######### Eliminar categoría ##########
 	@PostMapping(value="/eliminarCategoria",headers="Accept=*/*",produces="application/json")
 	public @ResponseBody String eliminarCategoria(){
 		JsonObject r = new JsonObject();
@@ -172,9 +265,10 @@ public class CategorizacionController {
 		return new Gson().toJson(r);
 	}
 	
+	
 //CRUD de detalle categoría****************************************************************************************
 	
-	//##Crear##
+	//							######### Crear detalle #########
 	@PostMapping(value="/crearDetalle",headers="Accept=*/*",produces="application/json")
 	public @ResponseBody String crearDetalle(){
 		JsonObject resp = new JsonObject();
@@ -188,7 +282,7 @@ public class CategorizacionController {
 		
 		try{
 			DetalleCategoria det = DetalleCategoriaServicio.crear(nombre, desc, codigoCategoria, valores);
-			resp.add("detalle", obtenerDetalle(det));
+			resp.add("detalle", obtenerDetalle(det));		//Devuelve el detalle creado. 
 		}
 		catch(Exception e){
 			resp.addProperty("exito", false);
@@ -197,7 +291,7 @@ public class CategorizacionController {
 		return new Gson().toJson(resp);
 	}
 	
-	//##Modificar##
+	//							########### Modificar detalle ##########
 	@PostMapping(value="/modificarDetalle",headers="Accept=*/*",produces="application/json")
 	public @ResponseBody String modificarDetalle(){
 		JsonObject r = new JsonObject();
@@ -205,7 +299,8 @@ public class CategorizacionController {
 		
 		String codigo = request.getParameter("id");
 		int id = Integer.parseInt(codigo);
-		String desc = request.getParameter("desc");		
+		String desc = request.getParameter("desc");	
+		//Recibe arreglos de String con los nuevos valores del detalles y los valores que se deben eliminar. 
 		String[] nuevosValores = request.getParameterValues("valoresnuevos[]");
 		String[] valoresEliminar = request.getParameterValues("valoreseliminar[]");
 		
@@ -221,8 +316,7 @@ public class CategorizacionController {
 		if(nuevosValores != null){
 			result = DetalleCategoriaServicio.agregarValores(det, nuevosValores);		
 			if(result==1) r.addProperty("exito", false);
-		}
-		
+		}		
 		
 		//Elimina los valores.
 		if(valoresEliminar != null){
@@ -233,7 +327,7 @@ public class CategorizacionController {
 		return new Gson().toJson(r);
 	} 
 	
-	//##Eliminar##
+	//							########## Eliminar detalle ##########
 	@PostMapping(value="/eliminarDetalle",headers="Accept=*/*",produces="application/json")
 	public @ResponseBody String eliminarDetalle(){		
 		JsonObject r = new JsonObject();
@@ -256,54 +350,30 @@ public class CategorizacionController {
 	}
 
 	
-//Métodos de apoyo. ***********************************************************************************************
-	//Departamentos
-	public JsonArray obtenerDepartamentos(){
-		JsonArray departamentosJ = new JsonArray();
-		
-		List<Departamento> departamentos =  DepartamentoServicio.obtenerDepartamentos();
-		for(Departamento departamento : departamentos){
-			if(!departamento.getNombre().matches("n/a")){
-				departamentosJ.add(obtenerDepartamento(departamento));
-			}			
-		}
-		
-		return departamentosJ;
-	}
-	
+//Obtener un objeto JSON a partir de un objeto JAVA (para la categorización segmentada)
 	public JsonObject obtenerDepartamento(Departamento departamento){
 		JsonObject departamentoJ = new JsonObject();
 		
+		//Datos para el control.
 		departamentoJ.addProperty("id", departamento.getCodigo());
 		
-		//A mostrar en la tabla
+		//Estos son visibles por el usuario.
 		departamentoJ.addProperty("nombre", departamento.getNombre());
 		departamentoJ.addProperty("desc", departamento.getDescripcion());
 		
 		return departamentoJ;
 	}
 	
-	//Categorias. 
-	public JsonArray obtenerCategorias(){
-		JsonArray categoriasJ = new JsonArray();
-		
-		List<Categoria> categorias =  CategoriaServicio.obtenerCategorias();
-		for(Categoria categoria : categorias){			
-			if(!categoria.getNombre().matches("n/a")){
-				categoriasJ.add(obtenerCategoria(categoria));
-			}			
-		}		
-		return categoriasJ;
-	}
 	
 	public JsonObject obtenerCategoria(Categoria categoria){
 		JsonObject categoriaJ = new JsonObject();
 		Departamento departamento = DepartamentoServicio.buscarPorId(categoria.getCodigoDepartamento());
 		
+		//Datos para el control.
 		categoriaJ.addProperty("id", categoria.getCodigo());
 		categoriaJ.addProperty("idDepartamento", departamento.getCodigo());
 		
-		//A mostrar en la tabla
+		//Estos datos son visibles para el usuario.
 		categoriaJ.addProperty("nombre", categoria.getNombre());
 		categoriaJ.addProperty("desc", categoria.getDescripcion());
 		categoriaJ.addProperty("departamento", departamento.getNombre());
@@ -311,38 +381,25 @@ public class CategorizacionController {
 		return categoriaJ;
 	}
 	
-	//Detalles. 
-	public JsonArray obtenerDetalles(){
-		JsonArray detallesJ = new JsonArray();
-		
-		List<DetalleCategoria> detalles =  DetalleCategoriaServicio.obtenerDetallesCategoria();
-		for(DetalleCategoria detalle : detalles){
-			
-			
-			detallesJ.add(obtenerDetalle(detalle));
-		}
-		
-		return detallesJ;
-	}
-	
 	public JsonObject obtenerDetalle(DetalleCategoria detalle){
 		JsonObject detalleJ = new JsonObject();
 		Categoria categoria = CategoriaServicio.buscarPorId(detalle.getCodigoCategoria());
 		Departamento departamento = DepartamentoServicio.buscarPorId(categoria.getCodigoDepartamento());
 		
+		//Datos para el control.
 		detalleJ.addProperty("id", detalle.getCodigo());
 		detalleJ.addProperty("idCategoria", categoria.getCodigo());
 		detalleJ.addProperty("idDepartamento", departamento.getCodigo());
 		
-		//A mostrar en la tabla
+		//Estos datos son visibles para el usuario.
 		detalleJ.addProperty("nombre", detalle.getNombre());
 		detalleJ.addProperty("desc", detalle.getDescripcion());
 		detalleJ.addProperty("categoria", categoria.getNombre());
 		detalleJ.addProperty("departamento", departamento.getNombre());
 		
-		JsonArray valoresJ = new JsonArray();
-		
-		List<ValorDetalleCategoria> valores = ValorDetalleCategoriaServicio.obtenerDetalles(detalle.getCodigo());
+		//Agrega los valores de detalle.
+		JsonArray valoresJ = new JsonArray();		
+		List<ValorDetalleCategoria> valores = ValorDetalleCategoriaServicio.obtenerValores(detalle.getCodigo());
 		for(ValorDetalleCategoria valor : valores){
 			if(!valor.getValor().matches("n/a")){
 				valoresJ.add(valor.getValor());
