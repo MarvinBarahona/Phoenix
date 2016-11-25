@@ -27,7 +27,9 @@ public class ProductoCRUDController {
 	
 	@Autowired private HttpServletRequest request;
 	
+	
 // 							########## Crear #########
+	
 	@PostMapping(value = "/crearProducto", headers="Accept=*/*", produces="application/json")
 	public @ResponseBody String crearProducto(){
 		JsonObject resp = new JsonObject();
@@ -65,7 +67,9 @@ public class ProductoCRUDController {
 		return new Gson().toJson(resp);
 	}
 	
+	
 // 						########## Modificar de inventario #########
+	
 	@PostMapping(value = "/modificarInvProducto", headers="Accept=*/*", produces="application/json")
 	public @ResponseBody String modificarInvProducto(){
 		JsonObject resp = new JsonObject();
@@ -103,7 +107,81 @@ public class ProductoCRUDController {
 		return new Gson().toJson(resp);
 	}
 	
+	
+// 									########### Modificar de ventas ###########	
+	
+	@PostMapping(value = "/modificarVenProducto", headers="Accept=*/*", produces="application/json")
+	public @ResponseBody String modificarVenProducto(){
+		JsonObject resp = new JsonObject();
+		resp.addProperty("exito", true);
+		
+		//Recuperar los valores.
+		int codigoProducto = Integer.valueOf(request.getParameter("idProducto"));
+		String nombre = request.getParameter("nombre");
+		String desc = request.getParameter("desc");
+		int descuento = Integer.valueOf(request.getParameter("descuento"));
+		float precio = Float.valueOf(request.getParameter("precio"));
+		boolean disponible = Boolean.valueOf(request.getParameter("disponible"));
+		
+		//Recuperar el producto a actualizar. 
+		Producto p = ProductoServicio.buscarPorId(codigoProducto);
+		
+		//Actualizar. 
+		int r = ProductoServicio.actualizarVentas(p, nombre, desc, precio, descuento, disponible);
+		if(r == 1) resp.addProperty("exito", false);
+		
+		return new Gson().toJson(resp);
+	}
+	
+	
+//								########### Modificar stock ###########	
+	
+	@PostMapping(value = "/modificarStockProducto", headers="Accept=*/*", produces="application/json")
+	public @ResponseBody String modificarStockProducto(){
+		JsonObject resp = new JsonObject();
+		resp.addProperty("exito", true);
+		
+		//Recuperar los valores.
+		int codigoProducto = Integer.valueOf(request.getParameter("idProducto"));
+		int cantidad = Integer.valueOf(request.getParameter("cantidad"));
+		boolean esSuma = Boolean.valueOf(request.getParameter("sumar"));
+		
+		//Recuperar el producto a actualizar. 
+		Producto p = ProductoServicio.buscarPorId(codigoProducto);
+		
+		//Actualizar. 
+		int r = ProductoServicio.actualizarExistencias(p, esSuma, cantidad);
+		if(r == -1) resp.addProperty("exito", false);
+		else resp.addProperty("cantidad", r);
+		
+		return new Gson().toJson(resp);
+	}
+
+	
+//							########### Habilitar producto ###########	
+
+	@PostMapping(value = "/habilitarProducto", headers="Accept=*/*", produces="application/json")
+	public @ResponseBody String habilitarProducto(){
+		JsonObject resp = new JsonObject();
+		resp.addProperty("exito", true);
+		
+		//Recuperar los valores.
+		int codigoProducto = Integer.valueOf(request.getParameter("idProducto"));
+		boolean disponible = Boolean.valueOf(request.getParameter("habilitar"));
+		
+		//Recuperar el producto a habilitar o deshabilitar
+		Producto p = ProductoServicio.buscarPorId(codigoProducto);
+		
+		//Actualizar. 
+		int r = ProductoServicio.habilitar(p, disponible);
+		if(r == 1) resp.addProperty("exito", false);
+		
+		return new Gson().toJson(resp);
+	}
+	
+	
 //									 ########## Consultar ##########
+	
     //Obtencion de los productos de una empresa específica. 
 	@PostMapping(value="/obtenerProductos", headers="Accept=*/*", produces="application/json")	
 	public @ResponseBody String obtenerProductos(){

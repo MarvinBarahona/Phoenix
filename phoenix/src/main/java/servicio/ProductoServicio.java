@@ -112,25 +112,31 @@ public class ProductoServicio {
 	//Actualizar las existencias. aumentar -> true: suma; en otro caso resta. 
 	public static int actualizarExistencias(Producto p, boolean aumentar, int cantidad){
 		int actual = p.getExistencias();
+		int nuevo;
 		if(aumentar){
-			p.setExistencias(actual + cantidad);
+			nuevo = actual + cantidad;
 		}
 		else{
-			cantidad = actual-cantidad;
+			nuevo = actual-cantidad;
 			//Evita negativos.
-			cantidad = cantidad<0 ? 0 : cantidad;
-			p.setExistencias(cantidad);
+			nuevo = nuevo < 0 ? 0 : nuevo;			
 		}
 		
-		return actualizar(p);
+		p.setExistencias(nuevo);
+		int r = actualizar(p);
+		
+		r = r == 1? -1 : nuevo;
+		
+		return r;
 	}
 	
 	//Actualiza como lo hace el gerente de ventas.
-	public static int actualizarVentas(Producto p, String descripcion, double precio, int descuento){
+	public static int actualizarVentas(Producto p, String nombre, String descripcion, double precio, int descuento, boolean disponible){
+		p.setNombre(nombre);
 		p.setDescripcion(descripcion);
 		p.setPrecio(precio);
 		p.setDescuento(descuento);
-		p.setDisponible(true);
+		p.setDisponible(disponible);
 		
 		return actualizar(p);
 	}
@@ -138,6 +144,12 @@ public class ProductoServicio {
 	//Actualizar la imagen del producto.
 	public static int actualizarImagen(Producto p, String img) {
 		p.setImg(img);		
+		return actualizar(p);
+	}
+	
+	//Habilitar/deshabilitar el producto.
+	public static int habilitar(Producto p, boolean disponible){
+		p.setDisponible(disponible);
 		return actualizar(p);
 	}
 	

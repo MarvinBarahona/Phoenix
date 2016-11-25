@@ -82,7 +82,8 @@
                   </div>
                   <div class="form-group">
                     <div class="col-sm-5  col-sm-offset-5">
-                      <button type="button" id="btnGuardar" class="btn btn-default" disabled>Guardar</button>
+                      <span class="error" id="errorMsg"></span><br>
+                      <button type="button" id="btnModificar" class="btn btn-default" disabled>Modificar</button>
                       <button type="button" id="btnCancelar" class="btn btn-default" disabled>Cancelar</button>
                     </div>
                   </div>

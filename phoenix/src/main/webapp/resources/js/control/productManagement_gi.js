@@ -167,6 +167,7 @@ $('#btnGuardar').click(function(){
 	if(nombre == '') $('#errorMsg').html('Ingrese el nombre del producto!');
 	else if(departamento == '0' || departamento == null) $('#errorMsg').html('Ingrese un departamento!');
 	else if(categoria == '0' || categoria == null) $('#errorMsg').html('Ingrese una categoria!');
+	else if(cantidad == null) $('#errorMsg').html('Ingrese el inventario inicial!');
 	else{
 		
 		//			########### Crear producto ############
@@ -248,6 +249,7 @@ $('#btnGuardar').click(function(){
 						$.each(producto.detalles, function(index, detalle){
 							detalle.valor = valoresDetalles[index];
 						});
+						
 						$('#productos').DataTable().row(indexTable).data(producto).draw();
 						
 						//Vacia el formulario.

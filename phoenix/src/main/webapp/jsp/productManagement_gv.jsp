@@ -50,30 +50,30 @@
                     <!--Bloque 1-->
                     <div class="col-sm-5 col-sm-offset-2 formReg">
                       <div class="from-group">
-                        <label class="control-label col-sm-3" for="producto">Producto:</label>
+                        <label class="control-label col-sm-3" for="txtProducto">Producto:</label>
                         <div class="col-sm-7">
-                          <input type="text" class="form-control" id="producto" placeholder="">
+                          <input type="text" class="form-control" id="txtProducto" placeholder="">
                         </div>
                       </div><br>
 
                       <div class="from-group">
                         <label class="control-label col-sm-3" for="descripcion">Descripción:</label>
                         <div class="col-sm-7">
-                          <textarea name="descripcion" rows="3" cols="30"></textarea>
+                          <textarea name="descripcion" rows="3" cols="30" id="txtDesc"></textarea>
                         </div>
                       </div><br>
 
                       <div class="from-group">
-                        <label class="control-label col-sm-3" for="Stock">Precio:</label>
+                        <label class="control-label col-sm-3" for="precio">Precio($):</label>
                         <div class="col-sm-7">
-                          <input type="number" min="10" name="stock">
+                          <input type="number" min="0.01" step="0.01" name="precio" id="numPrecio">
                         </div>
                       </div><br>
 
                     <div class="from-group">
-                      <label class="control-label col-sm-3" for="descuento">Descuento:</label>
+                      <label class="control-label col-sm-3" for="descuento">Descuento(%):</label>
                       <div class="col-sm-7">
-                        <input type="number" min="0" max="100" step="1" name="descuento">
+                        <input type="number" min="0" max="80" step="1" name="descuento" id="numDescuento">
                       </div>
                     </div><br>
                   </div><!--/Bloque 1-->
@@ -93,8 +93,10 @@
                   </div><!--/Bloque 2-->
 
                   <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-5 botones">
-                      <button class="btn btn-default" disabled>Modificar</button>
+                    <div class="col-sm-offset-2 col-sm-5">
+                    <span class="error" id="errorMsg"></span><br>
+                      <button type="button" id="btnModificar" class="btn btn-default" disabled >Modificar</button>
+                      <button type="button" id="btnCancelar" class="btn btn-default" disabled>Cancelar</button>
                     </div>
                   </div>
               </form>
@@ -139,9 +141,11 @@
   <script src="${js}bootstrap.min.js"></script>
   <script src="${js}jquery.dataTables.min.js"></script>
   
-  <script src="${jsControl}productTable.js" charset="utf-8"></script>
   <script src="${jsControl}jquery.redirect.js"></script>
   <script src="${jsControl}logout.js"></script>
+  <script src="${jsControl}productManagement_gv.js" charset="utf-8"></script>
+  <script src="${jsControl}productTable.js" charset="utf-8"></script>
+  <script src="${jsControl}guardarImagen.js" charset="utf-8"></script>
   </body>
   
 </html>

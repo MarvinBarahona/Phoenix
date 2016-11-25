@@ -109,7 +109,7 @@
                     </div><br>  
 					
                     <div class="form-group">
-                      <div class="col-sm-offset-2 col-sm-5 botones">
+                      <div class="col-sm-offset-2 col-sm-5">
                         <button type="button" class="btn btn-default" id="btnGuardar" disabled>Crear</button>
                         <button type="button" class="btn btn-default" id="btnHabilitar" disabled>Habilitar</button>
                         <button type="button" class="btn btn-default" id="btnCancelar" disabled>Cancelar</button>
@@ -165,4 +165,3 @@
   </body>
 
 </html>
-  
