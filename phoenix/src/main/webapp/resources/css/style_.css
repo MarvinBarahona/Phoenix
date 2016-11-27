@@ -1,0 +1,216 @@
+/* ==========================================================================
+
+   ========================================================================== */
+  html {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    position: relative;
+  }
+
+  body {
+    font-family: 'PT Sans', sans-serif;
+    font-size: 1.2em!important;
+    margin: 0;
+    padding: 0;
+    /*margin-bottom: 50px;mismo alto que footer*/
+  }
+    .content{margin-top: 5%;   }
+
+    a{ color: #F05F40}
+    a.selected{color: #F05F40;}
+
+    nav.navbar{
+      background-image: url(../img/.png);
+      border-radius: 0;
+    }
+    .principal{margin: 0 auto -200px;}
+    #myNavbarE a, #myNavbarE .dropdown li a:hover{
+      color: white;
+    }
+
+    #myNavbarE a:hover{background: black;}
+
+    #myNavbarE .dropdown li a{ color: black;}
+
+    #myNavbar a{
+      color: black;
+    }
+    #myNavbar a:hover{
+      color: #FF2D00;
+      background: #F2F1F0;
+    }
+
+    #modal-container-957470 .modal-dialog .modal-content{
+      max-width: 500px;
+    }
+    /*search input*/
+    input[type="search"]{
+      margin: 10px 40px;
+      margin-bottom: 10px!important;
+    }
+    .SearchIcon{color:#fff;}
+    .SearchButton{background-color:#DEDEDE;margin-top: -3px}
+    .SearchButton:hover{background-color:#F05F40;}
+
+    .dropdown-menu{
+      border: none;
+      border-radius: 0
+    }
+
+    ul.dropdown-menu li a{
+      font-size: 0.9em;
+    }
+
+    img.logo{
+      max-height: 50px;
+      margin-top: -15px;
+    }
+
+    ._phoenix{margin-top: 7px;}
+    footer{
+      background-color: #f2f2f2;
+      height: 50px;
+      width:100%;
+      position:absolute;;
+      bottom:0;
+      left:0;
+      margin-top: 50%;
+    }
+
+    
+    #credito{font-size: 11px}
+
+  .carousel-inner img {
+      width: 100%;
+      margin: auto;
+      min-height:200px;
+  }
+  .col-xs-12{
+    margin-bottom: 20px;
+  }
+  .col-centered {
+    display:inline-block;
+    float:none;
+    /* reset the text-align */
+    text-align:left;
+    /* inline-block space fix */
+    margin-right:-4px;
+  }
+
+  .marca{
+    max-width: 100px;
+    margin-right: 10px;
+  }
+
+
+  img.previa{
+    width: 200px;
+    align-items: center;
+    margin: 2% 0;
+  }
+
+  #resultados{
+    display: flex;
+  }
+
+
+  /*Datos del producto*/
+  img.vista{
+    width: 300px;
+  }
+
+  a.thumbnail{
+    text-decoration: none;
+  }
+
+  a.thumbnail:hover{color: #F05F40!important;}
+  .desc{color: green;}
+
+  .nomProducto{
+    margin-top: 3%;
+    height: 50px;
+    color: #000;
+    text-align: justify;
+  }
+
+  hr{margin:2px auto; max-width:50px}
+
+  .precioActual{color: black; margin: 10%; font-weight: bold}
+  .precioReal{color: red; margin: 10%;}
+
+  /* Ventana modal*/
+
+
+/*   ***   FORMULARIOS  ***   */
+  input[type="text"].form-control,
+  input[type="tel"].form-control,
+  input[type="password"].form-control,
+  input[type="email"].form-control, select,
+  input[type="number"], input[type="search"]{
+    width:200px;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    -webkit-border-radius: none;
+    -moz-border-radius: none;
+    -ms-border-radius: none;
+    -o-border-radius: none;
+    border-radius: none;
+    padding: 5px;
+    border: none;
+    border-bottom: solid 2px #c9c9c9;
+    -webkit-transition: border 0.3s;
+    -moz-transition: border 0.3s;
+    -o-transition: border 0.3s;
+    transition: border 0.3s;
+    margin-bottom: 10px;
+  }
+  select{margin-right: 10%;}
+  input[type="text"]:focus, input[type="tel"]:focus,
+  input[type="email"]:focus, input[type="search"]:focus,
+  select.focus{
+    outline: none;
+    border-bottom: solid 2px #F05F40;
+  }
+
+  textarea{
+    background-color: transparent;
+    border: 1px solid #000000;
+    scrollbar-arrow-color: #000066;
+    scrollbar-base-color: #000033;
+    scrollbar-dark-shadow-color: #336699;
+    scrollbar-track-color: #666633;
+    scrollbar-face-color: #cc9933;
+    scrollbar-shadow-color: #DDDDDD;
+    scrollbar-highlight-color: #CCCCCC;
+  }
+
+  .btn-default{
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+    border-radius: 4px;
+  }
+
+  div.botones{
+    margin: 5% 25%;
+  }
+
+  #img_destino{width:300px}
+  @media (max-width: 600px) {
+    .carousel-caption {
+      display: none;
+    }
+
+  }
+
+  @media (min-width: 599px) and (max-width: 1000px) {
+    img.previa{
+      width: 200px;
+      margin-left: 25%;
+    }
+
+  }

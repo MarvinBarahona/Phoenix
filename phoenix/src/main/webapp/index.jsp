@@ -68,10 +68,7 @@
             <div class="header-content-inner">
               <div class="col-md-9 col-md-offset-3 empresas">
                 <!--Bloque a clonar por empresa-->
-                <div class="col-md-3">
-                  <a class="" href="">
-                    <img class="img-responsive base-orange" src="http://placehold.it/150x150" alt="">
-                  </a>
+                <div class="col-md-3" id="divImg">
                 </div>
 
               </div>
@@ -202,6 +199,7 @@
     <script src="${jsControl}jquery.redirect.js"></script>
     <script src="${jsControl}validate.js"></script>
     <script src="${jsControl}login.js"></script>
+    <script src="${jsControl}index.js"></script>
 
 </body>
 </html>

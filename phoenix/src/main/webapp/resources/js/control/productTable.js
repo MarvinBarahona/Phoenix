@@ -59,6 +59,9 @@ $(document).ready(function() {
 				         ]
 			});
 			
+			//Cambiar el cursor sobre la tabla a el cursor por defecto. 
+			$('#productos tbody').css( 'cursor', 'default' );
+			
 			$('#productos tbody').on( 'dblclick', 'tr', function () {
 				var prod = $('#productos').DataTable().row(this).data();
 				var index = $('#productos').DataTable().row(this).index();

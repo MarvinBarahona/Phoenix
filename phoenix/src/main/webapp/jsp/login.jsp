@@ -60,6 +60,8 @@
                 <br/>
                 <p><a href="recoverPassword.html">¿Olvidó su contraseña?</a></p>
                 <p><a href="signIn.html">¿No tiene una cuenta?</a></p>
+                
+                <p hidden="hidden" id="nextPage">${nextUrl}</p>
             </div>
         </div><!--/.header-content-->
     </header>

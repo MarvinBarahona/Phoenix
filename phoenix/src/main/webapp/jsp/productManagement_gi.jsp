@@ -37,6 +37,7 @@
     <div class="page-container">
      <div class="left-content">
   	   <div class="mother-grid-inner">
+          
           <jsp:include page="header.jsp"></jsp:include>
 
           <!--Contenido-->

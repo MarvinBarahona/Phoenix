@@ -39,7 +39,7 @@ $(document).ready(function(){
 					}]
 			});
 			
-			//Llena un select con los departamentos para el departamento de una categoria y de un detalle. 
+			//Llena los select con los departamentos.
 			$('#cmbCategDepto, #cmbDetalleDepto').append($('<option>', { 
 		        value: 0,
 		        text : 'Seleccionar...' 
@@ -93,7 +93,7 @@ $(document).ready(function(){
 					}]
 			});
 			
-			//Llena el select de categoria de detalle dependiendo del departamento.
+			//Llena el select de categoria dependiendo del departamento.
 			$('#cmbCategDepto, #cmbDetalleDepto').on('change', (function(){
 				$('#cmbDetalleCateg').html('');
 				

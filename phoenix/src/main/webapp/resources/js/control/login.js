@@ -18,7 +18,7 @@ $('#btnLogin').click(function(){
 		    },
 		    
 		    success: function(resp){
-		    	var r = JSON.parse(resp);
+		    	var r = JSON.parse(resp);		    	
 		    	redirectUser(r.msg, r.tipoUsuario, r.tipoEmpleado);
 		    },
 		});
@@ -34,14 +34,13 @@ function redirectUser(msg, tipoUsuario, tipoEmpleado){
     
     //Si se loguea con éxito: 
     else if(msg=="exito"){
-
-    	if(tipoUsuario=="cliente"){
-    		redirectClient();
-    	}
+    	var next = $('#nextPage').html();
     	
-    	else if(tipoUsuario=="webmaster"){
-    		redirectWebMaster();
-    	}
+    	if(next != '' && next != null) $.redirect(next,"POST");		//Prioridad al sitio al que se debe redirigir al usuario.
+    	
+    	else if(tipoUsuario=="cliente") redirectClient();
+    	
+    	else if(tipoUsuario=="webmaster") redirectWebMaster();
     	
     	else if(tipoUsuario=="empleado"){
     		switch(tipoEmpleado){
@@ -68,7 +67,8 @@ function redirectLogin(mensaje){
 		"/loginFailed.html",
 		{
 			email: $('#loginEmail').val(), 
-			msg: mensaje
+			msg: mensaje,
+			nextUrl: $('#nextPage').html()
 		},
 		"POST"
 	);
