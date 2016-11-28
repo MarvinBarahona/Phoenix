@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,9 +9,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import productos.Categoria;
+import productos.Departamento;
 import productos.DetalleCategoria;
 import productos.DetalleProducto;
 import productos.Producto;
+import servicio.CategoriaServicio;
+import servicio.DepartamentoServicio;
 import servicio.DetalleCategoriaServicio;
 import servicio.DetalleProductoServicio;
 import servicio.EmpresaServicio;
@@ -68,5 +74,62 @@ public class ComprasController {
 		productoJ.addProperty("desc", producto.getDescripcion());
 		
 		return new Gson().toJson(productoJ);
+	}
+	
+	
+	//Obtiene las imagenes de las empresas para ponerlas en el index. 
+	@PostMapping(value="/obtenerProdYCate",headers="Accept=*/*",produces="application/json")
+	public @ResponseBody String obtenerProdYCate(){
+		JsonObject resp = new JsonObject();
+		
+		//Productos.		
+		int codigoEmpresa = Integer.valueOf((String)request.getSession().getAttribute("idEmpresa"));
+		List<Producto> productos = ProductoServicio.obtenerProductos(codigoEmpresa, false);
+		
+		JsonArray productosJ = new JsonArray();
+		for(Producto producto : productos){			
+			JsonObject productoJ = new JsonObject();
+			Departamento departamento = DepartamentoServicio.buscarPorId(producto.getCodigoDepartamento());
+			Categoria categoria = CategoriaServicio.buscarPorId(producto.getCodigoCategoria());
+			
+			productoJ.addProperty("id", producto.getCodigo());
+			productoJ.addProperty("urlImg", producto.getImg(request.getServerName()));
+			productoJ.addProperty("descuento", producto.getDescuento());
+			productoJ.addProperty("precio", producto.getPrecio());
+			productoJ.addProperty("nombre", producto.getNombre());
+			productoJ.addProperty("departamento", departamento.getNombre());
+			productoJ.addProperty("categoria", categoria.getNombre());
+			
+			productosJ.add(productoJ);
+		}		
+		resp.add("productos", productosJ);
+		
+		
+		//Categorización. 
+		JsonArray departamentosJ = new JsonArray();		
+		for(Departamento departamento : DepartamentoServicio.obtenerDepartamentos()){
+			if(!departamento.getNombre().matches("n/a")){
+				JsonObject departamentoJ = new JsonObject();			
+				departamentoJ.addProperty("nombre", departamento.getNombre());
+				
+				JsonArray categoriasJ = new JsonArray();
+				for(Categoria categoria : CategoriaServicio.obtenerCategorias(departamento.getCodigo())){
+					if(!categoria.getNombre().matches("n/a")){
+						JsonObject categoriaJ = new JsonObject();
+						
+						categoriaJ.addProperty("nombre", categoria.getNombre());
+						
+						categoriasJ.add(categoriaJ);
+					}					
+				}
+				departamentoJ.add("categorias", categoriasJ);
+				
+				departamentosJ.add(departamentoJ);
+			}			
+		}		
+		resp.add("departamentos", departamentosJ);
+		
+		
+		return new Gson().toJson(resp);
 	}
 }

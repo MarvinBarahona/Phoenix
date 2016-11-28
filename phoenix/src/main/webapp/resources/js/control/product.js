@@ -33,6 +33,8 @@ $(document).ready(function(){
 					$('#divDetalles').append(p);
 				});
 				
+				if(producto.detalles.length == 0) $('#divDetalles').html('No hay detalles que mostrar.');
+				
 				//Agregar la descripción.
 				$('#txtDesc').html(producto.desc);
 			}

@@ -353,6 +353,19 @@ public class RedirectController {
 	public ModelAndView searchResults(){
 		ModelAndView model = new ModelAndView("searchResults");
 		
+		HttpSession session = request.getSession();		
+		String codigoEmpresaStr = (String) session.getAttribute("idEmpresa");
+		
+		if(codigoEmpresaStr == null){
+			model = new ModelAndView("accessDenied");
+			model.addObject("nextPage", "/");
+		}
+		else{			
+			model = new ModelAndView("searchResults");
+			setHeaderDataC(model);	
+			
+		}	
+		
 		return model; 
 	}
 	
