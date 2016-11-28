@@ -16,13 +16,12 @@ import servicio.DetalleProductoServicio;
 import servicio.DetalleCategoriaServicio;
 import servicio.EmpleadoServicio;
 import servicio.EmpresaServicio;
+import servicio.LineaPedidoServicio;
+import servicio.PedidoServicio;
 import servicio.ProductoServicio;
 import servicio.UbicacionServicio;
 import servicio.UsuarioServicio;
 import servicio.ValorDetalleCategoriaServicio;
-import usuarios.Cliente;
-import usuarios.Empleado;
-import usuarios.Empresa;
 
 import com.google.appengine.repackaged.com.google.gson.Gson;
 
@@ -43,112 +42,6 @@ public class TestMapeo {
 		String jsp = request.getParameter("sitio");
 		ModelAndView model = new ModelAndView(jsp);
 		return model;
-	}
-	
-	@RequestMapping( value="/testAjax", headers="Accept=*/*", produces="application/json")	
-	public @ResponseBody String testAjax(){
-		Object resp = null;
-		
-		String selec = request.getParameter("selection");
-		String idString = request.getParameter("id");
-		int id;
-		
-		Cliente c;
-		Empleado empl;
-		Empresa empr;
-		
-		try{
-					
-			switch(selec){
-			case "0":
-				id = Integer.parseInt(idString);
-				resp = UbicacionServicio.buscarPorId(id);
-				break;
-			case "1":
-				id = Integer.parseInt(idString);
-				resp = UsuarioServicio.buscarPorId(id);
-				break;
-			case "2":
-				resp = UsuarioServicio.buscarPorCorreo(idString);
-				break;
-			case "3":
-				id = Integer.parseInt(idString);
-				resp = ClienteServicio.buscarPorId(id);
-				break;
-			case "4":
-				resp = ClienteServicio.buscarPorCorreo(idString);
-				break;
-			case "5":
-				id = Integer.parseInt(idString);
-				resp = EmpleadoServicio.buscarPorId(id);
-				break;
-			case "6":
-				resp = EmpleadoServicio.buscarPorCorreo(idString);
-				break;
-			case "7":
-				id = Integer.parseInt(idString);
-				c = ClienteServicio.buscarPorId(id);
-				resp = c.getUsuario();
-				break;
-			case "8":
-				id = Integer.parseInt(idString);
-				empl = EmpleadoServicio.buscarPorId(id);
-				resp = empl.getUsuario();
-				break;
-			case "9":
-				id = Integer.parseInt(idString);
-				resp = EmpresaServicio.buscarPorId(id);
-				break;
-			case "14":
-				id = Integer.parseInt(idString);
-				empr = EmpresaServicio.buscarPorId(id);
-				resp = empr.getUbicacion();
-				break;
-			case "14.5":
-				id = Integer.parseInt(idString);
-				c = ClienteServicio.buscarPorId(id);
-				resp = c.getUbicacion();
-				break;
-			case "15":
-				id = Integer.parseInt(idString);
-				resp = DepartamentoServicio.buscarPorId(id);
-				break;
-			case "16":
-				id = Integer.parseInt(idString);
-				resp = CategoriaServicio.buscarPorId(id);
-				break;
-			case "17":
-				id = Integer.parseInt(idString);
-				resp = DetalleCategoriaServicio.buscarPorId(id);
-				break;
-			case "20":
-				id = Integer.parseInt(idString);
-				resp = ProductoServicio.buscarPorId(id);
-				break;
-			case "25":
-				id = Integer.parseInt(idString);
-				resp = DetalleProductoServicio.buscarPorId(id);
-				break;
-			case "28":
-				id = Integer.parseInt(idString);
-				resp = ValorDetalleCategoriaServicio.buscarPorId(id);
-				break;
-			default:
-				resp = "No implementado!";
-				break;				
-			}
-		}catch(NumberFormatException e){
-			resp = "Ingrese un número!";
-		}catch(NullPointerException e){
-			resp = "Nada encontrado";
-		}
-		
-		
-		if(resp == null){
-			resp = "Nada encontrado";
-		}
-		
-		return new Gson().toJson(resp);
 	}
 	
 	@RequestMapping( value="/testAjax2", headers="Accept=*/*", produces="application/json")	
@@ -191,6 +84,12 @@ public class TestMapeo {
 			break;
 		case "10":
 			resp = ValorDetalleCategoriaServicio.obtenerDetalles();
+			break;
+		case "11":
+			resp = PedidoServicio.obtenerPedidos();
+			break;
+		case "12":
+			resp = LineaPedidoServicio.obtenerLineasPedido();
 			break;
 		default:
 			resp = "No implementado!";
