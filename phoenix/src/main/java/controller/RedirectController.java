@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import pedidos.Pedido;
 import productos.Producto;
 import servicio.ClienteServicio;
 import servicio.EmpleadoServicio;
@@ -319,20 +320,22 @@ public class RedirectController {
 	public ModelAndView home(){
 		ModelAndView model;
 		
-		HttpSession session = request.getSession();
-		
+		//Recuperar información.
+		HttpSession session = request.getSession();		
 		String codigoEmpresaStr = request.getParameter("idEmpresa");		
 		if(codigoEmpresaStr == null) codigoEmpresaStr = (String) session.getAttribute("idEmpresa");
 		
+		//Validar que se haya elegido una empresa. 
 		if(codigoEmpresaStr == null){
 			model = new ModelAndView("accessDenied");
 			model.addObject("nextPage", "/");
 		}
 		else{
-			session.setAttribute("idEmpresa", codigoEmpresaStr);			
+			session.setAttribute("idEmpresa", codigoEmpresaStr);	//Agrega la empresa actual como la elegida. 		
 			model = new ModelAndView("home");			
 			setHeaderDataC(model);
 			
+			//Recuperar productos y agregar los primeros 4 a "Productos destacados"
 			int codigoEmpresa = Integer.valueOf((String) session.getAttribute("idEmpresa"));
 			List<Producto> productos = ProductoServicio.obtenerProductos(codigoEmpresa, false);
 			
@@ -353,17 +356,16 @@ public class RedirectController {
 	public ModelAndView searchResults(){
 		ModelAndView model = new ModelAndView("searchResults");
 		
+		//Recuperar información y validar que haya una empresa elegida. 
 		HttpSession session = request.getSession();		
-		String codigoEmpresaStr = (String) session.getAttribute("idEmpresa");
-		
+		String codigoEmpresaStr = (String) session.getAttribute("idEmpresa");		
 		if(codigoEmpresaStr == null){
 			model = new ModelAndView("accessDenied");
 			model.addObject("nextPage", "/");
 		}
 		else{			
 			model = new ModelAndView("searchResults");
-			setHeaderDataC(model);	
-			
+			setHeaderDataC(model);			
 		}	
 		
 		return model; 
@@ -375,10 +377,9 @@ public class RedirectController {
 	public ModelAndView product(){
 		ModelAndView model;
 		
-		HttpSession session = request.getSession();
-		
-		String codigoEmpresaStr = (String) session.getAttribute("idEmpresa");
-		
+		//Recuperar información y validar que haya una empresa elegida. 
+		HttpSession session = request.getSession();		
+		String codigoEmpresaStr = (String) session.getAttribute("idEmpresa");		
 		if(codigoEmpresaStr == null){
 			model = new ModelAndView("accessDenied");
 			model.addObject("nextPage", "/");
@@ -387,11 +388,11 @@ public class RedirectController {
 			model = new ModelAndView("product");
 			setHeaderDataC(model);
 			
+			//Pone el id del producto elegido en la vista. 
 			String idProducto = request.getParameter("product");
 			if(idProducto != null){
 				model.addObject("idProducto", idProducto);
 			}			
-			
 		}	
 		
 		return model;
@@ -462,20 +463,23 @@ public class RedirectController {
 		}
 	}
 	
+	//Para la vista del cliente. 
 	public void setHeaderDataC(ModelAndView model){
-		HttpSession session = request.getSession();
 		
+		//Recuperar datos. 
+		HttpSession session = request.getSession();		
 		int codigoEmpresa = Integer.valueOf((String) session.getAttribute("idEmpresa"));
 		Empresa e = EmpresaServicio.buscarPorId(codigoEmpresa);
+		String tipo = (String)session.getAttribute("tipo");
 		
+		//Llenar el header.
 		model.addObject("imgEmpresa", e.getImg(request.getServerName()));
 		model.addObject("nombreEmpresa", e.getNombre());
 		model.addObject("telEmpresa", e.getTelefono());
 		model.addObject("ubiEmpresa",e.getCiudad() + ", " + e.getPais());
 		model.addObject("correoEmpresa", EmpleadoServicio.buscarPorEmpresa(e.getCodigo(), TipoEmpleado.gerenteGeneral).getCorreo());
 		
-		String tipo = (String)session.getAttribute("tipo");
-		
+		//Coloca el nombre del cliente logueado. 
 		if(tipo == null || !tipo.matches("cliente")){
 			model.addObject("cuenta", "Cuenta");
 		}
@@ -483,7 +487,25 @@ public class RedirectController {
 			String correo = (String)session.getAttribute("correo");
 			Cliente cliente = ClienteServicio.buscarPorCorreo(correo);
 			model.addObject("cuenta", cliente.getNombre() + " " + cliente.getApellido());
-		}		
+		}
+		
+		//Agregar la información del carrito. 
+		Pedido carrito = (Pedido)session.getAttribute("carrito");
+		if(carrito == null){
+			model.addObject("cantidadArt", 0);
+			model.addObject("total", 0.00);
+		}
+		else{
+			if(carrito.getCodigoEmpresa() != codigoEmpresa){
+				session.removeAttribute("carrito");		//Elimina el carrito de otra empresa. 
+				model.addObject("cantidadArt", 0);
+				model.addObject("total", 0.00);
+			}
+			else{
+				model.addObject("cantidadArt", carrito.getCantidadProductos());
+				model.addObject("total", carrito.getTotal());
+			}
+		}
 	}
 }
 

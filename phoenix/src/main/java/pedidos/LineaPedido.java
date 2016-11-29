@@ -1,14 +1,18 @@
 package pedidos;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+@SuppressWarnings("serial")
 @Entity
 @Table(name="lineapedido")
-public class LineaPedido{
+public class LineaPedido implements Serializable{
 
 	@Id
 	@Column(name="codigo_linea")
@@ -41,34 +45,39 @@ public class LineaPedido{
 		this.subtotal = precioVendido * cantidad; 		
 	}
 
-	//Get para el codigo de linea producto (se autogenera)	
+	//Getters y setters. 
+	
+	//Atributo: código
 	public int getCodigo() {
 		return codigo;
 	}
 	
-	//Set y get para precio, cantidad y subtotal
+	//Atributo: precio de venta.
 	public double getPrecioVendido() {
 		return precioVendido;
 	}
 	
+	//Atributo: cantidad. 
 	public int getCantidad() {
 		return cantidad;
 	}
 	
 	public void setCantidad(int cantidad) {
 		this.cantidad = cantidad;
-		this.subtotal = cantidad * precioVendido;
+		this.subtotal = cantidad * precioVendido;		//Modificar el subtotal. 
 	}
 	
+	//Atributo: subtotal.
 	public double getSubtotal() {
 		return subtotal;
 	}	
 	
-	//Set y get para producto y pedido
+	//Atributo: código del producto. 
 	public int getCodigoProducto() {
 		return codigoProducto;
 	}
 	
+	//Atributo: código pedido (Se permite el set porque no se tiene el código del pedido hasta que se almacena en la base)
 	public void setCodigoPedido(int codigoPedido){
 		this.codigoPedido = codigoPedido;
 	}

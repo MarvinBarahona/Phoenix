@@ -1,5 +1,6 @@
 package pedidos; 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -12,9 +13,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import productos.Producto;
+
+@SuppressWarnings("serial")
 @Entity
 @Table(name="pedido")
-public class Pedido{
+public class Pedido implements Serializable{
 	
 	@Id 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,55 +34,100 @@ public class Pedido{
 	@Column(name="codigo_empresa")
 	int codigoEmpresa;
    
-   @Column(name="codigo_cliente")
-   int codigoCliente;
+	@Column(name="codigo_cliente")
+	int codigoCliente;
    
    	@Transient
 	List<LineaPedido> lineasPedido;
 	
-	public Pedido(){}
+   	//Constructores. 
+	public Pedido(){
+		
+	}
 
 	public Pedido(int codigoEmpresa) {
 		this.codigoEmpresa = codigoEmpresa;
 		this.lineasPedido = new ArrayList<LineaPedido>();
+		total = 0;
 	}
 
 	//Getters y setters. 
+	
+	//Atributo: código
 	public int getCodigo() {
 		return codigo;
 	}
 
+	//Atributo: total
 	public double getTotal() {
 		return total;
 	}
 
+	//Atributo: fecha. 
 	public Date getFecha() {
 		return fecha;
 	}
 
+	//Atributo: código empresa. 
 	public int getCodigoEmpresa() {
 		return codigoEmpresa;
 	}
 	
+	//Atributo: código cliente. 
 	public int getCodigoCliente() {
 		return codigoCliente;
 	}
+	
+	public void setCodigoCliente(int cod){
+		this.codigoCliente = cod;
+	}
 
-	//Get y set de linea pedido
+	//Atributo: lineas de pedido. 
+	
 	public List<LineaPedido> getLineasPedido() {
 		return lineasPedido;
 	}
-
-	public void agregarLineaPedido(int codigoProducto, double precio, int cantidad) {
-		this.lineasPedido.add(new LineaPedido(codigoProducto, precio, cantidad));
+	
+	//Al agregar un producto al carrito, solo se agrega uno. Luego se puede modificar. 
+	public void agregarLineaPedido(Producto producto) {
+		double desc = (double) producto.getDescuento() / 100;	//División no entera. 
+		double precio = producto.getPrecio() * (1 - desc);	
+		
+		LineaPedido linea = new LineaPedido(producto.getCodigo(), precio, 1);		
+		this.lineasPedido.add(linea);
+		
+		total += linea.getSubtotal();
 	}
 	
+	//Busca la línea que se desea modificar y la modifica. 
 	public void modificarLineaPedido(int codigoProducto, int cantidad){
 		for(LineaPedido linea : lineasPedido){
+			
 			if(linea.getCodigoProducto() == codigoProducto){
-				linea.setCantidad(cantidad);
+				total -= linea.getSubtotal();		//Disminuya el total
+				linea.setCantidad(cantidad);		//Modifica la línea.
+				total += linea.getSubtotal();		//Suma el nuevo subtotal. 
 				break;
 			}
+			
 		}
+	}
+	
+	//Recuperar y eliminar una línea de pedido. 
+	public void eliminarLineaPedido(int codigoProducto){
+		for(LineaPedido linea : lineasPedido){
+			
+			if(linea.getCodigoProducto() == codigoProducto){
+				total -= linea.getSubtotal();		//Disminuye el total
+				lineasPedido.remove(linea);			//Elimina la línea. 
+				break;
+			}
+			
+		}
+	}
+	
+	//Recupera la cantidad de producto agregados, igual que la cantidad de líneas agregadas. 
+	public int getCantidadProductos(){
+		return lineasPedido.size();
 	}
 }

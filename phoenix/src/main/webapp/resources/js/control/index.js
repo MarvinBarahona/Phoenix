@@ -1,3 +1,4 @@
+//Recuperar las imagenes de las empresas. 
 $(document).ready(function(){
 	$.ajax({
 		url: "obtenerImgEmpresas.html",
@@ -15,6 +16,7 @@ $(document).ready(function(){
 				img.appendTo("#divImg");
 			});
 			
+			//Permite redirigir al home de cada empresa al darle click a la imagen. 
 			$('.imgEmpresa').css('cursor', 'pointer');
 			
 			$('.imgEmpresa').click(function(){

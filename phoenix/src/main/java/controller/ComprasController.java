@@ -3,12 +3,15 @@ package controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import pedidos.LineaPedido;
+import pedidos.Pedido;
 import productos.Categoria;
 import productos.Departamento;
 import productos.DetalleCategoria;
@@ -47,18 +50,21 @@ public class ComprasController {
 		return new Gson().toJson(empresasJ);
 	}
 	
-	//Obtiene las imagenes de las empresas para ponerlas en el index. 
+	//Obtiene un producto por su id y lo coloca en pantalla.  
 	@PostMapping(value="/obtenerProducto",headers="Accept=*/*",produces="application/json")
 	public @ResponseBody String obtenerProducto(){
 		JsonObject productoJ = new JsonObject();
 		
+		//Recuperar el producto.
 		int codigoProducto = Integer.valueOf(request.getParameter("idProducto"));		
 		Producto producto = ProductoServicio.buscarPorId(codigoProducto);
 		
+		//Convertirlo a objeto JSON. 
 		productoJ.addProperty("urlImg", producto.getImg(request.getServerName()));
 		productoJ.addProperty("precio", producto.getPrecio());
 		productoJ.addProperty("descuento", producto.getDescuento());
 		
+		//Agregar al producto sus detalles. 
 		JsonArray detallesJ = new JsonArray();
 		for(DetalleProducto detalleP : DetalleProductoServicio.obtenerDetallesProducto(producto.getCodigo())){
 			JsonObject detalleJ = new JsonObject();
@@ -77,18 +83,22 @@ public class ComprasController {
 	}
 	
 	
-	//Obtiene las imagenes de las empresas para ponerlas en el index. 
+	//Obtiene los productos y categorias para agregarse al catálogo. 
 	@PostMapping(value="/obtenerProdYCate",headers="Accept=*/*",produces="application/json")
 	public @ResponseBody String obtenerProdYCate(){
 		JsonObject resp = new JsonObject();
 		
-		//Productos.		
+		//Productos.	
+		
+		//Recuperar los productos de la empresa actual. 
 		int codigoEmpresa = Integer.valueOf((String)request.getSession().getAttribute("idEmpresa"));
 		List<Producto> productos = ProductoServicio.obtenerProductos(codigoEmpresa, false);
 		
 		JsonArray productosJ = new JsonArray();
 		for(Producto producto : productos){			
 			JsonObject productoJ = new JsonObject();
+			
+			//Recuperar el departamento y categoría del producto. 
 			Departamento departamento = DepartamentoServicio.buscarPorId(producto.getCodigoDepartamento());
 			Categoria categoria = CategoriaServicio.buscarPorId(producto.getCodigoCategoria());
 			
@@ -108,19 +118,22 @@ public class ComprasController {
 		//Categorización. 
 		JsonArray departamentosJ = new JsonArray();		
 		for(Departamento departamento : DepartamentoServicio.obtenerDepartamentos()){
-			if(!departamento.getNombre().matches("n/a")){
+			
+			//Agregar el departamento solo si no es "n/a"
+			if(!departamento.getNombre().matches("n/a")){				
 				JsonObject departamentoJ = new JsonObject();			
 				departamentoJ.addProperty("nombre", departamento.getNombre());
 				
 				JsonArray categoriasJ = new JsonArray();
 				for(Categoria categoria : CategoriaServicio.obtenerCategorias(departamento.getCodigo())){
-					if(!categoria.getNombre().matches("n/a")){
+					
+					//Agregar la categoria solo si no es "n/a"
+					if(!categoria.getNombre().matches("n/a")){						
 						JsonObject categoriaJ = new JsonObject();
-						
 						categoriaJ.addProperty("nombre", categoria.getNombre());
-						
 						categoriasJ.add(categoriaJ);
-					}					
+					}
+					
 				}
 				departamentoJ.add("categorias", categoriasJ);
 				
@@ -130,6 +143,111 @@ public class ComprasController {
 		resp.add("departamentos", departamentosJ);
 		
 		
+		return new Gson().toJson(resp);
+	}
+	
+	
+	//Agregar un producto al carrito.
+	@PostMapping(value="/agregarProductoCarrito",headers="Accept=*/*",produces="application/json")
+	public @ResponseBody String agregarProductoCarrito(){
+		
+		HttpSession session = request.getSession();		
+		JsonObject resp = new JsonObject();			//Objeto queda vacio al final. 
+		
+		//Recupera la información necesaria. 
+		int codigoProducto = Integer.valueOf(request.getParameter("idProducto"));		
+		Producto producto = ProductoServicio.buscarPorId(codigoProducto);		
+		int codigoEmpresa = Integer.valueOf((String)request.getSession().getAttribute("idEmpresa"));		
+		Pedido carrito = (Pedido)session.getAttribute("carrito");
+		
+		//Crear un carrito si no hay, y agregar el producto solo si no se ha agregado. 
+		if(carrito == null){
+			carrito = new Pedido(codigoEmpresa);
+		}
+		
+		boolean agregado = false;
+		for(LineaPedido linea : carrito.getLineasPedido()){
+			if(linea.getCodigoProducto() == codigoProducto){
+				agregado = true;
+				break;
+			}
+		}		
+		if(!agregado) carrito.agregarLineaPedido(producto);
+		
+		//Sobreescribir el objeto "carrito" en la sesión. 
+		session.setAttribute("carrito", carrito);
+		
+		return new Gson().toJson(resp);
+	}
+	
+	//Recuperar el carrito de compras. 
+	@PostMapping(value="/obtenerCarrito",headers="Accept=*/*",produces="application/json")
+	public @ResponseBody String obtenerCarrito(){
+		
+		HttpSession session = request.getSession();		
+		JsonObject resp = new JsonObject();		
+		Pedido carrito = (Pedido)session.getAttribute("carrito");
+		
+		resp.addProperty("isEmpty", true);		//El carrito está vacio si no existe o si no tiene lineas. 
+		if(carrito != null && carrito.getCantidadProductos() != 0){
+			resp.addProperty("isEmpty", false);
+			 
+			//Recupera el carrito como una lista de sus lineas. 
+			JsonArray lineasPedidoJ = new JsonArray();
+			for(LineaPedido linea : carrito.getLineasPedido()){
+				JsonObject lineaJ = new JsonObject();
+				Producto producto = ProductoServicio.buscarPorId(linea.getCodigoProducto());
+				 
+				lineaJ.addProperty("idProducto", linea.getCodigoProducto());
+				lineaJ.addProperty("producto", producto.getNombre());
+				lineaJ.addProperty("precio", linea.getPrecioVendido());
+				lineaJ.addProperty("cantidad", linea.getCantidad());
+				 
+				lineasPedidoJ.add(lineaJ);
+			}
+			 
+			resp.add("lineas", lineasPedidoJ);
+		}
+		
+		return new Gson().toJson(resp);
+	}
+	
+	//Eliminar un producto del carrito. 
+	@PostMapping(value="/eliminarProductoCarrito",headers="Accept=*/*",produces="application/json")
+	public @ResponseBody String eliminarProductoCarrito(){
+		
+		//Recuperar los datos necesarios. 
+		HttpSession session = request.getSession();		
+		JsonObject resp = new JsonObject();		
+		int codigoProducto = Integer.valueOf(request.getParameter("idProducto"));
+		Pedido carrito = (Pedido)session.getAttribute("carrito");
+		
+		//Elimina la línea de pedido.
+		carrito.eliminarLineaPedido(codigoProducto);
+		
+		//Recuperar la información actual del carrito para actualizar el header. 
+		resp.addProperty("total", carrito.getTotal());
+		resp.addProperty("cantidad", carrito.getCantidadProductos());
+		
+		return new Gson().toJson(resp);
+	}
+	
+	//Modificar una línea de pedido. 
+	@PostMapping(value="/modificarLineaCarrito",headers="Accept=*/*",produces="application/json")
+	public @ResponseBody String modificarLineaCarrito(){
+		
+		//Recuperar la información. 
+		HttpSession session = request.getSession();		
+		JsonObject resp = new JsonObject();		
+		int codigoProducto = Integer.valueOf(request.getParameter("idProducto"));
+		int cantidad = Integer.valueOf(request.getParameter("cantidad"));
+		Pedido carrito = (Pedido)session.getAttribute("carrito");
+		
+		//Modificar el carrito. 
+		carrito.modificarLineaPedido(codigoProducto, cantidad);
+		
+		//Recupera el nuevo total para colocarlo en el header. 
+		resp.addProperty("total", carrito.getTotal());		
 		return new Gson().toJson(resp);
 	}
 }

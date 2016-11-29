@@ -51,8 +51,8 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="fa fa-shopping-cart fa-2x"></li>
                 <li class="preSub">
-                  <p># artículos</p>
-                  <p>$___.__</p>
+                  <p>Artículos: ${cantidadArt}</p>
+                  <p>$ ${total}</p>
                 </li>
               </ul>
             </a>

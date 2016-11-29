@@ -1,4 +1,4 @@
-var producto;
+var producto;		//Variable usada para almacenar el producto visualizado. 
 
 $(document).ready(function(){
 	if($('#producto').html() != null && $('#producto').html() != ''){
@@ -40,4 +40,31 @@ $(document).ready(function(){
 			}
 		});
 	}	
+});
+
+//Si se cancela, retorna al catálogo. 
+$('#btnCancelar').click(function(){
+	$.redirect(
+		"/searchResults.html",
+		"POST"
+	);
+});
+
+//Si se agrega, modificar el carrito y luego retornar al catálogo. 
+$('#btnAgregar').click(function(){
+	var idProducto = $('#producto').html();
+	
+	$.ajax({
+		url: "agregarProductoCarrito.html", 
+		type: "POST", 
+		data: {
+			idProducto : idProducto
+		},
+		success: function(resp){
+			$.redirect(
+				"/searchResults.html",
+				"POST"
+			);
+		}
+	});
 });
