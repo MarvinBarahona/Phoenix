@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import pedidos.LineaPedido;
 import pedidos.Pedido;
 import productos.Producto;
 import servicio.ClienteServicio;
@@ -469,8 +470,16 @@ public class RedirectController {
 			//Recuperar al cliente y asignarlo al carrito. 			
 			Cliente cliente = ClienteServicio.buscarPorCorreo(correo);
 			carrito.setCodigoCliente(cliente.getCodigoUsuario());			
+			
+			//Salvar en la base y eliminar el objeto de la sesión. 
 			PedidoServicio.crear(carrito);
-			session.removeAttribute("carrito");			
+			session.removeAttribute("carrito");
+			
+			//Reducir las existencias de la base. 
+			for (LineaPedido linea : carrito.getLineasPedido()){
+				Producto producto = ProductoServicio.buscarPorId(linea.getCodigoProducto());
+				ProductoServicio.actualizarExistencias(producto, false, linea.getCantidad());
+			}
 			
 			model = new ModelAndView("purchaseCompleted");
 			setHeaderDataC(model);
