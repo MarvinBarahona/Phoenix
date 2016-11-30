@@ -66,11 +66,7 @@
     <header>
         <div class="header-content" >
             <div class="header-content-inner">
-              <div class="col-md-9 col-md-offset-3 empresas">
-                <!--Bloque a clonar por empresa-->
-                <div class="col-md-3" id="divImg">
-                </div>
-
+              <div class="col-md-9 col-md-offset-3 empresas" id="divImg">
               </div>
               <h4 class="tituloE">Ingresa a la empresa de tu preferencia</h4>
             </div>
