@@ -14,6 +14,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import productos.Producto;
+import util.DoubleFormat;
 
 @SuppressWarnings("serial")
 @Entity
@@ -100,17 +101,22 @@ public class Pedido implements Serializable{
 	}
 	
 	//Busca la línea que se desea modificar y la modifica. 
-	public void modificarLineaPedido(int codigoProducto, int cantidad){
+	public double modificarLineaPedido(int codigoProducto, int cantidad){
+		double subtotal = 0;
 		for(LineaPedido linea : lineasPedido){
 			
 			if(linea.getCodigoProducto() == codigoProducto){
-				total -= linea.getSubtotal();		//Disminuya el total
+				total = DoubleFormat.round(total - linea.getSubtotal(), 2);		//Disminuya el total
 				linea.setCantidad(cantidad);		//Modifica la línea.
-				total += linea.getSubtotal();		//Suma el nuevo subtotal. 
+				
+				subtotal = linea.getSubtotal();	//Devolver el nuevo subtotal.
+				total = DoubleFormat.round(total + linea.getSubtotal(), 2);		//Suma el nuevo subtotal. 
 				break;
 			}
 			
 		}
+		
+		return subtotal;
 	}
 	
 	//Recuperar y eliminar una línea de pedido. 
@@ -118,7 +124,7 @@ public class Pedido implements Serializable{
 		for(LineaPedido linea : lineasPedido){
 			
 			if(linea.getCodigoProducto() == codigoProducto){
-				total -= linea.getSubtotal();		//Disminuye el total
+				total = DoubleFormat.round(total - linea.getSubtotal(), 2);		//Disminuye el total
 				lineasPedido.remove(linea);			//Elimina la línea. 
 				break;
 			}

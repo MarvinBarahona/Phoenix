@@ -33,62 +33,36 @@
   	<jsp:include page="headerC.jsp"></jsp:include>
 
     <div class="container">
-      <div class="table-responsive">
-        <!--NOTA: En caso de estar vacio
-         <h3 class="text-center">Carro de compras vacio</h3>
-         -->
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th>Producto</th>
-              <th>Precio unitario</th>
-              <th>Cantidad</th>
-              <th>Subtotal</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td></td>
-              <td></td>
-              <td>
-                <input type="number" name="name" value="" min="1" max="">
-                <button type="button" name="button"><span class="fa fa-trash" data-toggle="tooltip" title="Eliminar"></span></button>
-              </td>
-              <td></td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="table-responsive" id="contenido">
       </div>
 
       <div class="row">
         <div class="col-md-6 envio">
-          <!--Aqui pondre la info del cliente -->
+          <h4>Información del cliente</h4>
+          <p>Nombre: ${nombreCliente}</p>
+		  <p ${hidden}>Inicie sesión para poder realizar la compra!</p>
         </div>
         <div class="col-md-6 consolidado">
           <table class="table">
             <tr>
-              <td>Subtotal</td>
-              <td>$000.00</td>
-            </tr>
-            <tr>
-              <td>Impuestos</td>
-              <td></td>
+              <td>Subtotal productos</td>
+              <td id="tdTotalPedido"> $ ${total}</td>
             </tr>
             <tr>
               <td>Cobro de envio</td>
-              <td></td>
+              <td>$ <span id="totalEnvio">${totalEnvio}</span></td>
             </tr>
             <tr>
               <td>Total</td>
-              <td>$0000.00</td>
+              <td id="tdTotal">$ ${totalConEnvio}</td>
             </tr>
           </table>
 
           <form>
             <div class="form-group acciones">
               <a href="home.html"><span class="fa fa-long-arrow-left"></span>Continuar comprando</a>
-              <button class="btn btn-default">Realizar compra</button>
-              <button class="btn btn-danger">Limpiar carrito</button>
+              <button type="button" class="btn btn-default" ${enabled}>Realizar compra</button>
+              <button type="button" class="btn btn-danger" id="btnLimpiar">Limpiar carrito</button>
             </div>
           </form>
         </div>
@@ -107,5 +81,9 @@
 	<script src="${js}easing.js"></script>
 	<script src="${js}bootstrap.min.js"></script>
 
+	<!-- js de control -->
+	<script src="${jsControl}jquery.redirect.js"></script>
+	<script src="${jsControl}clientPages.js" charset="utf-8"></script>
+	<script src="${jsControl}shoppingCart.js" charset="utf-8"></script>
   </body>
 </html>

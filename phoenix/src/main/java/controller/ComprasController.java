@@ -185,12 +185,12 @@ public class ComprasController {
 	public @ResponseBody String obtenerCarrito(){
 		
 		HttpSession session = request.getSession();		
-		JsonObject resp = new JsonObject();		
+		JsonObject carritoJ = new JsonObject();		
 		Pedido carrito = (Pedido)session.getAttribute("carrito");
 		
-		resp.addProperty("isEmpty", true);		//El carrito está vacio si no existe o si no tiene lineas. 
+		carritoJ.addProperty("isEmpty", true);		//El carrito está vacio si no existe o si no tiene lineas. 
 		if(carrito != null && carrito.getCantidadProductos() != 0){
-			resp.addProperty("isEmpty", false);
+			carritoJ.addProperty("isEmpty", false);
 			 
 			//Recupera el carrito como una lista de sus lineas. 
 			JsonArray lineasPedidoJ = new JsonArray();
@@ -202,19 +202,21 @@ public class ComprasController {
 				lineaJ.addProperty("producto", producto.getNombre());
 				lineaJ.addProperty("precio", linea.getPrecioVendido());
 				lineaJ.addProperty("cantidad", linea.getCantidad());
+				lineaJ.addProperty("existencias", producto.getExistencias());
+				lineaJ.addProperty("subtotal", linea.getSubtotal());
 				 
 				lineasPedidoJ.add(lineaJ);
 			}
 			 
-			resp.add("lineas", lineasPedidoJ);
+			carritoJ.add("lineas", lineasPedidoJ);
 		}
 		
-		return new Gson().toJson(resp);
+		return new Gson().toJson(carritoJ);
 	}
 	
 	//Eliminar un producto del carrito. 
-	@PostMapping(value="/eliminarProductoCarrito",headers="Accept=*/*",produces="application/json")
-	public @ResponseBody String eliminarProductoCarrito(){
+	@PostMapping(value="/eliminarLineaCarrito",headers="Accept=*/*",produces="application/json")
+	public @ResponseBody String eliminarLineaCarrito(){
 		
 		//Recuperar los datos necesarios. 
 		HttpSession session = request.getSession();		
@@ -228,6 +230,9 @@ public class ComprasController {
 		//Recuperar la información actual del carrito para actualizar el header. 
 		resp.addProperty("total", carrito.getTotal());
 		resp.addProperty("cantidad", carrito.getCantidadProductos());
+		
+		//Sobreescribir el objeto "carrito" en la sesión. 
+		session.setAttribute("carrito", carrito);
 		
 		return new Gson().toJson(resp);
 	}
@@ -244,10 +249,26 @@ public class ComprasController {
 		Pedido carrito = (Pedido)session.getAttribute("carrito");
 		
 		//Modificar el carrito. 
-		carrito.modificarLineaPedido(codigoProducto, cantidad);
+		double subtotal = carrito.modificarLineaPedido(codigoProducto, cantidad);
 		
 		//Recupera el nuevo total para colocarlo en el header. 
-		resp.addProperty("total", carrito.getTotal());		
+		resp.addProperty("total", carrito.getTotal());
+		resp.addProperty("subtotal", subtotal);
+		
+		//Sobreescribir el objeto "carrito" en la sesión. 
+		session.setAttribute("carrito", carrito);
+		
+		return new Gson().toJson(resp);
+	}
+	
+	//Limpiar el carrito. 
+	@PostMapping(value="/limpiarCarrito", headers="Accept=*/*", produces="application/json")
+	public @ResponseBody String limpiarCarrito(){
+		JsonObject resp = new JsonObject();	
+		
+		HttpSession session = request.getSession();
+		session.removeAttribute("carrito");
+		
 		return new Gson().toJson(resp);
 	}
 }

@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import util.DoubleFormat;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name="lineapedido")
@@ -64,7 +66,7 @@ public class LineaPedido implements Serializable{
 	
 	public void setCantidad(int cantidad) {
 		this.cantidad = cantidad;
-		this.subtotal = cantidad * precioVendido;		//Modificar el subtotal. 
+		this.subtotal = DoubleFormat.round(cantidad * precioVendido, 2);		//Modificar el subtotal. 
 	}
 	
 	//Atributo: subtotal.

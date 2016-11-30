@@ -33,6 +33,9 @@ public class Empresa implements Serializable{
 	@Column(name="img")
 	String img;
 	
+	@Column(name="costoenvio")
+	double costoEnvio;
+	
 	@Transient
 	Ubicacion ubicacion;
 	
@@ -91,6 +94,15 @@ public class Empresa implements Serializable{
 
 	public void setImg(String img) {
 		this.img = img;
+	}
+	
+	//Atributo: costoEnvio
+	public double getCostoEnvio(){
+		return this.costoEnvio;
+	}
+	
+	public void setCostoEnvio(double costoEnvio){
+		this.costoEnvio = costoEnvio;
 	}
 	
 	//Otros atributos. ******************************************************************

@@ -58,6 +58,13 @@
                       <input type="tel" class="form-control" value="${telefono}" id="txtTelefono">
                     </div>
                   </div><br>
+                  
+                  <div class="from-group">
+                    <label class="control-label col-sm-3" for="costoEnvio">Costo de envio:</label>
+                    <div class="col-sm-7">
+                      <input type="number" class="form-control" min="0" step="0.01" name="precio" value="${costoEnvio}" id="txtCostoEnvio">
+                    </div>
+                  </div><br>
 
                   <div class="from-group">
                     <label class="control-label col-sm-3" for="dirección">Ubicación:</label>

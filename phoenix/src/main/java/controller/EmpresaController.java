@@ -52,6 +52,7 @@ public class EmpresaController {
 		
 		String nombre = request.getParameter("nombre");
 		String telefono = request.getParameter("telefono");
+		double costoEnvio = Double.parseDouble(request.getParameter("costoEnvio"));
 		String pais = request.getParameter("pais");
 		String ciudad = request.getParameter("ciudad");
 		String direccion = request.getParameter("direccion");
@@ -62,6 +63,7 @@ public class EmpresaController {
 		Empresa empresa = EmpresaServicio.buscarPorId(codigoEmpresa);
 		empresa.setNombre(nombre);
 		empresa.setTelefono(telefono);
+		empresa.setCostoEnvio(costoEnvio);
 		empresa.setPais(pais);
 		empresa.setCiudad(ciudad);
 		empresa.setDireccion(direccion);

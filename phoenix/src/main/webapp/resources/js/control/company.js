@@ -2,6 +2,7 @@ $('#btnGuardar').click(function(){
 	$('#errorMsg').html('');
 	
 	var tel = $('#txtTelefono').val();
+	var costoEnvio = $('#txtCostoEnvio').val();
 	var pais = $('#txtPais').val();
 	var ciudad = $('#txtCiudad').val();
 	var dir = $('#txtDir').val();
@@ -9,7 +10,7 @@ $('#btnGuardar').click(function(){
 	var nombre = $('#txtNombre').val();
 	
 	//Validación.
-	if(nombre == '' || tel == '' || pais == '' || ciudad == '' || dir == '' || zip == ''){
+	if(nombre == '' || tel == '' || pais == '' || ciudad == '' || dir == '' || zip == '' || costoEnvio == ''){
 		$('#errorMsg').html('Ingrese todos los campos!');
 	}
 	else{
@@ -19,6 +20,7 @@ $('#btnGuardar').click(function(){
 			data:{
 				nombre: nombre,
 				telefono: tel,
+				costoEnvio: costoEnvio,
 				pais: pais,
 				ciudad: ciudad,
 				direccion: dir,

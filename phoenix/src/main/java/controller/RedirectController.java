@@ -17,10 +17,13 @@ import servicio.ClienteServicio;
 import servicio.EmpleadoServicio;
 import servicio.EmpresaServicio;
 import servicio.ProductoServicio;
+import servicio.UsuarioServicio;
 import usuarios.Cliente;
 import usuarios.Empleado;
 import usuarios.Empresa;
 import usuarios.TipoEmpleado;
+import usuarios.Usuario;
+import util.DoubleFormat;
 import util.Encoder;
 
 @Controller
@@ -127,6 +130,7 @@ public class RedirectController {
 			Empresa e = EmpresaServicio.buscarPorId(codigoEmpresa);
 			
 			model.addObject("telefono", e.getTelefono());
+			model.addObject("costoEnvio", e.getCostoEnvio());
 			model.addObject("pais", e.getPais());
 			model.addObject("ciudad", e.getCiudad());
 			model.addObject("direccion", e.getDireccion());
@@ -402,19 +406,49 @@ public class RedirectController {
 	//Muestra el carrito de compras. 
 	@RequestMapping("/shoppingCart")
 	public ModelAndView shoppingCart(){
-		ModelAndView model = new ModelAndView();
+		ModelAndView model;
+		
+		//Recuperar información y validar que haya una empresa elegida. 
+		HttpSession session = request.getSession();		
+		String codigoEmpresaStr = (String) session.getAttribute("idEmpresa");		
+		if(codigoEmpresaStr == null){
+			model = new ModelAndView("accessDenied");
+			model.addObject("nextPage", "/");
+		}
+		else{
+			model = new ModelAndView("shoppingCart");
+			setHeaderDataC(model);
+			
+			//Obtener el total de la compra.
+			double total; 
+			Pedido carrito = (Pedido)session.getAttribute("carrito");
+			if(carrito != null) total = carrito.getTotal();
+			else total = 0;
+			
+			//Asigna el costo de envio.
+			int codigoEmpresa = Integer.valueOf((String) session.getAttribute("idEmpresa"));
+			Empresa e = EmpresaServicio.buscarPorId(codigoEmpresa);
+			double costoEnvio = e.getCostoEnvio();
+			model.addObject("totalEnvio", costoEnvio);
+			
+			//Asignar el total con envio. 
+			model.addObject("totalConEnvio", DoubleFormat.round(total + costoEnvio, 2));
+			
+			String correo = (String)session.getAttribute("correo");
+			if(correo != null){	
+				Usuario usuario = UsuarioServicio.buscarPorCorreo(correo);
+				model.addObject("nombreCliente", usuario.getNombre() + " " + usuario.getApellido());
+				model.addObject("hidden", "hidden");
+			}
+			else{
+				model.addObject("enabled", "disabled");
+			}			
+		}
 		
 		return model;
 	}
 	
 	
-	//Permite al cliente cambiar su dirección.
-	@RequestMapping("/location")
-	public ModelAndView location(){
-		ModelAndView model = new ModelAndView();
-		
-		return model;
-	}
 //					############## Funciones del controlador *********************************
 	
 	//Función: validar. Añade seguridad al sitio (control de acceso).
