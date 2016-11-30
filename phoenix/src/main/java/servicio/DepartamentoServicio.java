@@ -104,7 +104,7 @@ public class DepartamentoServicio {
 			//Cambia los productos del departamento a eliminar al departamento "n/a". 
 			Query queryUpdate = session.createQuery("update from Producto "
 					+ "set codigoDepartamento = :codigoDepartamentoNA, "
-					+ "codigoCategoria = :codigoCategoriaNA, disponible = false"
+					+ "codigoCategoria = :codigoCategoriaNA, disponible = false "
 					+ "where codigoDepartamento = :codigoDepartamento");
 			queryUpdate.setParameter("codigoDepartamentoNA", departamentoNA.getCodigo());
 			queryUpdate.setParameter("codigoCategoriaNA", categoriaNA.getCodigo());
