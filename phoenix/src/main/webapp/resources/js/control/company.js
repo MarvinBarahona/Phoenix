@@ -14,6 +14,8 @@ $('#btnGuardar').click(function(){
 		$('#errorMsg').html('Ingrese todos los campos!');
 	}
 	else{
+		$('#errorMsg').html('Modificando...');
+		
 		$.ajax({
 			url: "modificarEmpresa.html",
 			type: "POST",

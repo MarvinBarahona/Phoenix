@@ -48,6 +48,7 @@
 
                     <!--Bloque 1-->
                     <div class="col-sm-4">
+                    <p class="loading"><i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>Cargando...</p>
                       <div class="from-group">
                         <label class="control-label col-sm-3" for="txtProducto">Producto:</label>
                         <div class="col-sm-7">
@@ -59,7 +60,6 @@
                         <label class="control-label col-sm-3">Departamento:</label>
                         <div class="col-sm-7">
                           <select name="departamento" class="cmbBox" id="cmbDepartamento">
-                          <option>Cargando...</option>
                           </select>
                         </div>
                       </div><br>

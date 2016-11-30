@@ -56,6 +56,7 @@
 
         <!-- item container -->
         <section id="itemContainer">
+        <p class="loading"><i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>Cargando...</p>
         </section>
       </div>
 

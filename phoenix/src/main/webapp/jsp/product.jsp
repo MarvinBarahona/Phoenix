@@ -38,6 +38,7 @@
       <div class="row product">
         <h3 class="productName text-center" id="txtNombre"></h3>
         <div class="col-md-7">
+          <p class="loading"><i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>Cargando...</p>
           <img src="" alt="imagen del producto " class="col-lg-8 col-xs-7 col-xs-offset-3" id="imgProducto"/>
           <button type="button" name="button" class="col-lg-4 col-xs-7 col-xs-offset-3" id="btnAgregar">Agregar al carro de compras</button>
           <button type="button" name="button" class="col-lg-3 col-xs-offset-1" id="btnCancelar">Cancelar</button>

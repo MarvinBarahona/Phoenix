@@ -11,6 +11,8 @@ $(document).ready(function(){
 			success: function(resp){
 				producto = JSON.parse(resp);
 				
+				$('.loading', 'div').remove();
+				
 				//Agregar la imagen
 				$('#txtNombre').html(producto.nombre);
 				

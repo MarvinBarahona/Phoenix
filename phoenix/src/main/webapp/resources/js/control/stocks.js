@@ -66,6 +66,7 @@ $('#btnModificar').click(function(){
 				sumar: sumar
 			},
 			success: function(resp){
+				$('#errorMsg').html('Actualizando...');
 				r = JSON.parse(resp);
 				if(r.exito){
 					//Actualizar la tabla con los datos modificados.				

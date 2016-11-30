@@ -14,6 +14,7 @@ $('#btnGuardar').click(function(){
 	else if(!validateName(nombre) || !validateName(apellido))  		//En validate.js
 		$('#errorMsg').html('El nombre y apellido deben iniciar en mayúscula!');
 	else{
+		$('#errorMsg').html('Creando...');
 		$.ajax({
 			url: "crearEmpresa.html",
 			type: "POST",

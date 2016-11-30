@@ -31,6 +31,8 @@ $('#btnRegistrar').click(function(){
 			$('#errorMsg').html('La contraseña solo puede tener letras y al menos un digito!');
 		
 		else{
+			$('#errorMsg').html('Creando...');
+			
 			$.ajax({
 				url: "confirmarCuenta.html",
 				type: "POST",

@@ -51,7 +51,8 @@ $('#btnModificar').click(function(){
 		//Si el producto será válido cuando se le ingrese el precio.
 		var habilitar = producto.departamento != "n/a" && producto.categoria != "n/a";
 		
-		$.ajax({
+		$('#errorMsg').html('Modificando...');
+		$.ajax({			
 			url: "modificarVenProducto.html",
 			type: "POST",
 			data:{

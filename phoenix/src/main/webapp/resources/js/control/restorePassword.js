@@ -16,6 +16,7 @@ $('#btnAceptar').click(function(){
 	
 	
 	else{
+		$('#errorMsg').html('Estableciendo contraseña...');
 		var user = $('#correo').html();
 		$.ajax({
 			url: "cambiarContra.html",

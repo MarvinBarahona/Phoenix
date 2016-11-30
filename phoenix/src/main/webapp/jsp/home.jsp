@@ -85,16 +85,16 @@
           <h3>Productos destacados</h3>
           <img src="${img}linea3.png" alt="separador" />
           <div class="col-lg-3 col-md-3 col-xs-6">
-              <img class="img-responsive previa" id="${idProducto0}" src="${imgProducto0}" alt="Imagen producto">
+              <img class="img-responsive previa imgProducto" id="${idProducto0}" src="${imgProducto0}" alt="Imagen producto">
           </div>
           <div class="col-lg-3 col-md-3 col-xs-6">
-              <img class="img-responsive previa" id="${idProducto1}" src="${imgProducto1}" alt="Imagen producto">
+              <img class="img-responsive previa imgProducto" id="${idProducto1}" src="${imgProducto1}" alt="Imagen producto">
           </div>
           <div class="col-lg-3 col-md-3 col-xs-6">
-              <img class="img-responsive previa" id="${idProducto2}" src="${imgProducto2}" alt="Imagen producto">
+              <img class="img-responsive previa imgProducto" id="${idProducto2}" src="${imgProducto2}" alt="Imagen producto">
           </div>
           <div class="col-lg-3 col-md-3 col-xs-6">
-              <img class="img-responsive previa" id="${idProducto3}" src="${imgProducto3}" alt="Imagen producto">
+              <img class="img-responsive previa imgProducto" id="${idProducto3}" src="${imgProducto3}" alt="Imagen producto">
           </div>
           </div>
       </div>

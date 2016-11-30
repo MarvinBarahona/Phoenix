@@ -11,6 +11,7 @@ $('#btnGuardarGG').click(function(){
 		$('#errorMsgGG').html('El nombre y apellido deben iniciar en mayúscula!');
 	
 	else{
+		$('#errorMsgGG').html('Modificando...');
 		$.ajax({
 			url: "modificarEmpleado.html", 
 			type: "POST",
@@ -34,7 +35,10 @@ $('#btnGuardarGG').click(function(){
 	}
 });
 
+
 //									####### Gerente de ventas ##########
+
+
 $('#btnGuardarGV').click(function(){
 	$('#errorMsgGV').html('');
 	
@@ -48,6 +52,7 @@ $('#btnGuardarGV').click(function(){
 	else if(!validateEmail(correo))		//En validate.js
 		$('#errorMsgGV').html('Formato de correo no permitido');
 	else{
+		$('#errorMsgGV').html('Modificando...');
 		$.ajax({
 			url: "modificarEmpleado.html", 
 			type: "POST",
@@ -71,7 +76,10 @@ $('#btnGuardarGV').click(function(){
 	}
 });
 
+
 //									####### Gerente de inventario ##########
+
+
 $('#btnGuardarGI').click(function(){
 	$('#errorMsgGI').html('');
 	
@@ -85,6 +93,7 @@ $('#btnGuardarGI').click(function(){
 	else if(!validateEmail(correo))		//En validate.js
 		$('#errorMsgGI').html('Formato de correo no permitido');
 	else{
+		$('#errorMsgGI').html('Modificando...');
 		$.ajax({
 			url: "modificarEmpleado.html", 
 			type: "POST",

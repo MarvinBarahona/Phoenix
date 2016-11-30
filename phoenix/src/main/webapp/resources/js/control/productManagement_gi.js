@@ -18,7 +18,7 @@ $(document).on( 'init.dt', function ( e, settings ) {
     	success: function(resp){
     		departamentos = JSON.parse(resp);
     		
-    		$('#cmbDepartamento').html('');		//Quitar el mensaje de "Cargando..."
+    		$('.loading', 'div').remove();
     		
     		//Coloca las opciones en el select del departamento. 
     		$('#cmbDepartamento').append($('<option>', { 

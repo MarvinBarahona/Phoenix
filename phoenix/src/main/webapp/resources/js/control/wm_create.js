@@ -8,9 +8,9 @@ var indexDetalleMod;
 $(document).ready(function(){	
 	
 	//Pone un mensaje de "cargando" en cada tabla. 
-	$('#tblDepto').html('Cargando datos de departamentos...');
-	$('#tblCateg').html('Cargando datos de categorías...');
-	$('#tblDetalle').html('Cargando datos de detalles...');
+	$('#tblDepto').html('<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i> Cargando datos de departamentos...');
+	$('#tblCateg').html('<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i> Cargando datos de categorías...');
+	$('#tblDetalle').html('<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i> Cargando datos de detalles...');
 	
 	$.ajax({
 		//Recuperar un json con la información necesaria para llenar todo. (Todo es todo) 
