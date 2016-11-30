@@ -49,7 +49,7 @@ $('#btnModificar').click(function(){
 		//					######### Modificar producto gerente de ventas ##########
 		
 		//Si el producto será válido cuando se le ingrese el precio.
-		var habilitar = producto.departamento != "n/a" && producto.categoria != "n/a";
+		var habilitar = producto.departamento != "n/a" && producto.categoria != "n/a" && producto.cantidad != 0;
 		
 		$('#errorMsg').html('Modificando...');
 		$.ajax({			

@@ -289,6 +289,7 @@ $('#btnHabilitar').click(function(){
 	if(producto.departamento == "n/a")	$('#errorMsg').html('No se puede habilitar un producto sin departamento!');
 	else if(producto.categoria == "n/a") $('#errorMsg').html('No se puede habilitar un producto sin categoria!');
 	else if(producto.precio == 0) $('#errorMsg').html('No se puede habilitar un producto sin precio!');
+	else if(producto.cantidad == 0) $('#errorMsg').html('No se puede habilitar un producto sin existencias!');
 	else{
 		var habilitar;
 		if($('#btnHabilitar').html() == 'Habilitar') habilitar = true;

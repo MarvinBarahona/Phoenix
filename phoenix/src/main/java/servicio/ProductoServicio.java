@@ -122,6 +122,7 @@ public class ProductoServicio {
 			nuevo = nuevo < 0 ? 0 : nuevo;			
 		}
 		
+		if(nuevo == 0) p.setDisponible(false);
 		p.setExistencias(nuevo);
 		int r = actualizar(p);
 		
