@@ -6,6 +6,7 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
 import pedidos.LineaPedido;
 import pedidos.Pedido;
@@ -43,6 +44,20 @@ public class PedidoServicio {
 		Transaction transaction = session.beginTransaction();
 		
 		Criteria criteria = session.createCriteria(Pedido.class);
+		List<Pedido> result = criteria.list();
+		
+		transaction.commit();
+		return result;
+	}
+	
+	//Obtiene todos los pedidos.
+	@SuppressWarnings("unchecked")
+	public static List<Pedido> obtenerPedidos(int codigoEmpresa){
+		Session session = Sesion.getSession();
+		Transaction transaction = session.beginTransaction();
+		
+		Criteria criteria = session.createCriteria(Pedido.class);
+		criteria.add(Restrictions.eq("codigoEmpresa", codigoEmpresa));
 		List<Pedido> result = criteria.list();
 		
 		transaction.commit();
