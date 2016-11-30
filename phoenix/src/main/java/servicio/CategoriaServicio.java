@@ -104,8 +104,8 @@ public class CategoriaServicio {
 			Categoria categoriaNA = categorias.get(0);
 			
 			//Cambia los productos de la categoria a eliminar a la categoria "n/a" de ese departamento. 
-			Query queryUpdate = session.createQuery("update from Producto set codigoCategoria = :codigoCategoriaNA, disponible = false"
-					+ " where codigoCategoria = :codigoCategoria");
+			Query queryUpdate = session.createQuery("update from Producto set codigoCategoria = :codigoCategoriaNA, disponible = false "
+					+ "where codigoCategoria = :codigoCategoria");
 			queryUpdate.setParameter("codigoCategoriaNA", categoriaNA.getCodigo());
 			queryUpdate.setParameter("codigoCategoria", categoria.getCodigo());
 			queryUpdate.executeUpdate();

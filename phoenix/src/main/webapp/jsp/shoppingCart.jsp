@@ -54,15 +54,34 @@
             </tr>
             <tr>
               <td>Total</td>
-              <td id="tdTotal">$ ${totalConEnvio}</td>
+              <td>$ <span id="txtTotal">${totalConEnvio}</span></td>
             </tr>
           </table>
 
-          <form>
+          <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" id="formPago">
             <div class="form-group acciones">
               <a href="home.html"><span class="fa fa-long-arrow-left"></span>Continuar comprando</a>
-              <button type="button" class="btn btn-default" ${enabled}>Realizar compra</button>
+              
+              <!-- id: btnComprar para guardar el pedido sin pago, btnPaypal para redirigir a Paypal -->
+              <button type="button" class="btn btn-default" ${enabled} id="btnPaypal">Realizar compra</button>
+              
               <button type="button" class="btn btn-danger" id="btnLimpiar">Limpiar carrito</button>
+              
+              	<!-- Imput para el pago (generados por paypal) -->
+              	<input type="hidden" name="cmd" value="_xclick">
+				<input type="hidden" name="business" value="phoenix.nighthawks@gmail.com"> <!-- LA CUENTA DE VENDEDOR ASOCIADA AL PAGO-->
+				<input type="hidden" name="lc" value="AL">
+				<input type="hidden" name="item_name" value="Total del pedido en Phoenix"> <!-- NOMBRE DE LA ORDEN -->
+				<input type="hidden" name="amount" value="" id="totalPagar"> <!-- PRECIO A PAGAR -->
+				<input type="hidden" name="currency_code" value="USD"> 
+				<input type="hidden" name="button_subtype" value="services">
+				<input type="hidden" name="no_note" value="1">
+				<input type="hidden" name="no_shipping" value="1">
+				<input type="hidden" name="rm" value="1">
+				<input type="hidden" name="return" value="http://phoenix-148904.appspot.com/purchaseCompleted.html"> <!-- URL DE EXITO AL COMPRAR-->
+				<input type="hidden" name="cancel_return" value="http://phoenix-148904.appspot.com/home.html"> <!-- URL DE CANCELACION DE PEDIDO -->
+				<input type="hidden" name="tax_rate" value="0.000"> <!-- TASA DE IMPUESTO -->
+				<input type="hidden" name="bn" value="PP-BuyNowBF:btn_paynow_SM.gif:NonHosted">
             </div>
           </form>
         </div>

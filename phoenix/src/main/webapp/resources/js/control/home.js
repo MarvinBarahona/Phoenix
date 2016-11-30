@@ -2,9 +2,12 @@
 $('.imgProducto').css('cursor', 'pointer');
 			
 $('.imgProducto').click(function(){
-	$.redirect(
-		"product.html",
-		{product: $(this).prop('id')},
-		"GET"
-	);
+	var id = $(this).prop('id');
+	if(id != null && id != ''){
+		$.redirect(
+			"product.html",
+			{product: id},
+			"GET"
+		);
+	}	
 });

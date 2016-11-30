@@ -16,6 +16,7 @@ import productos.Producto;
 import servicio.ClienteServicio;
 import servicio.EmpleadoServicio;
 import servicio.EmpresaServicio;
+import servicio.PedidoServicio;
 import servicio.ProductoServicio;
 import servicio.UsuarioServicio;
 import usuarios.Cliente;
@@ -443,6 +444,36 @@ public class RedirectController {
 			else{
 				model.addObject("enabled", "disabled");
 			}			
+		}
+		
+		return model;
+	}
+	
+	
+	//Compra terminada. 
+	@RequestMapping("/purchaseCompleted")
+	public ModelAndView purchaseCompleted(){
+		ModelAndView model = null;
+		
+		//Recuperar información y validar.
+		HttpSession session = request.getSession();		
+		String codigoEmpresaStr = (String) session.getAttribute("idEmpresa");
+		String correo = (String)session.getAttribute("correo");
+		Pedido carrito = (Pedido)session.getAttribute("carrito");
+		
+		if(codigoEmpresaStr == null || correo == null || carrito == null){
+			model = new ModelAndView("accessDenied");
+			model.addObject("nextPage", "/");
+		}
+		else{
+			//Recuperar al cliente y asignarlo al carrito. 			
+			Cliente cliente = ClienteServicio.buscarPorCorreo(correo);
+			carrito.setCodigoCliente(cliente.getCodigoUsuario());			
+			PedidoServicio.crear(carrito);
+			session.removeAttribute("carrito");			
+			
+			model = new ModelAndView("purchaseCompleted");
+			setHeaderDataC(model);
 		}
 		
 		return model;

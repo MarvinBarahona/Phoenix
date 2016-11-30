@@ -23,12 +23,12 @@ $(document).ready(function(){
 	//Iniciar sesión.
 	$('#btnLogin').click(function(){
 		$.redirect(
-				"/loginFailed.html",
-				{
-					nextUrl: $(location).attr('pathname')		//Redirige de vuelta al sitio actual luego de loguearse. 
-				},
-				"POST"
-			);
+			"/loginFailed.html",
+			{
+				nextUrl: $(location).attr('pathname')		//Redirige de vuelta al sitio actual luego de loguearse. 
+			},
+			"POST"
+		);
 	});
 	
 	//Para cerrar sesión, colocar un objeto con un botón con el id "btnLogout"

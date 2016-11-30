@@ -87,10 +87,10 @@ function modificarLinea(idProducto, cant){
 			var costoEnvio = $('#totalEnvio').html();	//Si hay costo de envio, el cliente inició sesión y se calcula el nuevo total.
 			if(costoEnvio != '' && costoEnvio != null){
 				costoEnvio = parseFloat(costoEnvio);
-				$('#tdTotal').html('$' + parseFloat(r.total + costoEnvio).toFixed(2));
+				$('#txtTotal').html(parseFloat(r.total + costoEnvio).toFixed(2));
 			}
 			else{
-				$('#tdTotal').html('$' + r.total);
+				$('#txtTotal').html(r.total);
 			}
 			
 			
@@ -118,10 +118,10 @@ function eliminarLinea(idProducto){
 			var costoEnvio = $('#totalEnvio').html();	//Si hay costo de envio, el cliente inició sesión y se calcula el nuevo total.
 			if(costoEnvio != '' && costoEnvio != null){
 				costoEnvio = parseFloat(costoEnvio);
-				$('#tdTotal').html('$' + parseFloat(r.total + costoEnvio).toFixed(2));
+				$('#txtTotal').html(parseFloat(r.total + costoEnvio).toFixed(2));
 			}
 			else{
-				$('#tdTotal').html('$' + r.total);
+				$('#txtTotal').html(r.total);
 			}
 			
 			//Remover el tr de la tabla.
@@ -132,6 +132,7 @@ function eliminarLinea(idProducto){
 	});
 }
 
+//Limpiar el carrito. 
 $('#btnLimpiar').click(function(){
 	$.ajax({
 		url: "limpiarCarrito.html",
@@ -141,4 +142,21 @@ $('#btnLimpiar').click(function(){
 			location.reload();		//Recargar la página luego de quitar el carrito de la sesión. 
 		}
 	});
+});
+
+
+//Para pruebas, redirige de una vez al sitio dónde se guarda el pedido. 
+$('#btnComprar').click(function(){
+	$.redirect(
+		"/purchaseCompleted.html",
+		{},
+		"POST"
+	);
+});
+
+//Para realizar las comprar a través de paypal.
+$('#btnPaypal').click(function(){
+	var total = $('#txtTotal').html();
+	$('#totalPagar').val(total);
+	$('#formPago').submit();
 });
