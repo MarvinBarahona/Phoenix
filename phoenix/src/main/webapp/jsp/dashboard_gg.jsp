@@ -33,6 +33,7 @@
     <script src="${js}Chart.min.js"></script>
     
   </head>
+  
   <body >
     <div class="page-container">
      <div class="left-content">
@@ -44,30 +45,14 @@
           <div class="inner-block">
             <div class="blank">
             
-              <!--Market update-->
-              <div class="market-updates">
-           	  	<div class="col-md-4 market-update-gd">
-           			<div class="market-update-block clr-block-2">
-           			 <div class="col-md-8 market-update-left">
-           				<h3>##</h3>
-           				<h4>Visitantes</h4>
-           			  </div>
-           			  <div class="clearfix"> </div>
-           			</div>
-           		</div>
-           		<div class="col-md-4 market-update-gd">
-           			<div class="market-update-block clr-block-3">
-           				<div class="col-md-8 market-update-left">
-           					<h3>##</h3>
-           					<h4>Productos vendidos</h4>
-           				</div>
-           			  <div class="clearfix"> </div>
-           			</div>
-           		</div>
-           	  <div class="clearfix"> </div>
-           	</div><!--/.market-update-->
-           	
-            <!--Gráficas: main-page-charts-->
+              <p class="loading"><i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>Cargando...</p>
+              
+              <div class="table-responsive col-sm-offset-1 col-sm-11">
+                  <table id="tblPedidos" class="display" width="100%">
+                  </table>
+              </div>
+                          
+              <!--Gráficas: main-page-charts-->
               <div class="main-page-charts">
                  <div class="main-page-chart-layer1">
               		<div class="col-md-6 chart-layer1-left">
@@ -75,24 +60,6 @@
               			<div class="span-2c">
                       <h3 class="tlt">Sales Analytics</h3>
                         <canvas id="bar" height="300" width="400" style="width: 400px; height: 300px;"></canvas>
-                        <script>
-                            var barChartData = {
-                            labels : ["Jan","Feb","Mar","Apr","May","Jun","jul"],
-                            datasets : [
-                                {
-                                    fillColor : "#FC8213",
-                                    data : [65,59,90,81,56,55,40]
-                                },
-                                {
-                                    fillColor : "#337AB7",
-                                    data : [28,48,40,19,96,27,100]
-                                }
-                            ]
-
-                        };
-                            new Chart(document.getElementById("bar").getContext("2d")).Bar(barChartData);
-
-                        </script>
                         </div>
               			</div>
               		</div>
@@ -105,12 +72,7 @@
                          <!--NOTA: Por departamento, el valor vendrá dado por la
                           relación unidades vendidas vs unidades en inventario-->
               	        <div class='bar_group'>
-                					<div class='bar_group__bar thin' label='Depto' show_values='true' tooltip='true' value='343'></div>
-                					<div class='bar_group__bar thin' label='Quality' show_values='true' tooltip='true' value='235'></div>
-                					<div class='bar_group__bar thin' label='Amount' show_values='true' tooltip='true' value='550'></div>
-                					<div class='bar_group__bar thin' label='Farming' show_values='true' tooltip='true' value='456'></div>
-              		      </div>
-              				<script src="${js}bars.js"></script>
+                		</div>
               	      <!--//Progress bars-->
               	      </div>
               		</div>
@@ -131,12 +93,11 @@
             <span class="fa fa-bars"></span>
           </a>
         </div>
-  		<div class="menu">
-  		  <ul id="menu" >
-            <li><a href="employees.html" data-toggle="tooltip" data-placement="right" title="Control de empleados"><i class="fa fa-users"></i><span>Empleados</span></a></li>
-            <li><a href="company.html" data-toggle="tooltip" data-placement="right" title="Datos de la empresa"><i class="fa fa-building"></i><span>Empresa</span></a></li>
-  		  	<li><a href="dashboard_gg.html" data-toggle="tooltip" data-placement="right" title="Resumen de ventas"><i class="fa fa-clipboard"></i><span>Dashboard</span></a></li>
-  		  </ul>
+  		  <div class="menu">
+  		    <ul id="menu" >
+            <li><a href="productManagement_gv.html" data-toggle="tooltip" data-placement="right" title="Gestión de productos"><i class="fa fa-shopping-bag"></i><span>Gestión de productos</span></a></li>
+            <li><a href="dashboard_gv.html" data-toggle="tooltip" data-placement="right" title="Resumen de ventas"><i class="fa fa-clipboard"></i><span>Dashboard</span></a></li>      
+  	      </ul>
   	    </div>
   	 </div><!--/.sidebar-menu-->
 
@@ -146,11 +107,14 @@
   <!--scrolling js-->
   <script src="${js}jquery.nicescroll.js"></script>
   <script src="${js}scripts.js"></script>
+  <script src="${js}imagen.js"></script>
   <script src="${js}bootstrap.min.js"></script>
   
+  <!-- js de control -->
+  <script src="${js}jquery.dataTables.min.js"></script>
   <script src="${jsControl}jquery.redirect.js"></script>
   <script src="${jsControl}logout.js"></script>
+  <script src="${jsControl}dashboard.js" charset="utf-8"></script>
   </body>
 
-</html>
-  
+</html>  
